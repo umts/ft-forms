@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150611193935) do
+ActiveRecord::Schema.define(version: 20150611195030) do
+
+  create_table "fields", force: true do |t|
+    t.integer  "number"
+    t.text     "prompt"
+    t.string   "data_type"
+    t.integer  "form_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "forms", force: true do |t|
     t.string   "name"
