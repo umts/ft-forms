@@ -1,4 +1,4 @@
 require 'rails_helper'
 
-describe FormHelper do
+describe FormsHelper do
 end

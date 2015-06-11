@@ -1,2 +1,2 @@
-module FormHelper
+module FormsHelper
 end
