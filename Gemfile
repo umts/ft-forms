@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'rubocop', require: false
 # I like HAML
 gem 'haml'
+gem 'haml-rails'
 # Snappconfig for configuration storage
 gem 'snappconfig'
 # Markdown parsing with Redcardpet
