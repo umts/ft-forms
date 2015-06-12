@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150611195030) do
+ActiveRecord::Schema.define(version: 20150612174601) do
 
   create_table "fields", force: true do |t|
     t.integer  "number"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20150611195030) do
     t.integer  "form_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "required"
   end
 
   create_table "forms", force: true do |t|
