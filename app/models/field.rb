@@ -1,7 +1,7 @@
 class Field < ActiveRecord::Base
   belongs_to :form
 
-  DATA_TYPES = %w(date date/time explanation heading
+  DATA_TYPES = %w(date date/time explanation heading long-text
                   number options text time yes/no)
   serialize :options, Array
 

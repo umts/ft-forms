@@ -6,7 +6,7 @@
     Fields marked with an asterisk (
     %span.ast *
     ) are required.
-  = form_tag action: :submit do
+  = form_tag action: :submit, id: @form.id do
     = fields_for :responses do |r|
       - @form.fields.each do |field|
         - if field.heading?
@@ -20,6 +20,8 @@
               - when 'date', 'date/time', 'text', 'time'
                 = r.text_field field.prompt, required: field.required?,
                   class: input_class(field.data_type), size: 50
+              - when 'long-text'
+                = r.text_area field.prompt, required: field.required?
               - when 'number'
                 = r.number_field field.prompt, required: field.required?
               - when 'yes/no'
