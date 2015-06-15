@@ -3,7 +3,8 @@
 require 'csv'
 
 ActiveRecord::Base.transaction do
-  form = Form.first_or_create name: 'Meet & Greet Request Form'
+  form = Form.first_or_create! name: 'Meet & Greet Request Form'
+  form.fields.delete_all
   CSV.parse(<<FIELDS, headers: true, col_sep: ';').each do |row|
 number;data_type;prompt;required
 1;heading;UMass Department;false
@@ -26,12 +27,22 @@ number;data_type;prompt;required
 19;text;Flight number;false
 20;text;Airline or provider;false
 21;time;Arrival/departure time;false
-22;heading;Notes;false
-23;long-text;Notes and special requests;false
+22;heading;Return Trip Information (optional);false
+24;explanation;All vehicle requests are subject to availability.;false
+25;date/time;Pickup date and time;true
+26;text;Pickup location;true
+27;text;Destination;true
+28;explanation;Please provide any pertinent flight, train, or bus information below.;false
+29;text;Flight number;false
+30;text;Airline or provider;false
+31;time;Arrival/departure time;false
+32;heading;Notes;false
+33;long-text;Notes and special requests;false
 FIELDS
     attrs = row.to_hash.merge form_id: form.id
-    Field.first_or_create! attrs
+    Field.create! attrs
   end
   # Couldn't make options work with CSV, so create manually
-  Field.first_or_create! form_id: form.id, number: 13, data_type: 'options', prompt: 'Desired vehicle type', required: true, options: ['Sedan', 'Van']
+  Field.create! form_id: form.id, number: 13, data_type: 'options', prompt: 'Desired vehicle type', required: true, options: ['Sedan', 'Van']
+  Field.create! form_id: form.id, number: 23, data_type: 'options', prompt: 'Desired vehicle type', required: true, options: ['Sedan', 'Van']
 end

@@ -33,7 +33,7 @@
               - when 'options'
                 = r.select field.prompt,
                   options_for_select(field.options),
-                  include_blank: true,
+                  include_blank: (field.required? ? 'Please select an option...' : true),
                   required: field.required?
             - if field.required
               %span.ast *
