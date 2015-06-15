@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :form do
-    name 'form name'
+    sequence(:name) { |n| "Form #{n}" }
   end
 end
