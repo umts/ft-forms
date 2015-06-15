@@ -26,6 +26,8 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 # Include jqueryUI.
 gem 'jquery-ui-rails'
+# jQuery timepicker
+gem 'jquery-timepicker-rails'
 # jQuery date/time picker
 gem 'jquery-datetimepicker-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

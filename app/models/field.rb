@@ -1,7 +1,9 @@
 class Field < ActiveRecord::Base
   belongs_to :form
 
-  DATA_TYPES = %w(text number yes/no date heading explanation)
+  DATA_TYPES = %w(date date/time explanation heading
+                  number options text time yes/no)
+  serialize :options, Array
 
   validates :data_type,
             inclusion: { in: DATA_TYPES }
@@ -9,10 +11,13 @@ class Field < ActiveRecord::Base
             :number,
             :prompt,
             presence: true
+  validates :number, uniqueness: { scope: :form }
+  validates :options,
+            presence: true,
+            if: -> { data_type == 'options' }
   validates :required,
             inclusion: { in: [true, false],
                          message: 'must be true or false' }
-  validates :number, uniqueness: { scope: :form }
 
   default_scope { order :number }
 

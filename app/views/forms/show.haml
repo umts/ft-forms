@@ -1,9 +1,11 @@
 %h1= @form.name
 %h2= @form.intro_text
 
-%strong Fields marked with an asterisk (*) are required.
-
 .dynamic_form
+  %strong
+    Fields marked with an asterisk (
+    %span.ast *
+    ) are required.
   = form_tag action: :submit do
     = fields_for :responses do |r|
       - @form.fields.each do |field|
@@ -15,17 +17,20 @@
           .field
             .label= field.prompt
             - case field.data_type
-              - when 'text', 'date'
+              - when 'date', 'date/time', 'text', 'time'
                 = r.text_field field.prompt, required: field.required?,
-                  class: ('datepicker' if field.date?), size: 50
-                - if field.required
-                  *
+                  class: input_class(field.data_type), size: 50
               - when 'number'
                 = r.number_field field.prompt, required: field.required?
-                - if field.required
-                  *
               - when 'yes/no'
                 Yes
                 = r.radio_button field.prompt, 'yes', required: field.required?
                 No
                 = r.radio_button field.prompt, 'no', required: field.required?
+              - when 'options'
+                = r.select field.prompt,
+                  options_for_select(field.options),
+                  include_blank: true,
+                  required: field.required?
+            - if field.required
+              %span.ast *

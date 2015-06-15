@@ -7,4 +7,7 @@ $(document).ready ->
   $('.datetimepicker').datetimepicker
     formatTime: 'g:i a'
     step:       15
+
+  $('.timepicker').timepicker
+    timeFormat: 'g:i a'
 return

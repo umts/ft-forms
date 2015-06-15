@@ -1,21 +1,30 @@
 .dynamic_form{
   .heading{
-    background: #ece0e0;
-    font-size: 20px;
+    background:  #ece0e0;
+    font-size:   20px;
     font-weight: bold;
-    margin: 1em auto;
+    margin:      1em auto;
+    text-align:  center;
+    padding:     0.3em;
+    width:       80%;
+  }
+
+  .explanation{
+    margin: 0 5em;
     text-align: center;
-    padding: 0.3em;
-    width: 80%;
   }
 
   .field{
     margin: 1em auto;
     .label{
-      display: inline-block;
-      width: 18em;
+      display:      inline-block;
+      width:        18em;
       margin-right: 10px;
-      text-align: right;
+      text-align:   right;
     }
+  }
+
+  span.ast{
+    color: red;
   }
 }
