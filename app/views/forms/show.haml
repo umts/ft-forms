@@ -21,7 +21,8 @@
                 = r.text_field field.prompt, required: field.required?,
                   class: input_class(field.data_type), size: 50
               - when 'long-text'
-                = r.text_area field.prompt, required: field.required?
+                = r.text_area field.prompt, required: field.required?,
+                  size: '36x4'
               - when 'number'
                 = r.number_field field.prompt, required: field.required?
               - when 'yes/no'
