@@ -3,4 +3,3 @@ FactoryGirl.define do
     name 'form name'
   end
 end
-    
