@@ -5,7 +5,7 @@ env:
   - CODECLIMATE_REPO_TOKEN=1db52f66a36ea0f99a5fdfccabaeb065503615fef8dbf49087f9a1e8692af3b2
 before_script:
   -  mysql -e 'create database ftforms_test'
-  -  'bundle exec rake db:schema:load'
+  -  'bundle exec rake db:test:prepare'
 script:
   - bundle exec rake rubocop
   - bundle exec rspec spec
