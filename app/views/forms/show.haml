@@ -1,24 +1,31 @@
 %h1= @form.name
 %h2= @form.intro_text
 
-= form_tag action: :submit do
-  = fields_for :responses do |r|
-    - @form.fields.each do |field|
-      .field
+%strong Fields marked with an asterisk (*) are required.
+
+.dynamic_form
+  = form_tag action: :submit do
+    = fields_for :responses do |r|
+      - @form.fields.each do |field|
         - if field.heading?
-          %h3= field.prompt
+          .heading= field.prompt
         - elsif field.explanation?
-          = field.prompt
+          .explanation= field.prompt
         - else
-          = field.prompt
-          - case field.data_type
-            - when 'text', 'date'
-              = r.text_field field.prompt, required: field.required?,
-                class: ('datepicker' if field.date?), size: 50
-            - when 'number'
-              = r.number_field field.prompt, required: field.required?
-            - when 'yes/no'
-              Yes
-              = r.radio_button field.prompt, 'yes', required: field.required?
-              No
-              = r.radio_button field.prompt, 'no', required: field.required?
+          .field
+            .label= field.prompt
+            - case field.data_type
+              - when 'text', 'date'
+                = r.text_field field.prompt, required: field.required?,
+                  class: ('datepicker' if field.date?), size: 50
+                - if field.required
+                  *
+              - when 'number'
+                = r.number_field field.prompt, required: field.required?
+                - if field.required
+                  *
+              - when 'yes/no'
+                Yes
+                = r.radio_button field.prompt, 'yes', required: field.required?
+                No
+                = r.radio_button field.prompt, 'no', required: field.required?
