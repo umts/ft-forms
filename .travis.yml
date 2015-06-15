@@ -9,3 +9,7 @@ before_script:
 script:
   - bundle exec rake rubocop
   - bundle exec rspec spec
+notifications:
+  email:
+    recipients:
+      - transit-it@admin.umass.edu
