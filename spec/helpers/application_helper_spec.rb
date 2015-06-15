@@ -1,5 +1,4 @@
 require 'rails_helper'
-include ApplicationHelper
 
 describe ApplicationHelper do
   describe 'input_class' do
