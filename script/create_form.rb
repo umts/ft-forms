@@ -3,7 +3,7 @@
 require 'csv'
 
 ActiveRecord::Base.transaction do
-  form = Form.create name: 'Meet & Greet Request Form'
+  form = Form.first_or_create name: 'Meet & Greet Request Form'
   CSV.parse(<<FIELDS, headers: true, col_sep: ';').each do |row|
 number;data_type;prompt;required
 1;heading;UMass Department;false
@@ -30,8 +30,8 @@ number;data_type;prompt;required
 23;long-text;Notes and special requests;false
 FIELDS
     attrs = row.to_hash.merge form_id: form.id
-    Field.create! attrs
+    Field.first_or_create! attrs
   end
   # Couldn't make options work with CSV, so create manually
-  Field.create! form_id: form.id, number: 13, data_type: 'options', prompt: 'Desired vehicle type', required: true, options: ['Sedan', 'Van']
+  Field.first_or_create! form_id: form.id, number: 13, data_type: 'options', prompt: 'Desired vehicle type', required: true, options: ['Sedan', 'Van']
 end
