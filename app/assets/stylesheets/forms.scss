@@ -15,6 +15,8 @@
   }
 
   .explanation{
+    font-size: 90%;
+    font-style: italic;
     text-align: center;
   }
 
@@ -24,6 +26,7 @@
       display:      inline-block;
       margin-right: 1em;
       text-align:   right;
+      vertical-align: top;
       width:        18em;
     }
     input[type='number']{
@@ -41,5 +44,13 @@
   .actions{
     margin-bottom: 1em;
     text-align: center; 
+    input{
+      background: lightgray;
+      border: 1px solid gray;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 0.5em 2em;
+    }
   }
 }
