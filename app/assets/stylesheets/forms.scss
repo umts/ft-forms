@@ -1,33 +1,37 @@
 .dynamic_form{
+  margin: 0 5em;
+
+  .title{
+    text-align: center;
+  }
+
   .heading{
     background:  #ece0e0;
     font-size:   20px;
     font-weight: bold;
     margin:      1em auto;
-    text-align:  center;
     padding:     0.3em;
-    width:       80%;
+    text-align:  center;
   }
 
   .explanation{
-    margin: 0 5em;
     text-align: center;
   }
 
   .field{
-    margin: 1em auto;
+    margin: 1em;
     .label{
       display:      inline-block;
-      width:        18em;
       margin-right: 1em;
       text-align:   right;
+      width:        18em;
     }
     input[type='number']{
       width: 3em;
     }
     select{
-      width: 25em;
       border: 1px solid gray;
+      width:  25em;
     }
   }
 

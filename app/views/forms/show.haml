@@ -1,8 +1,6 @@
-%h1= @form.name
-%h2= @form.intro_text
-
 .dynamic_form
-  %strong
+  %h1.title= @form.name
+  %strong.explanation
     Fields marked with an asterisk (
     %span.ast *
     ) are required.
