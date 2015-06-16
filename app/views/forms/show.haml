@@ -13,11 +13,11 @@
           .explanation= field.prompt
         - else
           .field
-            .label= field.prompt
+            .label= r.label field.prompt
             - case field.data_type
               - when 'date', 'date/time', 'text', 'time'
                 = r.text_field field.prompt, required: field.required?,
-                  class: input_class(field.data_type), size: 50
+                  class: input_class(field.data_type), size: 45
               - when 'long-text'
                 = r.text_area field.prompt, required: field.required?,
                   size: '36x4'
@@ -35,3 +35,4 @@
                   required: field.required?
             - if field.required
               %span.ast *
+    .actions= submit_tag 'Submit request'

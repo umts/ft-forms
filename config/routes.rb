@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     end
     member do
       post :submit
+      get  :thank_you
     end
   end
 end

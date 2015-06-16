@@ -29,9 +29,9 @@ number;data_type;prompt;required
 21;time;Arrival/departure time;false
 22;heading;Return Trip Information (optional);false
 24;explanation;All vehicle requests are subject to availability.;false
-25;date/time;Pickup date and time;true
-26;text;Pickup location;true
-27;text;Destination;true
+25;date/time;Pickup date and time;false
+26;text;Pickup location;false
+27;text;Destination;false
 28;explanation;Please provide any pertinent flight, train, or bus information below.;false
 29;text;Flight number;false
 30;text;Airline or provider;false
@@ -44,5 +44,5 @@ FIELDS
   end
   # Couldn't make options work with CSV, so create manually
   Field.create! form_id: form.id, number: 13, data_type: 'options', prompt: 'Desired vehicle type', required: true, options: ['Sedan', 'Van']
-  Field.create! form_id: form.id, number: 23, data_type: 'options', prompt: 'Desired vehicle type', required: true, options: ['Sedan', 'Van']
+  Field.create! form_id: form.id, number: 23, data_type: 'options', prompt: 'Desired vehicle type', required: false, options: ['Sedan', 'Van']
 end
