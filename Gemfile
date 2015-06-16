@@ -54,6 +54,10 @@ group :development, :test do
   gem 'pry-byebug'
 end
 
+group :production do
+  gem 'pg'
+end
+
 group :test do
   gem 'codeclimate-test-reporter', require: false
   gem 'rspec-rails'

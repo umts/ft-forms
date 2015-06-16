@@ -14,6 +14,7 @@ test:
   <<: *default
   database: ftforms_test
 
-# production:
-#  <<: *default
-#  database: db/production.sqlite3
+production:
+ <<: *default
+ adapter: postgresql
+ database: db/production.sqlite3
