@@ -4,7 +4,7 @@ class FtFormsMailer < ActionMailer::Base
   def send_confirmation(form_data)
     @form_data = form_data
     mail to: form_data.fetch('Email'),
-         subject: 'Meet & Greet request confirmation'
+         subject: 'Meet & Greet Request Confirmation'
   end
 
   def send_form(form_data)

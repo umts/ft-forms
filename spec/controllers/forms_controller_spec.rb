@@ -35,6 +35,37 @@ describe FormsController do
     end
   end
 
+  describe 'POST #submit' do
+    before :each do
+      @form = create :form
+      @responses = Hash['Email', 'example value']
+    end
+    let :submit do
+      post :submit, id: @form.id, responses: @responses
+    end
+    context 'sending form is successful' do
+      before :each do
+        expect(FtFormsMailer)
+          .to receive(:send_form)
+          .with(@responses)
+          .and_return true
+      end
+      it 'sends the form confirmation' do
+        expect(FtFormsMailer)
+          .to receive(:send_confirmation)
+          .with(@responses)
+        submit
+      end
+      it 'redirects to the thank you page for the form' do
+        submit
+        expect(response).to redirect_to thank_you_form_url(@form)
+      end
+    end
+    context 'sending form is unsuccessful' do
+      # TODO
+    end
+  end
+
   describe 'GET #thank_you' do
     before :each do
       @form = create :form
