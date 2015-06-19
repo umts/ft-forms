@@ -48,7 +48,7 @@ group :development, :test do
 end
 
 group :production do
-# Capistrano for deployment
+  # Capistrano for deployment
   gem 'capistrano'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
