@@ -1,7 +1,9 @@
-%h1 Editing #{@form.name}
+.form
+  %h1.title Editing #{@form.name}
 
-= form_for @form, url: { action: :preview }, method: :get  do |f| 
-  .field
-    = f.label :name
-    = f.text_field :name, required: true
-  .action= f.submit
+  = form_for @form, url: { action: :preview }, method: :get  do |f| 
+    .heading Form data
+    .field
+      .label= f.label :name, 'Form title'
+      = f.text_field :name, required: true, size: 50
+    .actions= f.submit 'Preview changes'

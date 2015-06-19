@@ -1,6 +1,11 @@
 class FormsController < ApplicationController
+  before_action :find_form, except: [:index, :meet_and_greet]
+
   def edit
-    @form = Form.find(params.require :id)
+  end
+
+  def index
+    @forms = Form.all
   end
 
   def meet_and_greet
@@ -9,22 +14,17 @@ class FormsController < ApplicationController
   end
 
   def preview
-    @form = Form.find(params.require :id)
-    params.require(:form).permit!
-    @form.assign_attributes params[:form]
-    @preview = true
-    render 'show'
+    @changes = params.require(:form).permit!
+    @form.assign_attributes @changes
   end
 
   def show
-    @form = Form.find(params.require :id)
   end
 
   # We're implementing this later, disable warnings.
   # rubocop:disable Style/EmptyElse
   # rubocop:disable Style/GuardClause
   def submit
-    @form = Form.find(params.require :id)
     responses = params.require :responses
     if FtFormsMailer.send_form responses
       FtFormsMailer.send_confirmation responses
@@ -37,6 +37,21 @@ class FormsController < ApplicationController
   # rubocop:enable Style/GuardClause
 
   def thank_you
+    @form = Form.find(params.require :id)
+  end
+
+  def update
+    params.require :form
+    if @form.update params[:form]
+      flash[:message] = 'Form has been updated.'
+      redirect_to :index
+    else # TODO
+    end
+  end
+
+  private
+  
+  def find_form
     @form = Form.find(params.require :id)
   end
 end
