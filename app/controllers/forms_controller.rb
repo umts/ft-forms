@@ -1,6 +1,19 @@
 class FormsController < ApplicationController
+  
+  def edit
+    @form = Form.find(params.require :id)
+  end
+  
   def meet_and_greet
     @form = Form.find_by name: 'Meet & Greet Request Form'
+    render 'show'
+  end
+
+  def preview
+    @form = Form.find(params.require :id)
+    params.require(:form).permit!
+    @form.assign_attributes params[:form]
+    @preview = true
     render 'show'
   end
 

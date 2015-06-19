@@ -13,20 +13,20 @@
 
 ActiveRecord::Schema.define(version: 20150615184157) do
 
-  create_table "fields", force: true do |t|
-    t.integer  "number"
-    t.text     "prompt"
-    t.string   "data_type"
-    t.integer  "form_id"
+  create_table "fields", force: :cascade do |t|
+    t.integer  "number",     limit: 4
+    t.text     "prompt",     limit: 65535
+    t.string   "data_type",  limit: 255
+    t.integer  "form_id",    limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "required"
-    t.text     "options"
+    t.boolean  "required",   limit: 1
+    t.text     "options",    limit: 65535
   end
 
-  create_table "forms", force: true do |t|
-    t.string   "name"
-    t.text     "intro_text"
+  create_table "forms", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.text     "intro_text", limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
   end
