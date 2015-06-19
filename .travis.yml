@@ -6,8 +6,9 @@ env:
 before_script: mysql -e 'create database ftforms_test'
 script:
   - 'bundle exec rake rubocop'
-  - 'RAILS_ENV=test bundle exec rake db:seed'
   - 'bundle exec rspec spec'
+  - 'bundle exec rake db:migrate'
+  - 'bundle exec rake db:seed'
 notifications:
   email:
     recipients:
