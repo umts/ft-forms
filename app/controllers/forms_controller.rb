@@ -44,10 +44,11 @@ class FormsController < ApplicationController
   # rubocop:disable Style/EmptyElse
   # rubocop:disable Style/GuardClause
   def update
-    params.require :form
+    # TODO: something better than this
+    params.require(:form).permit!
     if @form.update params[:form]
       flash[:message] = 'Form has been updated.'
-      redirect_to :index
+      redirect_to forms_url
     else # TODO
     end
   end
