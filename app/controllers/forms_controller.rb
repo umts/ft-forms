@@ -40,6 +40,9 @@ class FormsController < ApplicationController
     @form = Form.find(params.require :id)
   end
 
+  # We're implementing this later, disable warnings.
+  # rubocop:disable Style/EmptyElse
+  # rubocop:disable Style/GuardClause
   def update
     params.require :form
     if @form.update params[:form]
@@ -48,9 +51,11 @@ class FormsController < ApplicationController
     else # TODO
     end
   end
+  # rubocop:enable Style/EmptyElse
+  # rubocop:enable Style/GuardClause
 
   private
-  
+
   def find_form
     @form = Form.find(params.require :id)
   end
