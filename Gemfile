@@ -36,13 +36,6 @@ gem 'jquery-datetimepicker-rails'
 # Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 
-# Capistrano for deployment
-gem 'capistrano'
-gem 'capistrano-bundler'
-gem 'capistrano-rails'
-gem 'capistrano-rbenv'
-gem 'capistrano-passenger'
-
 group :development do
   # better_errors and binding_of_caller for in-browser debugging
   gem 'better_errors'
@@ -55,6 +48,12 @@ group :development, :test do
 end
 
 group :production do
+# Capistrano for deployment
+  gem 'capistrano'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-passenger'
   gem 'pg'
 end
 
