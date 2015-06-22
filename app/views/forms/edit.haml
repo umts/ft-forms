@@ -4,11 +4,11 @@
 = form_for @form, url: { action: :preview }, method: :post do |f| 
   .field
     = f.label :name
-    = f.text_field :name, required: true
+    = f.text_field :name, required: true, size: 50
   = f.fields_for :fields, @form.fields do |g|
     .field
       = g.label :prompt
-      = g.text_area :prompt, required: true, size: '30x4'
+      = g.text_area :prompt, required: true, size: '35x4'
       = g.label :data_type
       = g.select :data_type, Field::DATA_TYPES
       = g.label :required

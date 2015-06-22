@@ -35,11 +35,15 @@
                   required: field.required?
             - if field.required
               %span.ast *
-    %span.actions
-      - if @preview
-        = form_tag action: :index, method: :get do
-          = submit_tag 'Discard changes',
-            confirm: 'Are you sure? Your changes will be lost.'
-        = button_to 'Save changes', form_url(@form), method: :put, params: {form: @form_changes}
-      - else
-        = submit_tag 'Submit request'
+    - if @submit && !@preview
+      .actions= submit_tag 'Submit request'
+
+- if @preview
+  .form
+    .actions
+      = button_to 'Discard changes', forms_url, method: :get,
+        confirm: 'Are you sure? Your changes will be lost.'
+      = form_for @form do 
+        = hash_to_hidden_fields form: @form_changes
+        = submit_tag 'Save changes'
+

@@ -30,6 +30,8 @@ gem 'jquery-ui-rails'
 gem 'jquery-timepicker-rails'
 # jQuery date/time picker
 gem 'jquery-datetimepicker-rails'
+# serialize hashes into hidden fields
+gem 'hash_to_hidden_fields'
 
 # Spring speeds up development by keeping your application
 # running in the background.

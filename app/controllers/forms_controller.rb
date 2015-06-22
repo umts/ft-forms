@@ -23,6 +23,7 @@ class FormsController < ApplicationController
 
   def show
     @form = Form.find(params.require :id)
+    @submit = true unless params[:no_submit]
   end
 
   # We're implementing this later, disable warnings.

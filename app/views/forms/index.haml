@@ -4,5 +4,5 @@
   - @forms.each do |form|
     %tr
       %td= form.name
-      %td= link_to 'View', form_url(form)
+      %td= link_to 'View', form_url(form, no_submit: true)
       %td= link_to 'Edit', edit_form_url(form)
