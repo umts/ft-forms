@@ -1,6 +1,6 @@
 class FormsController < ApplicationController
+  before_action :find_form, except: [:index, :meet_and_greet, :submit]
   def edit
-    @form = Form.find(params.require :id)
   end
 
   def index
@@ -13,7 +13,6 @@ class FormsController < ApplicationController
   end
 
   def preview
-    @form = Form.includes(:fields).where(id: params.require(:id)).first
     @form_changes = params.require(:form).permit!
     # form_changes = params.require(:form).permit :name
     @form.assign_attributes @form_changes
@@ -22,7 +21,6 @@ class FormsController < ApplicationController
   end
 
   def show
-    @form = Form.find(params.require :id)
     @submit = true unless params[:no_submit]
   end
 
@@ -42,14 +40,23 @@ class FormsController < ApplicationController
   # rubocop:enable Style/GuardClause
 
   def thank_you
-    @form = Form.find(params.require :id)
   end
 
   def update
-    @form = Form.includes(:fields).where(id: params.require(:id)).first
     @form_changes = params.require(:form).permit!
     # form_changes = params.require(:form).permit :name
-    @form.update @form_changes
-    redirect_to forms_url
+    if @form.update @form_changes
+      flash[:message] = 'Form has been updated.'
+      redirect_to forms_url
+    else
+      flash[:errors] = @form.errors.full_messages
+      redirect_to edit_form_url
+    end
+  end
+
+  private
+
+  def find_form
+    @form = Form.find(params.require :id)
   end
 end

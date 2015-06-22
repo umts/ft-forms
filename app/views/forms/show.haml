@@ -41,8 +41,7 @@
 - if @preview
   .form
     .actions
-      = button_to 'Discard changes', forms_url, method: :get,
-        confirm: 'Are you sure? Your changes will be lost.'
+      = button_to 'Discard changes', forms_url, method: :get
       = form_for @form do 
         = hash_to_hidden_fields form: @form_changes
         = submit_tag 'Save changes'
