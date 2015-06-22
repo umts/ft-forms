@@ -10,9 +10,10 @@ class FormsController < ApplicationController
   end
 
   def preview
-    @form = Form.find(params.require :id)
-    params.require(:form).permit!
-    @form.assign_attributes params[:form]
+    @form = Form.includes(:fields).where(id: params.require(:id)).first
+    @form_changes = params.require(:form).permit!
+    # form_changes = params.require(:form).permit :name
+    @form.assign_attributes @form_changes
     @preview = true
     render 'show'
   end
@@ -40,4 +41,13 @@ class FormsController < ApplicationController
   def thank_you
     @form = Form.find(params.require :id)
   end
+
+  def update
+    @form = Form.includes(:fields).where(id: params.require(:id)).first
+    @form_changes = params.require(:form).permit!
+    # form_changes = params.require(:form).permit :name
+    @form.update @form_changes
+    redirect_to forms_url
+  end
+
 end
