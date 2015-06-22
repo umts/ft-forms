@@ -11,4 +11,12 @@ Rails.application.routes.draw do
       get  :thank_you
     end
   end
+
+  resources :sessions, only: [:new] do
+    collection do
+      get    :dev_login
+      post   :dev_login
+      delete :destroy
+    end
+  end
 end

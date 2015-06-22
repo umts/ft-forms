@@ -1,5 +1,11 @@
 class FormsController < ApplicationController
+  # WHITELISTED ACTIONS
+  skip_before_action :access_control, only: [:meet_and_greet,
+                                             :show,
+                                             :submit,
+                                             :thank_you]
   before_action :find_form, except: [:index, :meet_and_greet, :submit]
+
   def edit
   end
 
@@ -9,6 +15,7 @@ class FormsController < ApplicationController
 
   def meet_and_greet
     @form = Form.find_by name: 'Meet & Greet Request Form'
+    @submit = true
     render 'show'
   end
 
@@ -24,38 +31,25 @@ class FormsController < ApplicationController
     @submit = true unless params[:no_submit]
   end
 
-  # We're implementing this later, disable warnings.
-  # rubocop:disable Style/EmptyElse
-  # rubocop:disable Style/GuardClause
   def submit
     responses = params.require :responses
-    if FtFormsMailer.send_form responses
-      FtFormsMailer.send_confirmation responses
-      redirect_to thank_you_form_url
-    else
-      # TODO
-    end
+    FtFormsMailer.send_form responses
+    FtFormsMailer.send_confirmation responses
+    redirect_to thank_you_form_url
   end
-  # rubocop:enable Style/EmptyElse
-  # rubocop:enable Style/GuardClause
 
   def thank_you
   end
 
-  # We're implementing this later, disable warnings.
-  # rubocop:disable Style/EmptyElse
-  # rubocop:disable Style/GuardClause
   def update
     @form_changes = params.require(:form).permit!
     # form_changes = params.require(:form).permit :name
     if @form.update @form_changes
       flash[:message] = 'Form has been updated.'
       redirect_to forms_url
-    else # TODO
+    else show_errors @form
     end
   end
-  # rubocop:enable Style/EmptyElse
-  # rubocop:enable Style/GuardClause
 
   private
 
