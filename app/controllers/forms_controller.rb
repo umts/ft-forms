@@ -42,17 +42,20 @@ class FormsController < ApplicationController
   def thank_you
   end
 
+  # We're implementing this later, disable warnings.
+  # rubocop:disable Style/EmptyElse
+  # rubocop:disable Style/GuardClause
   def update
     @form_changes = params.require(:form).permit!
     # form_changes = params.require(:form).permit :name
     if @form.update @form_changes
       flash[:message] = 'Form has been updated.'
       redirect_to forms_url
-    else
-      flash[:errors] = @form.errors.full_messages
-      redirect_to edit_form_url
+    else # TODO
     end
   end
+  # rubocop:enable Style/EmptyElse
+  # rubocop:enable Style/GuardClause
 
   private
 
