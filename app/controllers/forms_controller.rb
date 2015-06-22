@@ -1,9 +1,12 @@
 class FormsController < ApplicationController
-  
   def edit
     @form = Form.find(params.require :id)
   end
-  
+
+  def index
+    @forms = Form.all
+  end
+
   def meet_and_greet
     @form = Form.find_by name: 'Meet & Greet Request Form'
     render 'show'
@@ -26,7 +29,6 @@ class FormsController < ApplicationController
   # rubocop:disable Style/EmptyElse
   # rubocop:disable Style/GuardClause
   def submit
-    @form = Form.find(params.require :id)
     responses = params.require :responses
     if FtFormsMailer.send_form responses
       FtFormsMailer.send_confirmation responses
@@ -49,5 +51,4 @@ class FormsController < ApplicationController
     @form.update @form_changes
     redirect_to forms_url
   end
-
 end

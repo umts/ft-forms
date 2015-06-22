@@ -1,6 +1,25 @@
 require 'rails_helper'
 
 describe FormsController do
+  describe 'GET #index' do
+    before :each do
+      @form_1 = create :form
+      @form_2 = create :form
+      @form_3 = create :form
+    end
+    let :submit do
+      get :index
+    end
+    it 'puts all the forms in the correct instance variable' do
+      submit
+      expect(assigns.fetch :forms).to include @form_1, @form_2, @form_3
+    end
+    it 'renders the index' do
+      submit
+      expect(response).to render_template 'index'
+    end
+  end
+
   describe 'GET #meet_and_greet (root)' do
     before :each do
       @form = create :form, name: 'Meet & Greet Request Form'
