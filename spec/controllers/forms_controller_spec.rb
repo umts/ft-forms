@@ -140,6 +140,10 @@ describe FormsController do
         submit
         expect(assigns.fetch :preview).to eql true
       end
+      it 'includes a flash message explaining that it is a preview' do
+        submit
+        expect(flash['message']).to include 'previewing'
+      end
       it 'renders the show template' do
         submit
         expect(response).to render_template :show

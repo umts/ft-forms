@@ -42,7 +42,6 @@
     color: red;
   }
   .actions{
-    margin-bottom: 1em;
     text-align: center; 
     input{
       background: lightgray;
@@ -50,6 +49,7 @@
       border-radius: 10px;
       cursor: pointer;
       font-size: 16px;
+      margin-bottom: 1em;
       padding: 0.5em 2em;
     }
   }

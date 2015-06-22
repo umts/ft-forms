@@ -24,6 +24,7 @@ class FormsController < ApplicationController
     # form_changes = params.require(:form).permit :name
     @form.assign_attributes @form_changes
     @preview = true
+    flash[:message] = 'You are previewing your changes. This form, as shown here, is not live.'
     render 'show'
   end
 

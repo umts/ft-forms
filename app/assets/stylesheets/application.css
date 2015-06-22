@@ -34,3 +34,12 @@ body{
   margin: 0 auto;
   max-width: 50em;
 }
+
+#message{
+  background-color: orange;
+  border: 2px solid red;
+  font-style: italic;
+  margin: 1em 25em;
+  padding: 0.5em;
+  text-align: center;
+}
