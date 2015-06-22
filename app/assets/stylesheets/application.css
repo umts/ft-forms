@@ -37,9 +37,10 @@ body{
 
 #message{
   background-color: orange;
-  border: 2px solid red;
+  border: 3px solid red;
   font-style: italic;
-  margin: 1em 25em;
+  margin: 1em auto;
   padding: 0.5em;
   text-align: center;
+  width: 80%;
 }
