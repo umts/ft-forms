@@ -142,7 +142,7 @@ describe FormsController do
       end
       it 'includes a flash message explaining that it is a preview' do
         submit
-        expect(flash['message']).to include 'previewing'
+        expect(flash['message']).to include 'preview'
       end
       it 'renders the show template' do
         submit
