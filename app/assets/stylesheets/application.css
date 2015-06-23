@@ -44,3 +44,20 @@ body{
   text-align: center;
   width: 80%;
 }
+
+h1.title{
+  text-align: center;
+}
+
+.actions{
+  text-align: center; 
+}
+.actions input{
+  background: lightgray;
+  border: 1px solid gray;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 1em;
+  padding: 0.5em 2em;
+}

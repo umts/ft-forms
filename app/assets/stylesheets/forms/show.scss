@@ -1,10 +1,6 @@
 .form{
   margin: 0 5em;
 
-  .title{
-    text-align: center;
-  }
-
   .heading{
     background:  #ece0e0;
     font-size:   20px;
@@ -40,17 +36,5 @@
 
   span.ast{
     color: red;
-  }
-  .actions{
-    text-align: center; 
-    input{
-      background: lightgray;
-      border: 1px solid gray;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-bottom: 1em;
-      padding: 0.5em 2em;
-    }
   }
 }

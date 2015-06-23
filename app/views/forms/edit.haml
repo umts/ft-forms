@@ -1,21 +1,19 @@
-.form
-  %h1.title Editing #{@form.name}
+%h1.title Editing #{@form.name}
 
-  = form_for @form, url: { action: :preview }, method: :post do |f| 
-    %table#edit_form
-      %thead
-        %tr
-          %th Field text
-          %th Response type
-          %th Required?
-      = f.fields_for :fields, @form.fields do |g|
-        %tr
-          %td= g.text_area :prompt, required: true, size: '35x4'
-          %td= g.select :data_type, Field::DATA_TYPES
-          %td= g.check_box :required
+= form_for @form, url: { action: :preview }, method: :post do |f| 
+  %table#edit_form
+    %tr
+      %td{colspan: 3}
+        .field
+          %h3= f.label :name, 'Change form title:'
+          = f.text_field :name, required: true, size: 50
+    %tr
+      %th Field text
+      %th Response type
+      %th Required?
+    = f.fields_for :fields, @form.fields do |g|
       %tr
-        %td{colspan: 3}
-          .field
-            = f.label :name, 'Form title'
-            = f.text_field :name, required: true, size: 50
-    .actions= f.submit 'Preview changes'
+        %td= g.text_area :prompt, required: true, size: '35x4'
+        %td= g.select :data_type, Field::DATA_TYPES
+        %td= g.check_box :required
+  .actions= f.submit 'Preview changes'
