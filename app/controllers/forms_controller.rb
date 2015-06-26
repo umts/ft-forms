@@ -79,7 +79,7 @@ class FormsController < ApplicationController
   end
 
   def stored_form
-    session[:forms]           ||= Hash.new
+    session[:forms] ||= {}
     session[:forms][@form.id] ||= @form
     session[:forms][@form.id]
   end

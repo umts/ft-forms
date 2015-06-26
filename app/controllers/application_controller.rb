@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     end
   end
   # rubocop:enable Style/AndOr
-  
+
   # If someone's currently editing a form, warn them that they'll lose their
   # changes by logging out.
   def form_edit_logout_warning

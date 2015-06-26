@@ -10,9 +10,9 @@ class Form < ActiveRecord::Base
     Field.new form_id: id, number: new_field_number
   end
 
-  private do
-    def new_field_number
-      fields.count + 1
-    end
+  private
+
+  def new_field_number
+    fields.count + 1
   end
 end
