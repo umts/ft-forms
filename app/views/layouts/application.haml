@@ -13,11 +13,12 @@
       #links
         - if @current_user.present?
           %a{href: '/sessions', data: {method: :delete}} Logout
+      - if @current_user.present?
+        #current_user_name= @current_user.full_name
     #transportation_banner
       = image_tag 'trans-header-large.png'
     - if flash[:message].present?
-      #message
-        = flash[:message]
+      #message= flash[:message]
     - if flash[:errors].present?
       #errors
         The following errors occurred:
@@ -25,6 +26,5 @@
           - flash[:errors].each do |error_message|
             %li= error_message
     #content_wrapper
-      #main_content
-        = yield
-    #footer=render partial: 'layouts/footer'
+      #main_content= yield
+    #footer= render partial: 'layouts/footer'
