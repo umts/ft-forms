@@ -1,18 +1,21 @@
 class FormsController < ApplicationController
-  # Whitelist actions here for student access.
+  # Whitelist actions below for non-staff access.
   skip_before_action :access_control, only: [:meet_and_greet,
                                              :show,
                                              :submit,
                                              :thank_you]
-  before_action :find_form, except: [:index, :meet_and_greet, :submit]
-
-  def add_field
-    @form.fields << Field.new(form: @form,
-                              number: @form.new_field_number)
-    render 'edit'
+  # Since these actions are used to edit forms, maintain the form in session.
+  before_action :find_form, except: [:clear_edits,
+                                     :index,
+                                     :meet_and_greet,
+                                     :submit]
+  def clear_edits
+    session.delete :forms
+    redirect_to forms_path
   end
 
   def edit
+    @form = stored_form
   end
 
   def index
@@ -26,13 +29,22 @@ class FormsController < ApplicationController
   end
 
   def preview
-    @form_changes = params.require(:form).permit!
-    # form_changes = params.require(:form).permit :name
-    @form.assign_attributes @form_changes
-    @preview = true
-    flash[:message] = 'This is a preview of your changes. ' \
-                      'This form, as shown here, is not live.'
-    render 'show'
+    stored_form.assign_attributes(params.require(:form).permit!)
+    @form = stored_form
+    case params.require :commit
+    when 'Save changes and continue editing'
+      render 'edit'
+    when 'Preview changes'
+      @preview = true
+      render 'show'
+    end
+  end
+
+  def remove_field
+    field = stored_form.fields.where number: params.require(:number)
+    stored_form.fields -= field
+    @form = stored_form
+    render 'edit'
   end
 
   def show
@@ -53,6 +65,7 @@ class FormsController < ApplicationController
     @form_changes = params.require(:form).permit!
     # form_changes = params.require(:form).permit :name
     if @form.update @form_changes
+      session.delete :forms
       flash[:message] = 'Form has been updated.'
       redirect_to forms_url
     else show_errors @form
@@ -63,5 +76,11 @@ class FormsController < ApplicationController
 
   def find_form
     @form = Form.find(params.require :id)
+  end
+
+  def stored_form
+    session[:forms]           ||= Hash.new
+    session[:forms][@form.id] ||= @form
+    session[:forms][@form.id]
   end
 end

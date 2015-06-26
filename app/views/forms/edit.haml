@@ -13,7 +13,7 @@
       %th
       %th
       %th
-    = f.fields_for :fields, @form.fields do |g|
+    = f.fields_for :fields do |g|
       %tr
         = g.hidden_field :number
         %td= g.text_area :prompt, required: true, size: '35x4'
@@ -22,8 +22,8 @@
         %td= g.check_box :required
         %td= button_to 'Move up', nil, disabled: true
         %td= button_to 'Move down', nil, disabled: true
-        %td= button_to 'Remove field', nil, disabled: true
-    %tr
-      %td{colspan: 6}
-        .actions= button_to 'Add field', add_field_form_path
-  .actions= f.submit 'Preview changes'
+        %td= button_to 'Remove field', remove_field_form_path(number: g.object.number)
+    =# f.fields_for @form.new_field
+  .actions
+    = f.submit 'Save changes and continue editing'
+    = f.submit 'Preview changes'

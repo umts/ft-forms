@@ -35,14 +35,27 @@ body{
   max-width: 50em;
 }
 
-#message{
-  background-color: orange;
-  border: 3px solid red;
+#flash{
   font-style: italic;
   margin: 1em auto;
-  padding: 0.5em;
   text-align: center;
   width: 80%;
+}
+
+#message{
+  padding: 0.5em 0;
+  background-color: orange;
+  border: 3px solid red;
+}
+
+#form_edit_logout_warning{
+  padding: 0.5em 0;
+  background-color: lightyellow;
+  border: 3px solid limegreen;
+}
+
+#form_edit_logout_warning a{
+  margin-left: 2em;
 }
 
 h1.title{

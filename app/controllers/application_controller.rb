@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :require_current_user
   before_action :access_control
+  before_action :form_edit_logout_warning
   layout 'application'
 
   private
@@ -23,6 +24,12 @@ class ApplicationController < ActionController::Base
     end
   end
   # rubocop:enable Style/AndOr
+  
+  # If someone's currently editing a form, warn them that they'll lose their
+  # changes by logging out.
+  def form_edit_logout_warning
+    flash[:form_edit_logout_warning] = session.key? :forms
+  end
 
   def require_current_user
     if session.key?(:user_id) && User.find_by(id: session[:user_id]).present?
