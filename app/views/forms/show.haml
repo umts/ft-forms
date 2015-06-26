@@ -35,8 +35,7 @@
                   required: field.required?
             - if field.required
               %span.ast *
-    - if @submit && !@preview
-      .actions= submit_tag 'Submit request'
+    .actions= submit_tag 'Submit request', disabled: (@preview || !@submit)
 
 - if @preview
   .form

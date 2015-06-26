@@ -5,4 +5,8 @@ class Form < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
 
   default_scope { order :name }
+
+  def new_field_number
+    fields.count + 1
+  end
 end

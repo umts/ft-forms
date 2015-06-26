@@ -15,13 +15,15 @@
       %th
     = f.fields_for :fields, @form.fields do |g|
       %tr
+        = g.hidden_field :number
         %td= g.text_area :prompt, required: true, size: '35x4'
-        %td= g.select :data_type, Field::DATA_TYPES
+        %td= g.select :data_type, Field::DATA_TYPES,
+          include_blank: 'Select a data type...', required: true
         %td= g.check_box :required
         %td= button_to 'Move up', nil, disabled: true
         %td= button_to 'Move down', nil, disabled: true
         %td= button_to 'Remove field', nil, disabled: true
     %tr
       %td{colspan: 6}
-        .actions= button_to 'Add field', nil, disabled: true
+        .actions= button_to 'Add field', add_field_form_path
   .actions= f.submit 'Preview changes'

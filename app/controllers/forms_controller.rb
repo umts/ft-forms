@@ -1,10 +1,16 @@
 class FormsController < ApplicationController
-  # WHITELISTED ACTIONS
+  # Whitelist actions here for student access.
   skip_before_action :access_control, only: [:meet_and_greet,
                                              :show,
                                              :submit,
                                              :thank_you]
   before_action :find_form, except: [:index, :meet_and_greet, :submit]
+
+  def add_field
+    @form.fields << Field.new(form: @form,
+                              number: @form.new_field_number)
+    render 'edit'
+  end
 
   def edit
   end
