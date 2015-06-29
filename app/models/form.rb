@@ -1,18 +1,16 @@
 class Form < ActiveRecord::Base
   has_many :fields
+  has_many :form_drafts
   accepts_nested_attributes_for :fields
 
   validates :name, presence: true, uniqueness: true
 
   default_scope { order :name }
 
-  def new_field
-    Field.new form_id: id, number: new_field_number
-  end
-
-  private
-
-  def new_field_number
-    fields.count + 1
+  def create_draft(user)
+    draft = FormDraft.create attributes.merge(user_id: user.id)
+    draft.fields << fields
+    draft.save
+    draft
   end
 end

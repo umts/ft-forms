@@ -5,14 +5,12 @@ class FormsController < ApplicationController
                                              :submit,
                                              :thank_you]
   # Since these actions are used to edit forms, maintain the form in session.
-  before_action :find_form, except: [:clear_edits,
-                                     :index,
-                                     :meet_and_greet,
-                                     :submit]
+  before_action :find_form, only: [:edit, :show, :submit, :update]
 
   def edit
+    @draft = @form.create_draft @current_user
     # Does not save, is temporary
-    @form.fields << @form.new_field
+    @draft.fields << @draft.new_field
   end
 
   def index
@@ -26,6 +24,7 @@ class FormsController < ApplicationController
   end
 
   def preview
+    @draft = FormDraft.find(params.require :draft_id)
     @form.assign_attributes params.require(:form).permit!
     case params.require :commit
     when 'Save changes and continue editing'

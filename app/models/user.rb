@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :form_drafts
+
   validates :first_name,
             :last_name,
             :spire,
