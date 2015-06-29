@@ -9,13 +9,10 @@ class FormsController < ApplicationController
                                      :index,
                                      :meet_and_greet,
                                      :submit]
-  def clear_edits
-    session.delete :forms
-    redirect_to forms_path
-  end
 
   def edit
-    @form = stored_form
+    # Does not save, is temporary
+    @form.fields << @form.new_field
   end
 
   def index
@@ -29,11 +26,9 @@ class FormsController < ApplicationController
   end
 
   def preview
-    stored_form.assign_attributes(params.require(:form).permit!)
-    @form = stored_form
     case params.require :commit
     when 'Save changes and continue editing'
-      render 'edit'
+      redirect_to edit_form_path
     when 'Preview changes'
       @preview = true
       render 'show'
@@ -41,10 +36,9 @@ class FormsController < ApplicationController
   end
 
   def remove_field
-    field = stored_form.fields.where number: params.require(:number)
-    stored_form.fields -= field
-    @form = stored_form
-    render 'edit'
+    field = @form.fields.where number: params.require(:number)
+    @form.fields -= field
+    redirect_to edit_form_path
   end
 
   def show
@@ -76,11 +70,5 @@ class FormsController < ApplicationController
 
   def find_form
     @form = Form.find(params.require :id)
-  end
-
-  def stored_form
-    session[:forms] ||= {}
-    session[:forms][@form.id] ||= @form
-    session[:forms][@form.id]
   end
 end

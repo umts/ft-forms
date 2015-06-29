@@ -3,11 +3,9 @@ Rails.application.routes.draw do
 
   resources :forms, only: [:edit, :index, :show, :update] do
     collection do
-      get  :clear_edits
       get  :meet_and_greet # ROOT
     end
     member do
-      post :add_field
       post :preview
       post :remove_field
       post :submit

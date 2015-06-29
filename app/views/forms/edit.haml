@@ -20,10 +20,13 @@
         %td= g.select :data_type, Field::DATA_TYPES,
           include_blank: 'Select a data type...', required: true
         %td= g.check_box :required
-        %td= button_to 'Move up', nil, disabled: true
-        %td= button_to 'Move down', nil, disabled: true
-        %td= button_to 'Remove field', remove_field_form_path(number: g.object.number)
-    =# f.fields_for @form.new_field
+        - if g.object.new_record?
+          %td{colspan: 3} (new field)
+        - else 
+          %td= button_to 'Move up', nil, disabled: true
+          %td= button_to 'Move down', nil, disabled: true
+          %td= button_to 'Remove field', remove_field_form_path(number: g.object.number)
+      
   .actions
     = f.submit 'Save changes and continue editing'
     = f.submit 'Preview changes'
