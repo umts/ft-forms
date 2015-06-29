@@ -25,10 +25,6 @@
           %ul
             - flash[:errors].each do |error_message|
               %li= error_message
-      - if flash[:form_edit_logout_warning].present?
-        #form_edit_logout_warning
-          You currently have unsaved edits to a form. These changes will be lost if you log out.
-          = link_to 'Discard all form edits', clear_edits_forms_path
     #content_wrapper
       #main_content= yield
     #footer= render partial: 'layouts/footer'

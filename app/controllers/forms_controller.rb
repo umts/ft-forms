@@ -26,6 +26,7 @@ class FormsController < ApplicationController
   end
 
   def preview
+    @form.assign_attributes params.require(:form).permit!
     case params.require :commit
     when 'Save changes and continue editing'
       redirect_to edit_form_path

@@ -110,7 +110,7 @@ describe FormsController do
       @changes = Hash['name', 'a new name']
     end
     let :submit do
-      get :preview, id: @form.id, form: @changes
+      get :preview, id: @form.id, form: @changes, commit: @commit
     end
     context 'not staff' do
       before :each do
@@ -126,27 +126,47 @@ describe FormsController do
       before :each do
         when_current_user_is :staff
       end
-      it 'assigns the correct form to the correct instance variable' do
-        submit
-        expect(assigns.fetch :form).to eql @form
+      context 'commit is Save changes and continue editing' do
+        before :each do
+          @commit = 'Save changes and continue editing'
+        end
+        it 'assigns the correct form to the correct instance variable' do
+          submit
+          expect(assigns.fetch :form).to eql @form
+        end
+        it 'calls #assign_attributes on the form' do
+          expect_any_instance_of(Form)
+            .to receive(:assign_attributes)
+            .with @changes
+          submit
+        end
+        it 'redirects to the edit page' do
+          submit
+          expect(response).to redirect_to edit_form_path
+        end
       end
-      it 'calls #assign_attributes on the form' do
-        expect_any_instance_of(Form)
-          .to receive(:assign_attributes)
-          .with @changes
-        submit
-      end
-      it 'sets the preview instance variable to true' do
-        submit
-        expect(assigns.fetch :preview).to eql true
-      end
-      it 'includes a flash message explaining that it is a preview' do
-        submit
-        expect(flash['message']).to include 'preview'
-      end
-      it 'renders the show template' do
-        submit
-        expect(response).to render_template :show
+      context 'commit is Preview changes' do
+        before :each do
+          @commit = 'Preview changes'
+        end
+        it 'assigns the correct form to the correct instance variable' do
+          submit
+          expect(assigns.fetch :form).to eql @form
+        end
+        it 'calls #assign_attributes on the form' do
+          expect_any_instance_of(Form)
+            .to receive(:assign_attributes)
+            .with @changes
+          submit
+        end
+        it 'sets the preview instance variable to true' do
+          submit
+          expect(assigns.fetch :preview).to eql true
+        end
+        it 'renders the show template' do
+          submit
+          expect(response).to render_template :show
+        end
       end
     end
   end
