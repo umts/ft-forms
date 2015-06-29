@@ -8,8 +8,8 @@ class Form < ActiveRecord::Base
   default_scope { order :name }
 
   def create_draft(user)
-    draft = FormDraft.create attributes.merge(user_id: user.id)
-    draft.fields << fields
+    draft = FormDraft.new attributes.merge(user: user, form: self)
+    draft.fields = fields
     draft.save
     draft
   end

@@ -1,6 +1,6 @@
-%h1.title Editing #{@form.name}
+%h1.title Editing #{@draft.form.name}
 
-= form_for @form, url: { action: :preview }, method: :post do |f| 
+= form_for @draft, url: { action: :preview }, method: :post do |f| 
   %table#edit_form
     %tr
       %td{colspan: 6}

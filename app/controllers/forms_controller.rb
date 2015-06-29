@@ -5,11 +5,15 @@ class FormsController < ApplicationController
                                              :submit,
                                              :thank_you]
   # Since these actions are used to edit forms, maintain the form in session.
-  before_action :find_form, only: [:edit, :show, :submit, :update]
+  before_action :find_form, only: [:edit, :show, :submit, :thank_you, :update]
 
   def edit
-    @draft = @form.create_draft @current_user
-    # Does not save, is temporary
+    if params.key? :draft_id
+      @draft = FormDraft.find(params.require :draft_id)
+    else
+      @draft = @form.create_draft @current_user
+      # Does not save, is temporary
+    end
     @draft.fields << @draft.new_field
   end
 
@@ -23,14 +27,16 @@ class FormsController < ApplicationController
     render 'show'
   end
 
+  # TODO: possibly make a FormDraftsController to simplify this one a little?
   def preview
-    @draft = FormDraft.find(params.require :draft_id)
-    @form.assign_attributes params.require(:form).permit!
+    @draft = FormDraft.find(params.require :id)
+    @draft.update_attributes params.require(:form_draft).permit!
     case params.require :commit
     when 'Save changes and continue editing'
-      redirect_to edit_form_path
+      redirect_to edit_form_path(draft_id: @draft.id)
     when 'Preview changes'
       @preview = true
+      # TODO: render draft instead of form. Hmm.....
       render 'show'
     end
   end

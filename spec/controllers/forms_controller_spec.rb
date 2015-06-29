@@ -22,9 +22,15 @@ describe FormsController do
       before :each do
         when_current_user_is :staff
       end
-      it 'assigns the correct form to the correct instance variable' do
+      it 'creates a draft' do
+        expect_any_instance_of(Form)
+          .to receive(:create_draft)
+          .and_return(create :form_draft)
         submit
-        expect(assigns.fetch :form).to eql @form
+      end
+      it 'assigns the draft instance variable' do
+        submit
+        expect(assigns.fetch :draft).to be_a FormDraft
       end
       it 'renders the edit template' do
         submit
