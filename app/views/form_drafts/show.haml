@@ -6,7 +6,7 @@
     Fields marked with an asterisk (
     %span.ast *
     ) are required.
-  = form_tag action: :submit, id: @form.id do
+  = form_tag controller: :forms, action: :submit, id: @draft.form.id do
     = fields_for :responses do |r|
       - @draft.fields.each do |field|
         - if field.heading?
@@ -41,8 +41,6 @@
 
 .form
   .actions
-    = button_to 'Discard changes', forms_url, method: :get
-    = form_for @draft do 
-      = hash_to_hidden_fields draft: @draft_changes
-      = submit_tag 'Save changes'
-
+    = button_to 'Continue editing', edit_form_draft_url(@draft), method: :get
+    = button_to 'Discard changes', @draft, method: :delete
+    = button_to 'Save form', update_form_form_draft_url(@draft)

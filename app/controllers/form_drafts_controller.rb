@@ -1,15 +1,18 @@
 class FormDraftsController < ApplicationController
   before_action :find_form_draft, except: :new
 
+  def destroy
+    @draft.destroy
+    flash[:message] = 'Draft has been discarded.'
+    redirect_to forms_url
+  end
+
   def edit
     @draft.fields << @draft.new_field
   end
 
   def new
     form = Form.find(params.require :form_id)
-    if params.key?(:discard) && form.draft_belonging_to?(@current_user)
-      form.draft_belonging_to(@current_user).destroy
-    end
     @draft = form.create_draft @current_user
     redirect_to edit_form_draft_path(@draft)
   end
@@ -31,6 +34,13 @@ class FormDraftsController < ApplicationController
     when 'Preview changes'
       render 'show'
     end
+  end
+
+  def update_form
+    @draft.update_form!
+    flash[:message] = 'Form has been updated and is now live. ' \
+                      'Draft has been discarded.'
+    redirect_to forms_url
   end
 
   private

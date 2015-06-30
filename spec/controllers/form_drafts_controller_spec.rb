@@ -1,6 +1,48 @@
 require 'rails_helper'
 
 describe FormDraftsController do
+  describe 'DELETE #destroy' do
+    before :each do
+      @draft = create :form_draft
+    end
+    let :submit do
+      delete :destroy, id: @draft.id
+    end
+    context 'not staff' do
+      before :each do
+        when_current_user_is :not_staff
+      end
+      it 'does not allow access' do
+        expect_any_instance_of(FormDraft)
+          .not_to receive :destroy
+        submit
+        expect(response).to have_http_status :unauthorized
+      end
+    end
+    context 'staff' do
+      before :each do
+        when_current_user_is :staff
+      end
+      it 'assigns the correct draft to the draft instance variable' do
+        submit
+        expect(assigns.fetch :draft).to eql @draft
+      end
+      it 'destroys the draft' do
+        expect_any_instance_of(FormDraft)
+          .to receive :destroy
+        submit
+      end
+      it 'includes a flash message' do
+        submit
+        expect(flash[:message]).not_to be_empty
+      end
+      it 'redirects to the forms url' do
+        submit
+        expect(response).to redirect_to forms_url
+      end
+    end
+  end
+
   describe 'GET #edit' do
     before :each do
       @draft = create :form_draft
@@ -70,18 +112,6 @@ describe FormDraftsController do
         submit
         draft = assigns.fetch :draft
         expect(response).to redirect_to edit_form_draft_path(draft)
-      end
-      context 'discard parameter is true and draft exists for current user' do
-        before :each do
-          @existing_draft = create :form_draft, user: @user, form: @form
-        end
-        let :discard_submit do
-          get :new, form_id: @form.id, discard: true
-        end
-        it 'discards the existing draft' do
-          discard_submit
-          # binding.pry
-        end
       end
     end
   end
@@ -209,6 +239,48 @@ describe FormDraftsController do
         it 'renders the show page' do
           submit
           expect(response).to render_template 'show'
+        end
+      end
+    end
+
+    describe 'POST #update_form' do
+      before :each do
+        @draft = create :form_draft
+      end
+      let :submit do
+        post :update_form, id: @draft.id
+      end
+      context 'not staff' do
+        before :each do
+          when_current_user_is :not_staff
+        end
+        it 'does not allow access' do
+          expect_any_instance_of(FormDraft)
+            .not_to receive :update_form!
+          submit
+          expect(response).to have_http_status :unauthorized
+        end
+      end
+      context 'staff' do
+        before :each do
+          when_current_user_is :staff
+        end
+        it 'assigns the correct draft to the draft instance variable' do
+          submit
+          expect(assigns.fetch :draft).to eql @draft
+        end
+        it 'calls update_form! on the draft' do
+          expect_any_instance_of(FormDraft)
+            .to receive :update_form!
+          submit
+        end
+        it 'includes a flash message' do
+          submit
+          expect(flash[:message]).not_to be_empty
+        end
+        it 'redirects to the forms index' do
+          submit
+          expect(response).to redirect_to forms_url
         end
       end
     end
