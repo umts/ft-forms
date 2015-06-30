@@ -5,46 +5,16 @@ class FormsController < ApplicationController
                                              :submit,
                                              :thank_you]
   # Since these actions are used to edit forms, maintain the form in session.
-  before_action :find_form, only: [:edit, :show, :submit, :thank_you, :update]
-
-  def edit
-    if params.key? :draft_id
-      @draft = FormDraft.find(params.require :draft_id)
-    else
-      @draft = @form.create_draft @current_user
-      # Does not save, is temporary
-    end
-    @draft.fields << @draft.new_field
-  end
+  before_action :find_form, only: [:show, :submit, :thank_you, :update]
 
   def index
-    @forms = Form.all
+    @forms = Form.includes :form_drafts
   end
 
   def meet_and_greet
     @form = Form.find_by name: 'Meet & Greet Request Form'
     @submit = true
     render 'show'
-  end
-
-  # TODO: possibly make a FormDraftsController to simplify this one a little?
-  def preview
-    @draft = FormDraft.find(params.require :id)
-    @draft.update_attributes params.require(:form_draft).permit!
-    case params.require :commit
-    when 'Save changes and continue editing'
-      redirect_to edit_form_path(draft_id: @draft.id)
-    when 'Preview changes'
-      @preview = true
-      # TODO: render draft instead of form. Hmm.....
-      render 'show'
-    end
-  end
-
-  def remove_field
-    field = @form.fields.where number: params.require(:number)
-    @form.fields -= field
-    redirect_to edit_form_path
   end
 
   def show
@@ -63,7 +33,6 @@ class FormsController < ApplicationController
 
   def update
     @form_changes = params.require(:form).permit!
-    # form_changes = params.require(:form).permit :name
     if @form.update @form_changes
       session.delete :forms
       flash[:message] = 'Form has been updated.'

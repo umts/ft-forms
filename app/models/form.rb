@@ -13,4 +13,8 @@ class Form < ActiveRecord::Base
     draft.save
     draft
   end
+
+  def draft_belonging_to?(user)
+    form_drafts.find_by user_id: user.id
+  end
 end
