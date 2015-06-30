@@ -25,7 +25,8 @@
         - else 
           %td= button_to 'Move up', nil, disabled: true
           %td= button_to 'Move down', nil, disabled: true
-          %td= button_to 'Remove field', remove_field_form_path(number: g.object.number)
+          %td= button_to 'Remove field',
+               remove_field_form_draft_path(number: g.object.number)
       
   .actions
     = f.submit 'Save changes and continue editing'

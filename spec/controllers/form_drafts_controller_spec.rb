@@ -73,6 +73,46 @@ describe FormDraftsController do
     end
   end
 
+  describe 'POST #remove_field' do
+    before :each do
+      @draft = create :form_draft
+      @field = create :field, form_draft: @draft
+    end
+    let :submit do
+      post :remove_field, id: @draft.id, number: @field.number
+    end
+    context 'not staff' do
+      before :each do
+        when_current_user_is :not_staff
+      end
+      it 'does not allow access' do
+        expect_any_instance_of(FormDraft)
+          .not_to receive :remove_field
+        submit
+        expect(response).to have_http_status :unauthorized
+      end
+    end
+    context 'staff' do
+      before :each do
+        when_current_user_is :staff
+      end
+      it 'assigns the correct form draft to the draft instance variable' do
+        submit
+        expect(assigns.fetch :draft).to eql @draft
+      end
+      it 'calls #remove_field on the draft with the number in question' do
+        expect_any_instance_of(FormDraft)
+          .to receive(:remove_field)
+          .with @field.number
+        submit
+      end
+      it 'redirects to the edit path for the draft' do
+        submit
+        expect(response).to redirect_to edit_form_draft_path(@draft)
+      end
+    end
+  end
+
   describe 'GET #show' do
     before :each do
       @draft = create :form_draft

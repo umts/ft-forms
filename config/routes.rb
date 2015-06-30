@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   root to: 'forms#meet_and_greet'
 
-  resources :form_drafts, only: [:edit, :new, :show, :update]
+  resources :form_drafts, only: [:edit, :new, :show, :update] do
+    member do
+      post :remove_field
+    end
+  end
 
   resources :forms, only: [:index, :show, :update] do
     collection do

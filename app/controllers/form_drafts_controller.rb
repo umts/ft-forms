@@ -11,6 +11,12 @@ class FormDraftsController < ApplicationController
     redirect_to edit_form_draft_path(@draft)
   end
 
+  def remove_field
+    field_number = params.require(:number).to_i
+    @draft.remove_field field_number
+    redirect_to edit_form_draft_path
+  end
+
   def show
   end
 

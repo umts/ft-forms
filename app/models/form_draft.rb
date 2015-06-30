@@ -11,6 +11,17 @@ class FormDraft < ActiveRecord::Base
     Field.new form_draft: self, number: new_field_number
   end
 
+  def remove_field(field_number)
+    field_to_remove = fields.find_by number: field_number
+    field_to_remove.delete
+    fields.where('number > ?', field_number).find_each do |field|
+      field.number -= 1
+      field.save
+    end
+    save
+    field_to_remove
+  end
+
   private
 
   def new_field_number
