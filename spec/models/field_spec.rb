@@ -3,9 +3,10 @@ require 'rails_helper'
 describe Field do
   context 'data_type identification methods' do
     before :each do
-      @date = create :field, data_type: 'date'
-      @explanation = create :field, data_type: 'explanation'
-      @heading = create :field, data_type: 'heading'
+      @form = create :form
+      @date        = create :field, form: @form, data_type: 'date'
+      @explanation = create :field, form: @form, data_type: 'explanation'
+      @heading     = create :field, form: @form, data_type: 'heading'
     end
 
     describe 'date?' do
