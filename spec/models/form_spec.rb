@@ -28,4 +28,18 @@ describe Form do
       expect(call.fields.size).to eql @form.fields.size
     end
   end
+
+  describe 'draft_belonging_to' do
+    before :each do
+      @user = create :user
+      other_user = create :user
+      @form = create :form
+      @draft      = create :form_draft, form: @form, user: @user
+      # other draft
+      create :form_draft, form: @form, user: other_user
+    end
+    it 'returns the draft of the form belonging to the user' do
+      expect(@form.draft_belonging_to @user).to eql @draft
+    end
+  end
 end

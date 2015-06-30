@@ -36,4 +36,28 @@ describe Field do
       end
     end
   end
+  context 'validation methods' do
+    describe 'belongs_to_form_or_form_draft?' do
+      before :each do
+        @form = create :form
+        @draft = create :form_draft
+      end
+      it 'fails if a field does not belong to a form or form draft' do
+        expect { create :field }
+          .to raise_error ActiveRecord::RecordInvalid
+      end
+      it 'fails if a field belongs to both a form and a form draft' do
+        expect { create :field, form: @form, form_draft: @draft }
+          .to raise_error ActiveRecord::RecordInvalid
+      end
+      it 'passes if a field belongs to a form but not a form draft' do
+        expect { create :field, form: @form }
+          .not_to raise_error
+      end
+      it 'passes if a field belongs to a form draft but not a form' do
+        expect { create :field, form_draft: @draft }
+          .not_to raise_error
+      end
+    end
+  end
 end
