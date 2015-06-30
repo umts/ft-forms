@@ -1,4 +1,4 @@
-class FormDraftsController < ActionController::Base
+class FormDraftsController < ApplicationController
   before_action :find_form_draft, except: :new
 
   def edit
@@ -7,15 +7,15 @@ class FormDraftsController < ActionController::Base
 
   def new
     form = Form.find(params.require :form_id)
-    draft = form.create_draft @current_user
-    redirect_to edit_form_draft_path(draft)
+    @draft = form.create_draft @current_user
+    redirect_to edit_form_draft_path(@draft)
   end
 
   def show
   end
 
   def update
-    @draft.update_attributes params.require(:form_draft).permit!
+    @draft.update params.require(:form_draft).permit!
     case params.require :commit
     when 'Save changes and continue editing'
       redirect_to edit_form_draft_path(@draft)
@@ -27,6 +27,6 @@ class FormDraftsController < ActionController::Base
   private
 
   def find_form_draft
-    @draft = FormDraft.find(params.require :form_draft_id)
+    @draft = FormDraft.find(params.require :id)
   end
 end

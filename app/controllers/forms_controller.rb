@@ -8,7 +8,7 @@ class FormsController < ApplicationController
   before_action :find_form, only: [:show, :submit, :thank_you, :update]
 
   def index
-    @forms = Form.includes :form_drafts
+    @forms = Form.includes :drafts
   end
 
   def meet_and_greet

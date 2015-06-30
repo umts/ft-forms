@@ -1,6 +1,6 @@
 class Form < ActiveRecord::Base
   has_many :fields
-  has_many :form_drafts
+  has_many :drafts, class_name: FormDraft, foreign_key: :form_id
   accepts_nested_attributes_for :fields
 
   validates :name, presence: true, uniqueness: true
@@ -15,6 +15,6 @@ class Form < ActiveRecord::Base
   end
 
   def draft_belonging_to(user)
-    form_drafts.find_by user_id: user.id
+    drafts.find_by user_id: user.id
   end
 end
