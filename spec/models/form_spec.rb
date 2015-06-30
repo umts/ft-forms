@@ -4,6 +4,9 @@ describe Form do
   describe 'create_draft' do
     before :each do
       @form = create :form
+      create :field, form: @form
+      create :field, form: @form
+      create :field, form: @form
       @user = create :user
     end
     let :call do
