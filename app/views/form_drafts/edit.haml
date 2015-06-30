@@ -1,6 +1,6 @@
 %h1.title Editing #{@draft.form.name}
 
-= form_for @draft, url: { action: :preview }, method: :post do |f| 
+= form_for @draft do |f| 
   %table#edit_form
     %tr
       %td{colspan: 6}
@@ -26,7 +26,7 @@
           %td= button_to 'Move up', nil, disabled: true
           %td= button_to 'Move down', nil, disabled: true
           %td= button_to 'Remove field',
-               remove_field_form_draft_path(number: g.object.number)
+            remove_field_form_draft_path(number: g.object.number)
       
   .actions
     = f.submit 'Save changes and continue editing'

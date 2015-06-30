@@ -5,7 +5,7 @@ class FormDraft < ActiveRecord::Base
   accepts_nested_attributes_for :fields
   validates :name, presence: true
   # One user can only have one draft per form
-  validates :form, uniqueness: { scope: :user }
+  validates :form, uniqueness: { scope: :user_id }
 
   def new_field
     Field.new form_draft: self, number: new_field_number

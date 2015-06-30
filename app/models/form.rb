@@ -8,6 +8,7 @@ class Form < ActiveRecord::Base
   default_scope { order :name }
 
   def create_draft(user)
+    return false if draft_belonging_to(user).present?
     draft = FormDraft.new attributes.merge(user: user, form: self)
     draft.fields = fields
     draft.save
@@ -16,5 +17,9 @@ class Form < ActiveRecord::Base
 
   def draft_belonging_to(user)
     drafts.find_by user_id: user.id
+  end
+
+  def draft_belonging_to?(user)
+    draft_belonging_to(user).present?
   end
 end

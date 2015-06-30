@@ -6,9 +6,11 @@
       %td= form.name
       %td= link_to 'View', form_url(form, no_submit: true)
       %td
-        - if draft = form.draft_belonging_to(@current_user)
+        - if form.draft_belonging_to? @current_user
+          - draft = form.draft_belonging_to @current_user
           = link_to 'Resume editing saved draft', edit_form_draft_path(draft)
-          = link_to 'Discard saved draft and edit new draft', new_form_draft_path(form_id: form.id)
+          %br
+          = link_to 'Discard saved draft and edit new draft', new_form_draft_path(form_id: form.id, discard: true)
         - else
           = link_to 'Edit', new_form_draft_path(form_id: form.id)
 .actions= button_to 'New form', nil, disabled: true

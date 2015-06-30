@@ -58,7 +58,8 @@ describe FormDraftsController do
     end
     context 'staff' do
       before :each do
-        when_current_user_is :staff
+        @user = create :user, :staff
+        when_current_user_is @user
       end
       it 'creates a draft for the correct form' do
         expect { submit }
@@ -69,6 +70,18 @@ describe FormDraftsController do
         submit
         draft = assigns.fetch :draft
         expect(response).to redirect_to edit_form_draft_path(draft)
+      end
+      context 'discard parameter is true and draft exists for current user' do
+        before :each do
+          @existing_draft = create :form_draft, user: @user, form: @form
+        end
+        let :discard_submit do
+          get :new, form_id: @form.id, discard: true
+        end
+        it 'discards the existing draft' do
+          discard_submit
+          # binding.pry
+        end
       end
     end
   end

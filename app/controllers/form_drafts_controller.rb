@@ -7,6 +7,9 @@ class FormDraftsController < ApplicationController
 
   def new
     form = Form.find(params.require :form_id)
+    if params.key?(:discard) && form.draft_belonging_to?(@current_user)
+      form.draft_belonging_to(@current_user).destroy
+    end
     @draft = form.create_draft @current_user
     redirect_to edit_form_draft_path(@draft)
   end
