@@ -57,6 +57,19 @@ describe Form do
   end
 
   describe 'draft_belonging_to?' do
-    # TODO
+    before :each do
+      @form = create :form
+      @user = create :user
+    end
+    let :call do
+      @form.draft_belonging_to? @user
+    end
+    it 'returns false if a draft exists for the user in question' do
+      expect(call).to eql false
+    end
+    it 'returns false if a draft does not exist for the user in question' do
+      create :form_draft, user: @user, form: @form
+      expect(call).to eql true
+    end
   end
 end
