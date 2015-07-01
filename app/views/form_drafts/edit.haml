@@ -14,6 +14,9 @@
       %th
       %th
     = f.fields_for :fields do |g|
+      - if g.object.new_record?
+        %tr
+          %td.centered{colspan: 6} Add new field...
       %tr
         = g.hidden_field :number
         %td= g.text_area :prompt, required: !g.object.new_record?, size: '35x4'
@@ -21,14 +24,18 @@
           include_blank: 'Select a data type...', required: !g.object.new_record?
         %td= g.check_box :required
         - if g.object.new_record?
-          %td{colspan: 3} (new field)
+          %td{colspan: 3}
         - else 
           %td
             - unless g.index.zero?
-              = button_to 'Move up', nil, disabled: true
+              = button_to 'Move up',
+                move_field_form_draft_path(number: g.object.number,
+                                           direction: :up)
           %td
             - unless g.object == @draft.fields.not_new.last
-              = button_to 'Move down', nil, disabled: true
+              = button_to 'Move down',
+                move_field_form_draft_path(number: g.object.number,
+                                           direction: :down)
           %td= button_to 'Remove field',
             remove_field_form_draft_path(number: g.object.number)
       

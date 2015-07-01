@@ -1,13 +1,64 @@
 require 'rails_helper'
 
 describe FormDraft do
+  describe 'move_field' do
+    before :each do
+      @draft = create :form_draft
+      @field_above   = create :field, form_draft: @draft, number: 1
+      @field_to_move = create :field, form_draft: @draft, number: 2
+      @field_below   = create :field, form_draft: @draft, number: 3
+      @number = @field_to_move.number
+    end
+    let :call do
+      @draft.move_field @number, @direction
+    end
+    context 'direction is up' do
+      before :each do
+        @direction = :up
+      end
+      it 'moves the field in question up by 1' do
+        expect { call }
+          .to change { @field_to_move.reload.number }
+          .by(-1)
+      end
+      it 'moves the field above down by 1' do
+        expect { call }
+          .to change { @field_above.reload.number }
+          .by 1
+      end
+      it 'does not change the field below' do
+        expect { call }
+          .not_to change { @field_below.reload.number }
+      end
+    end
+    context 'direction is down' do
+      before :each do
+        @direction = :down
+      end
+      it 'moves the field in question down by 1' do
+        expect { call }
+          .to change { @field_to_move.reload.number }
+          .by 1
+      end
+      it 'moves the field below up by 1' do
+        expect { call }
+          .to change { @field_below.reload.number }
+          .by(-1)
+      end
+      it 'does not change the field above' do
+        expect { call }
+          .not_to change { @field_above.reload.number }
+      end
+    end
+  end
+
   describe 'new_field' do
     before :each do
       @draft = create :form_draft
       # Create three existing fields - the number of the new one should be 4
-      create :field, form_draft: @draft
-      create :field, form_draft: @draft
-      create :field, form_draft: @draft
+      create :field, form_draft: @draft, number: 1
+      create :field, form_draft: @draft, number: 2
+      create :field, form_draft: @draft, number: 3
     end
     let :call do
       @draft.new_field

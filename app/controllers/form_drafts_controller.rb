@@ -17,6 +17,13 @@ class FormDraftsController < ApplicationController
     redirect_to edit_form_draft_path(@draft)
   end
 
+  def move_field
+    field_number = params.require(:number).to_i
+    direction = params.require(:direction).to_sym
+    @draft.move_field field_number, direction
+    redirect_to edit_form_draft_path
+  end
+
   def remove_field
     field_number = params.require(:number).to_i
     @draft.remove_field field_number
