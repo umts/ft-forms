@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :form_drafts
+  has_many :form_drafts, dependent: :destroy
 
   validates :first_name,
             :last_name,
