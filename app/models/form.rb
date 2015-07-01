@@ -1,7 +1,8 @@
 class Form < ActiveRecord::Base
   has_many :fields, dependent: :destroy
-  has_many :drafts, class_name: FormDraft, foreign_key: :form_id,
-    dependent: :destroy
+  has_many :drafts, class_name: FormDraft,
+                    foreign_key: :form_id,
+                    dependent: :destroy
   accepts_nested_attributes_for :fields
 
   validates :name, presence: true, uniqueness: true
