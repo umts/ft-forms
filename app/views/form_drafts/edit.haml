@@ -23,8 +23,12 @@
         - if g.object.new_record?
           %td{colspan: 3} (new field)
         - else 
-          %td= button_to 'Move up', nil, disabled: true
-          %td= button_to 'Move down', nil, disabled: true
+          %td
+            - unless g.index.zero?
+              = button_to 'Move up', nil, disabled: true
+          %td
+            - unless g.object == @draft.fields.not_new.last
+              = button_to 'Move down', nil, disabled: true
           %td= button_to 'Remove field',
             remove_field_form_draft_path(number: g.object.number)
       

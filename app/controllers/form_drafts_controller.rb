@@ -46,6 +46,6 @@ class FormDraftsController < ApplicationController
   private
 
   def find_form_draft
-    @draft = FormDraft.find(params.require :id)
+    @draft = FormDraft.includes(:fields).find(params.require :id)
   end
 end

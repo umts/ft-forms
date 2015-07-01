@@ -28,6 +28,7 @@ class Field < ActiveRecord::Base
                          message: 'must be true or false' }
 
   default_scope { order :number }
+  scope :not_new, -> { where.not id: nil }
 
   def date?
     data_type == 'date'
