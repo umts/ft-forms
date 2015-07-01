@@ -14,7 +14,7 @@ class Form < ActiveRecord::Base
     fields.each do |field|
       new_field = field.dup
       new_field.assign_attributes form: nil, form_draft: draft
-      new_field.save
+      new_field.save!
     end
     draft
   end

@@ -10,8 +10,8 @@
           - draft = form.draft_belonging_to @current_user
           = link_to 'Resume editing saved draft', edit_form_draft_path(draft)
           %br
-          = link_to 'Discard saved draft and edit new draft',
-            new_form_draft_path(form_id: form.id, discard: true)
+          = button_to 'Discard saved draft',
+            form_draft_path(draft), method: :delete
         - else
           = link_to 'Edit', new_form_draft_path(form_id: form.id)
 .actions= button_to 'New form', nil, disabled: true
