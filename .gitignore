@@ -6,7 +6,9 @@ capybara-*.html
 /db/*.sqlite3
 /db/*.sqlite3-journal
 /public/system
-/coverage/
+/coverage/.resultset.json
+/coverage/.resultset.json.lock
+/coverage/assets
 /spec/tmp
 **.orig
 rerun.txt
