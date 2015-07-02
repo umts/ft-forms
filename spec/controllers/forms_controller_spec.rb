@@ -1,38 +1,6 @@
 require 'rails_helper'
 
 describe FormsController do
-  describe 'GET #edit' do
-    before :each do
-      @form = create :form
-    end
-    let :submit do
-      get :edit, id: @form.id
-    end
-    context 'not staff' do
-      before :each do
-        when_current_user_is :not_staff
-      end
-      it 'does not allow access' do
-        submit
-        expect(response).to have_http_status :unauthorized
-        expect(response).not_to render_template :edit
-      end
-    end
-    context 'staff' do
-      before :each do
-        when_current_user_is :staff
-      end
-      it 'assigns the correct form to the correct instance variable' do
-        submit
-        expect(assigns.fetch :form).to eql @form
-      end
-      it 'renders the edit template' do
-        submit
-        expect(response).to render_template :edit
-      end
-    end
-  end
-
   describe 'GET #index' do
     before :each do
       @form_1 = create :form
@@ -95,73 +63,6 @@ describe FormsController do
         it 'sets submit to true' do
           submit
           expect(assigns.fetch :submit).to eql true
-        end
-        it 'renders the show template' do
-          submit
-          expect(response).to render_template :show
-        end
-      end
-    end
-  end
-
-  describe 'GET #preview' do
-    before :each do
-      @form = create :form
-      @changes = Hash['name', 'a new name']
-    end
-    let :submit do
-      get :preview, id: @form.id, form: @changes, commit: @commit
-    end
-    context 'not staff' do
-      before :each do
-        when_current_user_is :not_staff
-      end
-      it 'does not allow access' do
-        submit
-        expect(response).to have_http_status :unauthorized
-        expect(response).not_to render_template :show
-      end
-    end
-    context 'staff' do
-      before :each do
-        when_current_user_is :staff
-      end
-      context 'commit is Save changes and continue editing' do
-        before :each do
-          @commit = 'Save changes and continue editing'
-        end
-        it 'assigns the correct form to the correct instance variable' do
-          submit
-          expect(assigns.fetch :form).to eql @form
-        end
-        it 'calls #assign_attributes on the form' do
-          expect_any_instance_of(Form)
-            .to receive(:assign_attributes)
-            .with @changes
-          submit
-        end
-        it 'redirects to the edit page' do
-          submit
-          expect(response).to redirect_to edit_form_path
-        end
-      end
-      context 'commit is Preview changes' do
-        before :each do
-          @commit = 'Preview changes'
-        end
-        it 'assigns the correct form to the correct instance variable' do
-          submit
-          expect(assigns.fetch :form).to eql @form
-        end
-        it 'calls #assign_attributes on the form' do
-          expect_any_instance_of(Form)
-            .to receive(:assign_attributes)
-            .with @changes
-          submit
-        end
-        it 'sets the preview instance variable to true' do
-          submit
-          expect(assigns.fetch :preview).to eql true
         end
         it 'renders the show template' do
           submit

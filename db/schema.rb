@@ -11,17 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150622181855) do
+ActiveRecord::Schema.define(version: 20150629200910) do
 
   create_table "fields", force: :cascade do |t|
-    t.integer  "number",     limit: 4
-    t.text     "prompt",     limit: 65535
-    t.string   "data_type",  limit: 255
+    t.integer  "number",        limit: 4
+    t.text     "prompt",        limit: 65535
+    t.string   "data_type",     limit: 255
+    t.integer  "form_id",       limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "required",      limit: 1
+    t.text     "options",       limit: 65535
+    t.integer  "form_draft_id", limit: 4
+  end
+
+  create_table "form_drafts", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.text     "intro_text", limit: 65535
     t.integer  "form_id",    limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "required",   limit: 1
-    t.text     "options",    limit: 65535
+    t.integer  "user_id",    limit: 4
   end
 
   create_table "forms", force: :cascade do |t|
