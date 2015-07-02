@@ -1,14 +1,14 @@
-/ This page is mirrored at form_drafts/show. If you make any edits to this page,
-/ please reflect them at form_drafts/show.
+#form_preview_message This is a preview of your changes. This form, as shown here, is not live.
+
 .form
-  %h1.title= @form.name
+  %h1.title= @draft.name
   %strong
     Fields marked with an asterisk (
     %span.ast *
     ) are required.
-  = form_tag action: :submit, id: @form.id do
+  = form_tag controller: :forms, action: :submit, id: @draft.form.id do
     = fields_for :responses do |r|
-      - @form.fields.each do |field|
+      - @draft.fields.each do |field|
         - if field.heading?
           .heading= field.prompt
         - elsif field.explanation?
@@ -37,4 +37,10 @@
                   required: field.required?
             - if field.required
               %span.ast *
-    .actions= submit_tag 'Submit request', disabled: !@submit
+    .actions= submit_tag 'Submit request', disabled: true
+
+.form
+  .actions
+    = button_to 'Continue editing', edit_form_draft_url(@draft), method: :get
+    = button_to 'Discard changes', @draft, method: :delete
+    = button_to 'Save form', update_form_form_draft_url(@draft)

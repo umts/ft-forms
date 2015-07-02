@@ -42,20 +42,16 @@ body{
   width: 80%;
 }
 
-#message{
+#errors{
   padding: 0.5em 0;
   background-color: orange;
   border: 3px solid red;
 }
 
-#form_edit_logout_warning{
+#message{
   padding: 0.5em 0;
   background-color: lightyellow;
   border: 3px solid limegreen;
-}
-
-#form_edit_logout_warning a{
-  margin-left: 2em;
 }
 
 h1.title{

@@ -1,18 +1,31 @@
 class Form < ActiveRecord::Base
-  has_many :fields
+  has_many :fields, dependent: :destroy
+  has_many :drafts, class_name: FormDraft,
+                    foreign_key: :form_id,
+                    dependent: :destroy
   accepts_nested_attributes_for :fields
 
   validates :name, presence: true, uniqueness: true
 
   default_scope { order :name }
 
-  def new_field
-    Field.new form_id: id, number: new_field_number
+  def create_draft(user)
+    return false if draft_belonging_to(user).present?
+    draft = FormDraft.new attributes.merge(user: user, form: self)
+    draft.save
+    fields.each do |field|
+      new_field = field.dup
+      new_field.assign_attributes form: nil, form_draft: draft
+      new_field.save!
+    end
+    draft
   end
 
-  private
+  def draft_belonging_to(user)
+    drafts.find_by user_id: user.id
+  end
 
-  def new_field_number
-    fields.count + 1
+  def draft_belonging_to?(user)
+    draft_belonging_to(user).present?
   end
 end
