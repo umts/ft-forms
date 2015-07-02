@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     end
   end
 
+  # Editing options
+  resources :fields, only: [:edit, :update]
+
   resources :sessions, only: [:new] do
     collection do
       get    :dev_login
