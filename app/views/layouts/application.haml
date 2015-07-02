@@ -12,6 +12,7 @@
       #search= render partial: 'layouts/umass_search'
       - if @current_user.present?
         #links
+          = link_to 'Forms', forms_path if @current_user.staff?
           %a{href: '/sessions', data: {method: :delete}} Logout
         #current_user_name= @current_user.full_name
     #transportation_banner

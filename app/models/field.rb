@@ -20,9 +20,6 @@ class Field < ActiveRecord::Base
                                    if: -> { form.present? } }
   validates :number, uniqueness: { scope: :form_draft,
                                    if: -> { form_draft.present? } }
-  validates :options,
-            presence: true,
-            if: -> { data_type == 'options' }
   validates :required,
             inclusion: { in: [true, false],
                          message: 'must be true or false' }

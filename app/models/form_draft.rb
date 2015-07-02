@@ -47,7 +47,7 @@ class FormDraft < ActiveRecord::Base
     # Just switch them over to belonging to the form.
     form.fields.delete_all
     fields.update_all form_id: form.id, form_draft_id: nil
-    destroy
+    delete
   end
 
   private
