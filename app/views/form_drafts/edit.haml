@@ -1,15 +1,16 @@
 %h1.title Editing #{@draft.form.name}
-
 = form_for @draft do |f| 
-  %table#edit_form
+  %table#edit_draft
     %tr
-      %td{colspan: 6}
+      %td{colspan: 7}
         = f.label :name, 'Change form title:'
         = f.text_field :name, required: true, size: 50
     %tr
       %th Field text
       %th Response type
       %th Required?
+      %th Options
+      %th
       %th
       %th
       %th
@@ -21,10 +22,17 @@
         = g.hidden_field :number
         %td= g.text_area :prompt, required: !g.object.new_record?, size: '35x4'
         %td= g.select :data_type, Field::DATA_TYPES,
-          include_blank: 'Select a data type...', required: !g.object.new_record?
+            include_blank: 'Select a data type...', required: !g.object.new_record?
         %td= g.check_box :required
+        %td
+          - if g.object.data_type == 'options'
+            Options:
+            %ul
+              - g.object.options.each do |option|
+                %li= option
+            = link_to 'Configure options', edit_field_path(g.object)
         - if g.object.new_record?
-          %td{colspan: 3}
+          %td{colspan: 4}
         - else 
           %td
             - unless g.index.zero?
@@ -38,7 +46,6 @@
                                            direction: :down)
           %td= button_to 'Remove field',
             remove_field_form_draft_path(number: g.object.number)
-      
   .actions
     = f.submit 'Save changes and continue editing'
     = f.submit 'Preview changes'

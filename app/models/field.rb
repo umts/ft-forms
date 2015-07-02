@@ -12,7 +12,7 @@ class Field < ActiveRecord::Base
   validates :number,
             :prompt,
             presence: true
-  # Could have been written as
+  # Equivalent to
   # validates :form, uniqueness: { scope: :number, allow_blank: true }
   # but the point is that the number is unique respective to the form,
   # not the other way around
@@ -20,9 +20,6 @@ class Field < ActiveRecord::Base
                                    if: -> { form.present? } }
   validates :number, uniqueness: { scope: :form_draft,
                                    if: -> { form_draft.present? } }
-  validates :options,
-            presence: true,
-            if: -> { data_type == 'options' }
   validates :required,
             inclusion: { in: [true, false],
                          message: 'must be true or false' }
