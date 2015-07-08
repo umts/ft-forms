@@ -1,10 +1,10 @@
 class SessionsController < ApplicationController
   layout false
-  skip_before_action :access_control, :require_current_user
+  skip_before_action :access_control
 
   def destroy
     if Rails.env.production?
-      # redirect_to '/Shibboleth.sso/Logout?return=https://webauth.oit.umass.edu/Logout'
+      redirect_to '/Shibboleth.sso/Logout?return=https://webauth.oit.umass.edu/Logout'
     else redirect_to dev_login_sessions_url
     end
     session.clear
@@ -17,11 +17,12 @@ class SessionsController < ApplicationController
       redirect_to new_session_path and return
     else
       if request.get?
-        @staff     = User.staff.limit 5
-        @not_staff = User.not_staff.limit 5
+        @staff     = User.staff
+        @not_staff = User.not_staff
+        @new_spire = (User.pluck(:spire).map(&:to_i).last + 1).to_s.rjust 8, '0'
       elsif request.post?
         assign_user
-        redirect_to(@user.staff? ? forms_url : meet_and_greet_forms_url)
+        redirect_to meet_and_greet_forms_url
       end
     end
   end
@@ -38,8 +39,11 @@ class SessionsController < ApplicationController
   private
 
   def assign_user
-    params.require :user_id
-    @user = User.find_by(id: params[:user_id])
-    session[:user_id] = @user.id
+    if params.permit(:user_id).present?
+      @user = User.find_by(id: params[:user_id])
+      session[:user_id] = @user.id
+    elsif params.permit(:spire).present?
+      session[:spire] = params[:spire]
+    end
   end
 end
