@@ -105,6 +105,11 @@ describe SessionsController do
         submit
         expect(session[:user_id]).to eql @user.id
       end
+      it 'accepts a SPIRE also' do
+        spire = '13243546'
+        post :dev_login, spire: spire
+        expect(session[:spire]).to eql spire
+      end
       context 'not staff' do
         before :each do
           @user = create :user, :not_staff
