@@ -54,7 +54,8 @@ group :production do
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'capistrano-passenger'
-  gem 'therubyracer', platform: :ruby
+  gem 'libv8', '3.16.14.11'
+  gem 'therubyracer', '0.12.2'
 end
 
 group :test do
