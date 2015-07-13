@@ -115,7 +115,6 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.3)
-    libv8 (3.16.14.11)
     loofah (2.0.2)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -173,7 +172,6 @@ GEM
     rainbow (2.0.0)
     rake (10.4.2)
     redcarpet (3.3.2)
-    ref (2.0.0)
     rspec-core (3.3.1)
       rspec-support (~> 3.3.0)
     rspec-expectations (3.3.0)
@@ -226,9 +224,6 @@ GEM
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    therubyracer (0.12.2)
-      libv8 (~> 3.16.14.0)
-      ref
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
@@ -271,7 +266,6 @@ DEPENDENCIES
   simplecov
   snappconfig
   spring
-  therubyracer
   timecop
   uglifier
 
