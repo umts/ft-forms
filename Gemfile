@@ -54,7 +54,7 @@ group :production do
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'capistrano-passenger'
-  gem 'therubyracer'
+  gem 'therubyracer', platform: :ruby
 end
 
 group :test do
