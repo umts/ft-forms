@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   layout false
-  skip_before_action :access_control
+  skip_before_action :access_control, :set_current_user, :set_spire
 
   def destroy
     if Rails.env.production?
