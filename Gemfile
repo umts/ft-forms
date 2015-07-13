@@ -54,8 +54,8 @@ group :production do
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'capistrano-passenger'
-  gem 'libv8', '3.16.14.11'
-  gem 'therubyracer', '0.12.2'
+  # Need a JS runtime
+  gem 'therubyracer'
 end
 
 group :test do

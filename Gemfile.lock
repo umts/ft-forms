@@ -260,7 +260,6 @@ DEPENDENCIES
   jquery-rails
   jquery-timepicker-rails
   jquery-ui-rails
-  libv8 (= 3.16.14.11)
   mocha
   mysql
   pry-byebug
@@ -272,7 +271,7 @@ DEPENDENCIES
   simplecov
   snappconfig
   spring
-  therubyracer (= 0.12.2)
+  therubyracer
   timecop
   uglifier
 
