@@ -10,8 +10,7 @@ set :keep_releases, 5
 set :use_sudo, true
 
 set :linked_files, fetch(:linked_files, []).push(
-  'config/database.yml',
-  'config/application.yml'
+  'config/database.yml'
 )
 
 set :linked_dirs, fetch(:linked_dirs, []).push(

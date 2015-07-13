@@ -56,7 +56,6 @@ group :production do
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'capistrano-passenger'
-  gem 'pg'
 end
 
 group :test do
