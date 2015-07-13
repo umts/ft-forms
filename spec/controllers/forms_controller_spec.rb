@@ -102,7 +102,7 @@ describe FormsController do
       @responses = Hash['Email', 'example value']
     end
     let :submit do
-      post :submit, id: @form.id, responses: @responses
+      post :submit, id: @form.id, responses: @responses, user: @user
     end
     context 'whether staff or not' do
       [:not_staff, :staff].each do |user_type|
@@ -130,6 +130,22 @@ describe FormsController do
         context 'sending form is unsuccessful' do
           # TODO
         end
+      end
+    end
+    context 'user does not exist yet' do
+      before :each do
+        when_current_user_is nil
+        # user attributes which are used to create a user... snrk
+        @user = {
+          first_name: 'John',
+          last_name:  'Doe',
+          email:      'johndoe@test.host'
+        }
+      end
+      it 'creates a user' do
+        expect { submit }
+          .to change { User.count }
+          .by 1
       end
     end
   end

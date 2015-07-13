@@ -22,6 +22,7 @@ class FormsController < ApplicationController
   end
 
   def submit
+    create_user if @current_user.blank?
     responses = params.require :responses
     FtFormsMailer.send_form responses
     FtFormsMailer.send_confirmation responses
@@ -42,6 +43,13 @@ class FormsController < ApplicationController
   end
 
   private
+
+  def create_user
+    user_attributes = params.require(:user).permit!
+    user_attributes.merge! spire: session[:spire], staff: false
+    session[:user_id] = User.create(user_attributes).id
+    set_current_user
+  end
 
   def find_form
     @form = Form.find(params.require :id)

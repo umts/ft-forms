@@ -31,11 +31,20 @@ describe SessionsController do
           .to receive(:production?)
           .and_return true
       end
-      it 'clears the session'
+      it 'redirects to something about Shibboleth'
+      it 'clears the session' do
+        expect_any_instance_of(ActionController::TestSession)
+          .to receive :clear
+        submit
+      end
     end
   end
 
   describe 'GET #dev_login' do
+    before :each do
+      when_current_user_is nil
+      create :user # for SPIRE purposes
+    end
     let :submit do
       get :dev_login
     end
@@ -69,6 +78,7 @@ describe SessionsController do
 
   describe 'POST #dev_login' do
     before :each do
+      when_current_user_is nil
       @user = create :user
     end
     let :submit do
@@ -95,6 +105,11 @@ describe SessionsController do
         submit
         expect(session[:user_id]).to eql @user.id
       end
+      it 'accepts a SPIRE also' do
+        spire = '13243546'
+        post :dev_login, spire: spire
+        expect(session[:spire]).to eql spire
+      end
       context 'not staff' do
         before :each do
           @user = create :user, :not_staff
@@ -108,15 +123,18 @@ describe SessionsController do
         before :each do
           @user = create :user, :staff
         end
-        it 'redirects to the forms index' do
+        it 'redirects to the meet and greet form' do
           submit
-          expect(response).to redirect_to forms_url
+          expect(response).to redirect_to meet_and_greet_forms_url
         end
       end
     end
   end
 
   describe 'GET #new' do
+    before :each do
+      when_current_user_is nil
+    end
     let :submit do
       get :new
     end

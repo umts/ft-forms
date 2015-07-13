@@ -7,6 +7,15 @@
     %span.ast *
     ) are required.
   = form_tag action: :submit, id: @form.id do
+    = fields_for :user do |u|
+      .field
+        .heading Please complete the following personal information.
+        //.explanation You will be able to log in and review your form submission.
+      - [:first_name, :last_name, :email].each do |field|
+        .field
+          .label= u.label field
+          = u.text_field field, size: 50, required: true
+          %span.ast *
     = fields_for :responses do |r|
       - @form.fields.each do |field|
         - if field.heading?

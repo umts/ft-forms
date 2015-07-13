@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  root to: 'forms#meet_and_greet'
+
+  if Rails.env.development?
+    root 'sessions#dev_login'
+  else root 'forms#meet_and_greet'
+  end
 
   resources :form_drafts, except: [:create, :index] do
     member do

@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :user do
     first_name 'FirstName'
     last_name 'LastName'
+    email 'flastnam@test.host'
     staff false
     sequence :spire
 
