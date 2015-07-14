@@ -6,6 +6,8 @@ gem 'rubocop', require: false
 # I like HAML
 gem 'haml'
 gem 'haml-rails'
+# HAML linter
+gem 'haml-lint'
 # Snappconfig for configuration storage
 gem 'snappconfig'
 # Markdown parsing with Redcardpet
