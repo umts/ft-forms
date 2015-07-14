@@ -3,7 +3,7 @@ lock '3.4.0'
 
 set :application, 'ft-forms'
 set :repo_url, 'git@github.com:umts/ft-forms.git'
-set :branch, 'cap'
+set :branch, :master
 set :deploy_to, "/srv/#{fetch :application}"
 set :log_level, :info
 set :scm, :git
