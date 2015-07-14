@@ -5,7 +5,7 @@ before_script: mysql -e 'create database ftforms_test'
 script:
   - 'bundle exec rake rubocop'
   - 'bundle exec rspec spec'
-  - 'bundle exec haml-lint'
+  - 'bundle exec haml-lint app/views'
   - 'bundle exec rake db:migrate'
   - 'bundle exec rake db:seed'
 notifications:

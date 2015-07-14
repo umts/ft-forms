@@ -1,4 +1,4 @@
 linters:
-  Rubocop:
-    Rails/TimeZone:
-      Enabled: false
+  RuboCop:
+    ignored_cops:
+      - Rails/TimeZone
