@@ -37,15 +37,17 @@
           %td
             - unless g.index.zero?
               = button_to 'Move up',
-                move_field_form_draft_path(number: g.object.number,
+                move_field_form_draft_path(@draft, number: g.object.number,
                                            direction: :up)
           %td
             - unless g.object == @draft.fields.not_new.last
               = button_to 'Move down',
-                move_field_form_draft_path(number: g.object.number,
+                move_field_form_draft_path(@draft, number: g.object.number,
                                            direction: :down)
           %td= button_to 'Remove field',
-            remove_field_form_draft_path(number: g.object.number)
+            remove_field_form_draft_path(@draft, number: g.object.number)
   .actions
     = f.submit 'Save changes and continue editing'
+
+
     = f.submit 'Preview changes'

@@ -4,7 +4,7 @@ include RSpecHtmlMatchers
 describe 'fields/edit.haml' do
   before :each do
     @form_draft = create :form_draft
-    @field = create :field, form_draft: @form_draft 
+    @field = create :field, form_draft: @form_draft
   end
   it 'contains the name of the field' do
     render
