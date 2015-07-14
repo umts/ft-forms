@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 # Rubocop for extra yelling-at-us-ness
+# I don't agree with rubocop-rspec, BTW
 gem 'rubocop', require: false
 # I like HAML
 gem 'haml'
