@@ -1,7 +1,9 @@
 language: ruby
 rvm: 2.2.2
 env: CODECLIMATE_REPO_TOKEN=1db52f66a36ea0f99a5fdfccabaeb065503615fef8dbf49087f9a1e8692af3b2
-before_script: mysql -e 'create database ftforms_test'
+before_script: 
+  - cp config/database.yml.example config/database.yml
+  - mysql -e 'create database ftforms_test'
 script:
   - 'bundle exec rake travis'
   - 'bundle exec rake db:migrate'
