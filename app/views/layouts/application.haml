@@ -10,10 +10,10 @@
     #umass_banner
       #wordmark= image_tag 'wordmark.svg', height: 25
       #search= render partial: 'layouts/umass_search'
-      - if @current_user.present?
-        #links
-          = link_to 'Forms', forms_path if @current_user.staff?
-          %a{href: '/sessions', data: {method: :delete}} Logout
+      #links
+        %a{ href: '/sessions', data: { method: :delete } } Logout
+        - if @current_user.present? && @current_user.staff?
+          = link_to 'Forms', forms_path
         #current_user_name= @current_user.full_name
     #transportation_banner
       = image_tag 'trans-header-large.png'

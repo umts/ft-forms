@@ -1,10 +1,13 @@
 source 'https://rubygems.org'
 
 # Rubocop for extra yelling-at-us-ness
+# I don't agree with rubocop-rspec, BTW
 gem 'rubocop', require: false
 # I like HAML
 gem 'haml'
 gem 'haml-rails'
+# HAML linter
+gem 'haml-lint'
 # Snappconfig for configuration storage
 gem 'snappconfig'
 # Markdown parsing with Redcardpet
