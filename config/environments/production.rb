@@ -86,6 +86,6 @@ Rails.application.configure do
   # Notify us of things gone terribly, horribly wrong.
   config.middleware.use ExceptionNotification::Rack,
     email: { email_prefix: 'umts/ft-forms exception: ',
-             sender_adress: %{FT Forms <transit-it@admin.umass.edu>},
+             sender_address: %{FT Forms <transit-it@admin.umass.edu>},
              exception_recipients: %w(programmers@admin.umass.edu) }
 end
