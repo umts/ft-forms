@@ -11,8 +11,7 @@ class ApplicationController < ActionController::Base
   # '... and return' is correct here, disable rubocop warning
   # rubocop:disable Style/AndOr
   def access_control
-    redirect_to new_session_path and return if @current_user.blank?
-    deny_access and return unless @current_user.staff?
+    deny_access and return unless @current_user.present? && @current_user.staff?
   end
   # rubocop:enable Style/AndOr
 
