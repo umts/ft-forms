@@ -1,3 +1,24 @@
 require File.expand_path('../config/application', __FILE__)
+require 'rubocop/rake_task'
+require 'haml_lint/rake_task'
+require 'rspec/core/rake_task'
 
 Rails.application.load_tasks
+
+namespace :style do
+  desc 'Run Ruby style checks'
+  RuboCop::RakeTask.new
+
+  desc 'Run HAML style checks'
+  HamlLint::RakeTask.new do |t|
+    t.files = %w(app/views)
+  end
+end
+
+namespace :rspec do
+  desc 'Run RSpec'
+  RSpec::Core::RakeTask.new
+end
+
+desc 'Things that make Travis fail'
+task travis_stuff: %w(rspec:spec style:rubocop style:haml_lint)
