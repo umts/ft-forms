@@ -17,7 +17,7 @@ describe SessionsController do
       end
       it 'redirects to dev_login' do
         submit
-        expect(response).to redirect_to dev_login_sessions_path
+        expect(response).to redirect_to dev_login_path
       end
       it 'clears the session' do
         expect_any_instance_of(ActionController::TestSession)
@@ -31,7 +31,10 @@ describe SessionsController do
           .to receive(:production?)
           .and_return true
       end
-      it 'redirects to something about Shibboleth'
+      it 'redirects to something about Shibboleth' do
+        submit
+        expect(response).to redirect_to '/Shibboleth.sso/Logout?return=https://webauth.oit.umass.edu/Logout'
+      end
       it 'clears the session' do
         expect_any_instance_of(ActionController::TestSession)
           .to receive :clear
@@ -54,9 +57,10 @@ describe SessionsController do
           .to receive(:production?)
           .and_return true
       end
-      it 'redirects to new path' do
+      it 'does not allow access' do
         submit
-        expect(response).to redirect_to new_session_path
+        expect(response).to have_http_status :unauthorized
+        expect(response).not_to render_template :dev_login
       end
     end
     context 'development' do
@@ -90,9 +94,10 @@ describe SessionsController do
           .to receive(:production?)
           .and_return true
       end
-      it 'redirects to new path' do
+      it 'does not allow access' do
         submit
-        expect(response).to redirect_to new_session_path
+        expect(response).to have_http_status :unauthorized
+        expect(response).not_to redirect_to meet_and_greet_forms_url
       end
     end
     context 'development' do
@@ -131,30 +136,12 @@ describe SessionsController do
     end
   end
 
-  describe 'GET #new' do
-    before :each do
-      when_current_user_is nil
-    end
+  describe 'GET #unauthenticated' do
     let :submit do
-      get :new
+      get :unauthenticated
     end
-    context 'production' do
-      before :each do
-        expect(Rails.env)
-          .to receive(:production?)
-          .and_return true
-      end
-    end
-    context 'development' do
-      before :each do
-        expect(Rails.env)
-          .to receive(:production?)
-          .and_return false
-      end
-      it 'redirects to dev login path' do
-        submit
-        expect(response).to redirect_to dev_login_sessions_path
-      end
+    it 'renders the correct template' do
+      expect(submit).to render_template :unauthenticated
     end
   end
 end
