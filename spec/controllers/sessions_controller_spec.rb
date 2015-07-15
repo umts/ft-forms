@@ -51,32 +51,13 @@ describe SessionsController do
     let :submit do
       get :dev_login
     end
-    context 'production' do
-      before :each do
-        expect(Rails.env)
-          .to receive(:production?)
-          .and_return true
-      end
-      it 'does not allow access' do
-        submit
-        expect(response).to have_http_status :unauthorized
-        expect(response).not_to render_template :dev_login
-      end
+    it 'assigns instance variables' do
+      submit
+      expect(assigns.keys).to include 'not_staff', 'staff'
     end
-    context 'development' do
-      before :each do
-        expect(Rails.env)
-          .to receive(:production?)
-          .and_return false
-      end
-      it 'assigns instance variables' do
-        submit
-        expect(assigns.keys).to include 'not_staff', 'staff'
-      end
-      it 'renders correct template' do
-        submit
-        expect(response).to render_template 'dev_login'
-      end
+    it 'renders correct template' do
+      submit
+      expect(response).to render_template 'dev_login'
     end
   end
 
@@ -88,50 +69,31 @@ describe SessionsController do
     let :submit do
       post :dev_login, user_id: @user.id
     end
-    context 'production' do
+    it 'creates a session for the user specified' do
+      submit
+      expect(session[:user_id]).to eql @user.id
+    end
+    it 'accepts a SPIRE also' do
+      spire = '13243546'
+      post :dev_login, spire: spire
+      expect(session[:spire]).to eql spire
+    end
+    context 'not staff' do
       before :each do
-        expect(Rails.env)
-          .to receive(:production?)
-          .and_return true
+        @user = create :user, :not_staff
       end
-      it 'does not allow access' do
+      it 'redirects to the meet and greet form' do
         submit
-        expect(response).to have_http_status :unauthorized
-        expect(response).not_to redirect_to meet_and_greet_forms_url
+        expect(response).to redirect_to meet_and_greet_forms_url
       end
     end
-    context 'development' do
+    context 'staff' do
       before :each do
-        expect(Rails.env)
-          .to receive(:production?)
-          .and_return false
+        @user = create :user, :staff
       end
-      it 'creates a session for the user specified' do
+      it 'redirects to the meet and greet form' do
         submit
-        expect(session[:user_id]).to eql @user.id
-      end
-      it 'accepts a SPIRE also' do
-        spire = '13243546'
-        post :dev_login, spire: spire
-        expect(session[:spire]).to eql spire
-      end
-      context 'not staff' do
-        before :each do
-          @user = create :user, :not_staff
-        end
-        it 'redirects to the meet and greet form' do
-          submit
-          expect(response).to redirect_to meet_and_greet_forms_url
-        end
-      end
-      context 'staff' do
-        before :each do
-          @user = create :user, :staff
-        end
-        it 'redirects to the meet and greet form' do
-          submit
-          expect(response).to redirect_to meet_and_greet_forms_url
-        end
+        expect(response).to redirect_to meet_and_greet_forms_url
       end
     end
   end

@@ -10,10 +10,7 @@ class SessionsController < ApplicationController
     end
   end
 
-  # '... and return' is correct here, disable rubocop warning
-  # rubocop:disable Style/AndOr
-  def dev_login
-    deny_access and return if Rails.env.production?
+  def dev_login # route not defined in production
     if request.get?
       @staff     = User.staff
       @not_staff = User.not_staff
@@ -23,7 +20,6 @@ class SessionsController < ApplicationController
       redirect_to meet_and_greet_forms_url
     end
   end
-  # rubocop:enable Style/AndOr
 
   # Only shows if no user in database AND no SPIRE provided from Shibboleth
   def unauthenticated
