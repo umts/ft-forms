@@ -3,9 +3,7 @@ rvm: 2.2.2
 env: CODECLIMATE_REPO_TOKEN=1db52f66a36ea0f99a5fdfccabaeb065503615fef8dbf49087f9a1e8692af3b2
 before_script: mysql -e 'create database ftforms_test'
 script:
-  - 'bundle exec rake rubocop'
-  - 'bundle exec rspec spec'
-  - 'bundle exec haml-lint app/views'
+  - 'bundle exec rake travis_stuff'
   - 'bundle exec rake db:migrate'
   - 'bundle exec rake db:seed'
 notifications:
