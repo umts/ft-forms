@@ -4,35 +4,43 @@ include RSpecHtmlMatchers
 describe 'form_drafts/edit.haml' do
   before :each do
     @draft = create :form_draft
-    @top_field = create :field, form_draft: @draft
-    @field = create :field, form_draft: @draft
+    @top_field    = create :field, form_draft: @draft
+    @field        = create :field, form_draft: @draft
     @bottom_field = create :field, form_draft: @draft
   end
   it 'contains the name of the form draft' do
     render
-    expect(rendered).to have_tag 'h1', with: { class: 'title' }
+    expect(rendered).to have_tag 'h1', with: { class: 'title' } do
+      with_text(/#{@draft.form.name}/)
+    end
   end
   it 'has a form to edit the form draft' do
     render
     action_path = form_draft_path @draft
-    expect(rendered).to have_form action_path, :post
+    expect(rendered).to have_form action_path, :post do
+      with_text_field 'form_draft[name]'
+    end
   end
+  # I want these to be lined up, stop yelling at me
+  # rubocop:disable Style/SingleSpaceBeforeFirstArg
   it 'has inputs for each field' do
     render
     expect(rendered).to have_tag 'tr' do
       with_hidden_field 'form_draft[fields_attributes][0][number]'
-      with_text_area 'form_draft[fields_attributes][0][prompt]'
-      with_select 'form_draft[fields_attributes][0][data_type]'
-      with_checkbox 'form_draft[fields_attributes][0][required]'
+      with_text_area    'form_draft[fields_attributes][0][prompt]'
+      with_select       'form_draft[fields_attributes][0][data_type]'
+      with_checkbox     'form_draft[fields_attributes][0][required]'
     end
   end
+  # rubocop:enable Style/SingleSpaceBeforeFirstArg
   context 'input data type is options' do
     before :each do
       @field.update data_type: 'options', options: %w(car van)
     end
     it 'lists the current options' do
       render
-      expect(rendered).to have_tag 'li'
+      expect(rendered).to have_tag 'li', text: 'car'
+      expect(rendered).to have_tag 'li', text: 'van'
     end
     it 'allows editing of options' do
       render

@@ -6,9 +6,11 @@ describe 'fields/edit.haml' do
     @form_draft = create :form_draft
     @field = create :field, form_draft: @form_draft
   end
-  it 'contains the name of the field' do
+  it 'contains the field prompt' do
     render
-    expect(rendered).to have_tag 'h1', with: { class: 'title' }
+    expect(rendered).to have_tag 'h1', with: { class: 'title' } do
+      with_text(/#{@field.prompt}/)
+    end
   end
   it 'contains a form to edit the field options' do
     render
