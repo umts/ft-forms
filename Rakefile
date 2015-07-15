@@ -20,5 +20,5 @@ namespace :rspec do
   RSpec::Core::RakeTask.new
 end
 
-desc 'Things that make Travis fail'
-task travis_stuff: %w(rspec:spec style:rubocop style:haml_lint)
+desc 'The style and functionality check which Travis performs'
+task travis: %w(rspec:spec style:rubocop style:haml_lint)
