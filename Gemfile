@@ -1,10 +1,13 @@
 source 'https://rubygems.org'
 
 # Rubocop for extra yelling-at-us-ness
+# I don't agree with rubocop-rspec, BTW
 gem 'rubocop', require: false
 # I like HAML
 gem 'haml'
 gem 'haml-rails'
+# HAML linter
+gem 'haml-lint'
 # Snappconfig for configuration storage
 gem 'snappconfig'
 # Markdown parsing with Redcardpet
@@ -28,8 +31,6 @@ gem 'jquery-ui-rails'
 gem 'jquery-timepicker-rails'
 # jQuery date/time picker
 gem 'jquery-datetimepicker-rails'
-# serialize hashes into hidden fields
-gem 'hash_to_hidden_fields'
 
 # Spring speeds up development by keeping your application
 # running in the background.
@@ -62,4 +63,5 @@ group :test do
   gem 'simplecov'
   gem 'mocha'
   gem 'timecop'
+  gem 'rspec-html-matchers'
 end

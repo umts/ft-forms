@@ -1,4 +1,6 @@
-#form_preview_message This is a preview of your changes. This form, as shown here, is not live.
+#form_preview_message
+  This is a preview of your changes.
+  This form, as shown here, is not live.
 
 .form
   %h1.title= @draft.name
@@ -33,7 +35,7 @@
               - when 'options'
                 = r.select field.prompt,
                   options_for_select(field.options),
-                  include_blank: (field.required? ? 'Please select an option...' : true),
+                  include_blank: 'Please select an option...',
                   required: field.required?
             - if field.required
               %span.ast *

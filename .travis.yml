@@ -5,8 +5,7 @@ before_script:
   - cp config/database.yml.example config/database.yml
   - mysql -e 'create database ftforms_test'
 script:
-  - 'bundle exec rake rubocop'
-  - 'bundle exec rspec spec'
+  - 'bundle exec rake travis'
   - 'bundle exec rake db:migrate'
   - 'bundle exec rake db:seed'
 notifications:

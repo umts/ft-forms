@@ -10,7 +10,7 @@
     = fields_for :user do |u|
       .field
         .heading Please complete the following personal information.
-        //.explanation You will be able to log in and review your form submission.
+        //.explanation You will be able to log in and review your submission.
       - [:first_name, :last_name, :email].each do |field|
         .field
           .label= u.label field
@@ -42,7 +42,7 @@
               - when 'options'
                 = r.select field.prompt,
                   options_for_select(field.options),
-                  include_blank: (field.required? ? 'Please select an option...' : true),
+                  include_blank: 'Please select an option...',
                   required: field.required?
             - if field.required
               %span.ast *
