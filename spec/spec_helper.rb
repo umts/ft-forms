@@ -32,7 +32,6 @@ def when_current_user_is(user, options = {})
     when nil
       # need spire for requests but current_user should still be nil
       session[:spire] = build(:user).spire
-      request.env['fcIdNumber'] = session[:spire]
       nil
     else raise ArgumentError, 'Invalid user type'
     end
