@@ -1,6 +1,7 @@
 require 'csv'
 require 'factory_girl_rails'
 
+exit if Rails.env.test?
 # If you wish to clear your database prior to running this file,
 # you may do so by uncommenting the following:
 # =begin
