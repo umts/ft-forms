@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
   # rubocop:enable Style/AndOr
 
   def spire_exists?
-    session.key?(:spire) || request.env.key?('SPIRE_ID')
+    session.key?(:spire) || request.env.key?('fcIdNumber')
   end
 
   # '... and return' is correct here, disable rubocop warning
