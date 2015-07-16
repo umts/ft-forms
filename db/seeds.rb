@@ -2,20 +2,9 @@ require 'csv'
 require 'factory_girl_rails'
 
 exit if Rails.env.test?
-# If you wish to clear your database prior to running this file,
-# you may do so by uncommenting the following:
-# =begin
-Rails.application.eager_load!
-table_names = ActiveRecord::Base.connection.tables.select do |table_name|
-  Object.const_defined? table_name.classify
-end
-tables = table_names.map { |table_name| table_name.classify.constantize }
-tables.each(&:delete_all)
-# =end
 
 # USERS
-FactoryGirl.create :user, :staff,     first_name: 'Staff', last_name: 'Member'
-FactoryGirl.create :user, :not_staff, first_name: 'Other', last_name: 'Person'
+FactoryGirl.create :user, first_name: 'David', last_name: 'Faulkenberry', staff: true, email: 'dfaulken@umass.edu', spire: '12345678'
 
 # FORM DATA
 
