@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   # rubocop:disable Style/AndOr
   def set_spire
     if spire_exists?
-      session[:spire] ||= request.env['SPIRE_ID']
+      session[:spire] ||= request.env['fcIdNumber']
     else # something has gone terribly, awfully wrong
       logger.info 'Request:'
       logger.info request.inspect

@@ -4,7 +4,7 @@ require 'factory_girl_rails'
 exit if Rails.env.test?
 
 # USERS
-FactoryGirl.create :user, first_name: 'David', last_name: 'Faulkenberry', staff: true, email: 'dfaulken@umass.edu', spire: '12345678'
+FactoryGirl.create :user, first_name: 'David', last_name: 'Faulkenberry', staff: true, email: 'dfaulken@umass.edu', spire: '12345678@umass.edu'
 
 # FORM DATA
 
