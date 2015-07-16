@@ -24,7 +24,3 @@ Metrics/MethodLength:
   Max: 20
 Metrics/PerceivedComplexity:
   Max: 8
-
-# This doesn't even work.
-Rails/TimeZone:
-  Enabled: false
