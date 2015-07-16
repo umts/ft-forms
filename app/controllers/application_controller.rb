@@ -39,10 +39,10 @@ class ApplicationController < ActionController::Base
     if spire_exists?
       session[:spire] ||= request.env['SPIRE_ID']
     else # something has gone terribly, awfully wrong
-      logger.debug 'Request:'
-      logger.debug request.inspect
-      logger.debug 'Session:'
-      logger.debug session.inspect
+      logger.info 'Request:'
+      logger.info request.inspect
+      logger.info 'Session:'
+      logger.info session.inspect
       redirect_to unauthenticated_session_path and return
     end
   end
