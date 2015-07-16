@@ -1,8 +1,9 @@
 class ApplicationController < ActionController::Base
   attr_accessor :current_user
   protect_from_forgery with: :exception
+  before_action :set_spire
   before_action :set_current_user
-  before_action :set_spire, if: -> { @current_user.blank? }
+  before_action :redirect_unauthenticated
   before_action :access_control
   layout 'application'
 
@@ -15,10 +16,6 @@ class ApplicationController < ActionController::Base
   end
   # rubocop:enable Style/AndOr
 
-  def current_user_exists?
-    session.key?(:user_id) && User.find_by(id: session[:user_id]).present?
-  end
-
   def deny_access
     if request.xhr?
       render nothing: true, status: :unauthorized
@@ -29,16 +26,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def set_current_user
-    @current_user = User.find session[:user_id] if current_user_exists?
-  end
-
   # '... and return' is correct here, disable rubocop warning
   # rubocop:disable Style/AndOr
-  def set_spire
-    if spire_exists?
-      session[:spire] ||= request.env['fcIdNumber']
-    else # something has gone terribly, awfully wrong
+  # rubocop:disable Style/GuardClause
+  def redirect_unauthenticated
+    unless @current_user.present? || session.key?(:spire)
       logger.info 'Request:'
       logger.info request.inspect
       logger.info 'Session:'
@@ -46,10 +38,20 @@ class ApplicationController < ActionController::Base
       redirect_to unauthenticated_session_path and return
     end
   end
+  # rubocop:enable Style/GuardClause
   # rubocop:enable Style/AndOr
 
-  def spire_exists?
-    session.key?(:spire) || request.env.key?('fcIdNumber')
+  def set_current_user
+    @current_user =
+      if session.key? :user_id
+        User.find_by id: session[:user_id]
+      elsif session.key? :spire
+        User.find_by spire: session[:spire]
+      end
+  end
+
+  def set_spire
+    session[:spire] = request.env['fcIdNumber'] if request.env.key? 'fcIdNumber'
   end
 
   # '... and return' is correct here, disable rubocop warning

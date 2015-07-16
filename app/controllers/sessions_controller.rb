@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   layout false
-  skip_before_action :access_control, :set_current_user, :set_spire
+  skip_before_action :redirect_unauthenticated, :access_control
 
   def destroy
     session.clear
