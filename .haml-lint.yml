@@ -1,4 +1,0 @@
-linters:
-  RuboCop:
-    ignored_cops:
-      - Rails/TimeZone

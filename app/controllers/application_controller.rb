@@ -11,8 +11,7 @@ class ApplicationController < ActionController::Base
   # '... and return' is correct here, disable rubocop warning
   # rubocop:disable Style/AndOr
   def access_control
-    redirect_to new_session_path and return if @current_user.blank?
-    deny_access and return unless @current_user.staff?
+    deny_access and return unless @current_user.present? && @current_user.staff?
   end
   # rubocop:enable Style/AndOr
 
@@ -39,7 +38,8 @@ class ApplicationController < ActionController::Base
   def set_spire
     if spire_exists?
       session[:spire] ||= request.env['SPIRE_ID']
-    else redirect_to new_session_path and return
+    else redirect_to unauthenticated_session_path and return
+      # something has gone terribly, awfully wrong
     end
   end
   # rubocop:enable Style/AndOr
