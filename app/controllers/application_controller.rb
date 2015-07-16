@@ -38,8 +38,12 @@ class ApplicationController < ActionController::Base
   def set_spire
     if spire_exists?
       session[:spire] ||= request.env['SPIRE_ID']
-    else redirect_to unauthenticated_session_path and return
-      # something has gone terribly, awfully wrong
+    else # something has gone terribly, awfully wrong
+      logger.debug 'Request:'
+      logger.debug request.inspect
+      logger.debug 'Session:'
+      logger.debug session.inspect
+      redirect_to unauthenticated_session_path and return
     end
   end
   # rubocop:enable Style/AndOr
