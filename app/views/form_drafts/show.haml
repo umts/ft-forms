@@ -43,6 +43,6 @@
 
 .form
   .actions
-    = button_to 'Continue editing', edit_form_draft_url(@draft), method: :get
+    = button_to 'Continue editing', edit_form_draft_path(@draft), method: :get
     = button_to 'Discard changes', @draft, method: :delete
-    = button_to 'Save form', update_form_form_draft_url(@draft)
+    = button_to 'Save form', update_form_form_draft_path(@draft)

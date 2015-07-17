@@ -1,11 +1,11 @@
 class SessionsController < ApplicationController
   layout false
-  skip_before_action :access_control, :set_current_user, :set_spire
+  skip_before_action :redirect_unauthenticated, :access_control
 
   def destroy
     session.clear
     if Rails.env.production?
-      redirect_to '/Shibboleth.sso/Logout?return=https://webauth.oit.umass.edu/Logout'
+      redirect_to '/Shibboleth.sso/Logout?return=https://webauth.umass.edu/Logout'
     else redirect_to dev_login_url
     end
   end
