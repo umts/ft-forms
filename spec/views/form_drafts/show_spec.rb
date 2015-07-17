@@ -148,7 +148,6 @@ describe 'form_drafts/show.haml' do
     render
     action_path = edit_form_draft_path @draft
     expect(rendered).to have_form action_path, :get
-    # why won't this work???
   end
   it 'has a button to discard changes' do
     render
@@ -157,5 +156,9 @@ describe 'form_drafts/show.haml' do
       with_tag 'input', with: { value: 'delete' }
     end
   end
-  it 'has a button to save the form'
+  it 'has a button to save the form' do
+    render
+    action_path = update_form_form_draft_path @draft
+    expect(rendered).to have_form action_path, :post
+  end
 end
