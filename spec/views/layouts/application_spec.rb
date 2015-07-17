@@ -28,7 +28,7 @@ describe 'layouts/application.haml' do
   context 'message present in flash' do
     before :each do
       flash[:message] = 'this is totally a message'
-    end 
+    end
     it 'displays the message' do
       render
       expect(rendered).to have_tag '#message' do
