@@ -11,7 +11,7 @@ class Form < ActiveRecord::Base
 
   def create_draft(user)
     return false if draft_belonging_to(user).present?
-    draft = FormDraft.new attributes.merge(user: user, form: self)
+    draft = FormDraft.new attributes.except(:id).merge(user: user, form: self)
     draft.save
     fields.each do |field|
       new_field = field.dup
