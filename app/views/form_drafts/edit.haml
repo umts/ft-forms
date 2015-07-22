@@ -23,8 +23,7 @@
       %tr
         = g.hidden_field :number
         %td= g.text_area :prompt, required: !field.new_record?, size: '35x4'
-        %td= g.text_field :placeholder,
-          disabled: !field.takes_placeholder?
+        %td= g.text_field :placeholder if field.takes_placeholder?
         %td= g.select :data_type, Field::DATA_TYPES,
           include_blank: 'Select a data type...',
           required: !field.new_record?

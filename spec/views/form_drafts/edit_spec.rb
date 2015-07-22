@@ -118,17 +118,15 @@ describe 'form_drafts/edit.haml' do
       @heading = create :field, form_draft: @draft, data_type: 'heading'
       @explanation = create :field, form_draft: @draft, data_type: 'explanation'
     end
-    it 'disables the placeholder field' do
+    it 'does not include the placeholder field' do
       render
       heading_index = @draft.fields.index @heading
-      expect(rendered).to have_tag 'input', with: {
-        name: "form_draft[fields_attributes][#{heading_index}][placeholder]",
-        disabled: 'disabled'
+      expect(rendered).not_to have_tag 'input', with: {
+        name: "form_draft[fields_attributes][#{heading_index}][placeholder]"
       }
       expl_index = @draft.fields.index @explanation
-      expect(rendered).to have_tag 'input', with: {
-        name: "form_draft[fields_attributes][#{expl_index}][placeholder]",
-        disabled: 'disabled'
+      expect(rendered).not_to have_tag 'input', with: {
+        name: "form_draft[fields_attributes][#{expl_index}][placeholder]"
       }
     end
   end
