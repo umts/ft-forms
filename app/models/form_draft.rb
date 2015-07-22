@@ -42,7 +42,8 @@ class FormDraft < ActiveRecord::Base
   end
 
   def update_fields(field_data)
-    field_data.each do |_k, field_attributes|
+    return if field_data.blank?
+    field_data.each do |_index, field_attributes|
       field = fields.find_by number: field_attributes.fetch(:number)
       if field.present?
         field.update field_attributes
