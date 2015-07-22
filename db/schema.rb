@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150713162116) do
+ActiveRecord::Schema.define(version: 20150722171806) do
 
   create_table "fields", force: :cascade do |t|
     t.integer  "number",        limit: 4
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20150713162116) do
     t.boolean  "required"
     t.text     "options",       limit: 65535
     t.integer  "form_draft_id", limit: 4
+    t.string   "placeholder",   limit: 255
   end
 
   create_table "form_drafts", force: :cascade do |t|

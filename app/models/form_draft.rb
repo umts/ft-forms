@@ -41,6 +41,18 @@ class FormDraft < ActiveRecord::Base
     field_to_remove
   end
 
+  def update_fields(field_data)
+    field_data.each do |_k, field_attributes|
+      field = fields.find_by number: field_attributes.fetch(:number)
+      if field.present?
+        field.update field_attributes
+      else
+        field_attributes.merge! form_draft_id: id
+        Field.create field_attributes
+      end
+    end
+  end
+
   def update_form!
     form.update(attributes.except 'form_id', 'user_id')
     # Don't need to retain the fields, since the draft will be deleted.
