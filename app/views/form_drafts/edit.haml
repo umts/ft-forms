@@ -7,6 +7,7 @@
         = f.text_field :name, required: true, size: 50
     %tr
       %th Field text
+      %th Example response
       %th Response type
       %th Required?
       %th Options
@@ -15,38 +16,41 @@
       %th
       %th
     = f.fields_for :fields do |g|
-      - if g.object.new_record?
+      - field = g.object
+      - if field.new_record?
         %tr
           %td.centered{ colspan: 6 } Add new field...
       %tr
         = g.hidden_field :number
-        %td= g.text_area :prompt, required: !g.object.new_record?, size: '35x4'
+        %td= g.text_area :prompt, required: !field.new_record?, size: '35x4'
+        %td= g.text_field :placeholder,
+          disabled: !field.takes_placeholder?
         %td= g.select :data_type, Field::DATA_TYPES,
           include_blank: 'Select a data type...',
-          required: !g.object.new_record?
+          required: !field.new_record?
         %td= g.check_box :required
         %td
-          - if g.object.data_type == 'options'
+          - if field.data_type == 'options'
             Options:
             %ul
-              - g.object.options.each do |option|
+              - field.options.each do |option|
                 %li= option
-            = link_to 'Configure options', edit_field_path(g.object)
-        - if g.object.new_record?
+            = link_to 'Configure options', edit_field_path(field)
+        - if field.new_record?
           %td{ colspan: 4 }
         - else
           %td
             - unless g.index.zero?
               = button_to 'Move up',
-                move_field_form_draft_path(@draft, number: g.object.number,
+                move_field_form_draft_path(@draft, number: field.number,
                                            direction: :up)
           %td
-            - unless g.object == @draft.fields.not_new.last
+            - unless field == @draft.fields.not_new.last
               = button_to 'Move down',
-                move_field_form_draft_path(@draft, number: g.object.number,
+                move_field_form_draft_path(@draft, number: field.number,
                                            direction: :down)
           %td= button_to 'Remove field',
-            remove_field_form_draft_path(@draft, number: g.object.number)
+            remove_field_form_draft_path(@draft, number: field.number)
   .actions
     = f.submit 'Save changes and continue editing'
 

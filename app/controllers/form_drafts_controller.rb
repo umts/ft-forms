@@ -34,7 +34,9 @@ class FormDraftsController < ApplicationController
   end
 
   def update
-    @draft.update params.require(:form_draft).permit!
+    params.require(:form_draft).permit!
+    @draft.update params[:form_draft].except(:fields_attributes)
+    @draft.update_fields params[:form_draft][:fields_attributes]
     case params.require :commit
     when 'Save changes and continue editing'
       redirect_to edit_form_draft_path(@draft)

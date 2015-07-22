@@ -28,6 +28,7 @@ describe 'form_drafts/edit.haml' do
     expect(rendered).to have_tag 'tr' do
       with_hidden_field 'form_draft[fields_attributes][0][number]'
       with_text_area    'form_draft[fields_attributes][0][prompt]'
+      with_text_field   'form_draft[fields_attributes][0][placeholder]'
       with_select       'form_draft[fields_attributes][0][data_type]'
       with_checkbox     'form_draft[fields_attributes][0][required]'
     end
@@ -110,6 +111,25 @@ describe 'form_drafts/edit.haml' do
       expect(rendered).not_to have_form remove_path, :post
       expect(rendered).not_to have_form up_path, :post
       expect(rendered).not_to have_form down_path, :post
+    end
+  end
+  context 'field is a heading or an explanation' do
+    before :each do
+      @heading = create :field, form_draft: @draft, data_type: 'heading'
+      @explanation = create :field, form_draft: @draft, data_type: 'explanation'
+    end
+    it 'disables the placeholder field' do
+      render
+      heading_index = @draft.fields.index @heading
+      expect(rendered).to have_tag 'input', with: {
+        name: "form_draft[fields_attributes][#{heading_index}][placeholder]",
+        disabled: 'disabled'
+      }
+      expl_index = @draft.fields.index @explanation
+      expect(rendered).to have_tag 'input', with: {
+        name: "form_draft[fields_attributes][#{expl_index}][placeholder]",
+        disabled: 'disabled'
+      }
     end
   end
 end
