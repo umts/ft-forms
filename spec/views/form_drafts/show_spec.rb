@@ -15,9 +15,11 @@ describe 'form_drafts/show.haml' do
       with_text(/is not live/)
     end
   end
-  it 'has a form submitting to the same place as forms/show' do
+  it 'has a form submitting to submit form path, but with disabled submit' do
     render
-    expect(rendered).to have_form main_form_path, :post
+    expect(rendered).to have_form main_form_path, :post do
+      with_tag 'input', with: { type: 'submit', disabled: 'disabled' }
+    end
   end
   context 'current user is present' do
     before :each do
