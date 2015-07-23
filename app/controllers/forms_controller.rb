@@ -24,8 +24,8 @@ class FormsController < ApplicationController
   def submit
     create_user if @current_user.blank?
     responses = params.require :responses
-    FtFormsMailer.send_form responses
-    FtFormsMailer.send_confirmation responses
+    FtFormsMailer.send_form(responses).deliver_now
+    FtFormsMailer.send_confirmation(responses).deliver_now
     redirect_to thank_you_form_url
   end
 

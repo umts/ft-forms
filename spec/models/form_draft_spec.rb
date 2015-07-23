@@ -95,7 +95,41 @@ describe FormDraft do
     end
   end
 
-  describe 'update_form' do
+  describe 'update_fields' do
+    before :each do
+      @draft = create :form_draft
+      @field = create :field, form_draft: @draft
+      @new_prompt = 'A new prompt'
+      # keys don't matter, ignored in method
+      @field_data = {
+        0 => {
+          number: @field.number,
+          prompt: 'A new prompt'
+        },
+        1 => {
+          number: @field.number + 1,
+          prompt: 'A prompt',
+          data_type: 'text',
+          required: true
+        }
+      }
+    end
+    let :call do
+      @draft.update_fields @field_data
+    end
+    it 'updates existing fields' do
+      expect { call }
+        .to change { @field.reload.prompt }
+        .to @new_prompt
+    end
+    it 'creates new fields if none existing with that number' do
+      expect { call }
+        .to change { @draft.fields.count }
+        .by 1
+    end
+  end
+
+  describe 'update_form!' do
     before :each do
       @form = create :form, name: 'Form name'
       @draft = create :form_draft, form: @form, name: 'Draft name'

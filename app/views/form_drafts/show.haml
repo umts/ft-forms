@@ -9,6 +9,16 @@
     %span.ast *
     ) are required.
   = form_tag controller: :forms, action: :submit, id: @draft.form.id do
+    = fields_for :user do |u|
+      .field
+        .heading Please complete the following personal information.
+        //.explanation You will be able to log in and review your submission.
+      - [:first_name, :last_name, :email].each do |field|
+        .field
+          .label= u.label field
+          = u.text_field field, size: 50, required: true,
+            value: @current_user.try(field)
+          %span.ast *
     = fields_for :responses do |r|
       - @draft.fields.each do |field|
         - if field.heading?
@@ -21,10 +31,11 @@
             - case field.data_type
               - when 'date', 'date/time', 'text', 'time'
                 = r.text_field field.prompt, required: field.required?,
-                  class: input_class(field.data_type), size: 45
+                  placeholder: field.placeholder, size: 45,
+                  class: input_class(field.data_type)
               - when 'long-text'
                 = r.text_area field.prompt, required: field.required?,
-                  size: '36x4'
+                  placeholder: field.placeholder, size: '36x4'
               - when 'number'
                 = r.number_field field.prompt, required: field.required?
               - when 'yes/no'

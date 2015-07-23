@@ -111,15 +111,22 @@ describe FormsController do
         end
         context 'sending form is successful' do
           before :each do
+            mail = ActionMailer::MessageDelivery.new(FtFormsMailer,
+                                                     :send_form)
             expect(FtFormsMailer)
               .to receive(:send_form)
               .with(@responses)
-              .and_return true
+              .and_return mail
+            expect(mail).to receive(:deliver_now).and_return true
           end
           it 'sends the form confirmation' do
+            mail = ActionMailer::MessageDelivery.new(FtFormsMailer,
+                                                     :send_confirmation)
             expect(FtFormsMailer)
               .to receive(:send_confirmation)
               .with(@responses)
+              .and_return mail
+            expect(mail).to receive(:deliver_now).and_return true
             submit
           end
           it 'redirects to the thank you page for the form' do

@@ -39,6 +39,10 @@ class Field < ActiveRecord::Base
     data_type == 'heading'
   end
 
+  def takes_placeholder?
+    %w(date date/time long-text text time).include? data_type
+  end
+
   private
 
   # must have form or form draft. cannot have both
