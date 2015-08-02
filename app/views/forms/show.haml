@@ -38,9 +38,11 @@
                 = r.number_field field.unique_name, required: field.required?
               - when 'yes/no'
                 Yes
-                = r.radio_button field.unique_name, 'yes', required: field.required?
+                = r.radio_button field.unique_name, 'yes',
+                  required: field.required?
                 No
-                = r.radio_button field.unique_name, 'no', required: field.required?
+                = r.radio_button field.unique_name, 'no',
+                  required: field.required?
               - when 'options'
                 = r.select field.unique_name,
                   options_for_select(field.options),

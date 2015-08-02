@@ -4,7 +4,8 @@ describe FtFormsMailer do
   describe 'send_confirmation' do
     before :each do
       @user = create :user
-      @response, @prompt = 'A response', 'A prompt'
+      @response = 'A response'
+      @prompt = 'A prompt'
       @form_data = {
         'field_2'  => @response,
         'prompt_2' => @prompt
@@ -27,7 +28,8 @@ describe FtFormsMailer do
   describe 'send_form' do
     before :each do
       @form = create :form
-      @response, @prompt = 'A response', 'A prompt'
+      @response = 'A response'
+      @prompt = 'A prompt'
       @form_data = {
         'field_2'  => @response,
         'prompt_2' => @prompt
