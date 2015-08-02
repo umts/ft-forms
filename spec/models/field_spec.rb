@@ -60,4 +60,26 @@ describe Field do
       end
     end
   end
+
+  describe 'unique_prompt_name' do
+    before :each do
+      @form = create :form
+      @field = create :field, form: @form
+    end
+    it 'returns prompt followed by number' do
+      result = ['prompt', @field.number].join '_'
+      expect(@field.unique_prompt_name).to eql result
+    end
+  end
+
+  describe 'unique_name' do
+    before :each do
+      @form = create :form
+      @field = create :field, form: @form
+    end
+    it 'returns field followed by number' do
+      result = ['field', @field.number].join '_'
+      expect(@field.unique_name).to eql result
+    end
+  end
 end
