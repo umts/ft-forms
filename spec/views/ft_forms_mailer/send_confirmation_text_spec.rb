@@ -3,7 +3,7 @@ include RSpecHtmlMatchers
 
 describe 'ft_forms_mailer/send_confirmation.text.erb' do
   before :each do
-    @form_data = Hash[question1: 'answer1', email: 'my_email']
+    @form_data = { question1: 'answer1', email: 'my_email' }
   end
   it 'includes the text of the email' do
     render
