@@ -11,6 +11,9 @@ describe 'form_drafts/show.haml' do
       with_text @draft.name
     end
   end
+  # in each following test, the field created within is the only field
+  # belonging to the form draft, so the tests are a little non-specific
+  # in how they find the field.
   it 'gives headings a class of heading' do
     heading_field = create :field, form_draft: @draft, data_type: 'heading'
     render

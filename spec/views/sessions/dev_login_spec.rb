@@ -10,10 +10,11 @@ describe 'sessions/dev_login.haml' do
   end
   it 'has a button to login with a spire but no user record' do
     render
-    expect(rendered).to have_tag 'input', with: { type: 'hidden', name: 'spire' }
+    expect(rendered).to have_tag 'input', with: { name: 'spire' }
   end
   it 'has a button to login with no spire or user record'
   # this isn't different from above
-  # doesn't fail...
+  # doesn't fail... like you can totally log in, so
+  # the view doesn't work. :(
   it 'displays a button to login for each staff member'
 end

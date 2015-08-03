@@ -42,7 +42,11 @@ describe 'layouts/application.haml' do
     end
     it 'displays a list of errors' do
       render
-      expect(rendered).to include 'these', 'are', 'errors'
+      expect(rendered).to have_tag '#errors' do
+        with_tag 'li', text: 'these'
+        with_tag 'li', text: 'are'
+        with_tag 'li', text: 'errors'
+      end
     end
   end
 end
