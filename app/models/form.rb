@@ -10,13 +10,13 @@ class Form < ActiveRecord::Base
   default_scope { order :name }
 
   def create_draft(user)
-    return false if draft_belonging_to(user).present?
-    draft = FormDraft.new attributes.except(:id).merge(user: user, form: self)
-    draft.save
+    return false if draft_belonging_to?(user)
+    draft_attributes = attributes.except('id').merge user: user, form: self
+    draft = FormDraft.create draft_attributes
     fields.each do |field|
       new_field = field.dup
       new_field.assign_attributes form: nil, form_draft: draft
-      new_field.save!
+      new_field.save
     end
     draft
   end

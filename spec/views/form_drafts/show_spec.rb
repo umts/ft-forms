@@ -8,14 +8,14 @@ describe 'form_drafts/show.haml' do
   it 'contains the name of the form draft' do
     render
     expect(rendered).to have_tag 'h1', with: { class: 'title' } do
-      with_text(/#{@draft.name}/)
+      with_text @draft.name
     end
   end
   it 'gives headings a class of heading' do
     heading_field = create :field, form_draft: @draft, data_type: 'heading'
     render
     expect(rendered).to have_tag 'div', with: { class: 'heading' } do
-      with_text(/#{heading_field.prompt}/)
+      with_text heading_field.prompt
     end
   end
   it 'gives explanations a class of explanation' do
@@ -23,7 +23,7 @@ describe 'form_drafts/show.haml' do
                                        data_type: 'explanation'
     render
     expect(rendered).to have_tag 'div', with: { class: 'explanation' } do
-      with_text(/#{explanation_field.prompt}/)
+      with_text explanation_field.prompt
     end
   end
   it 'gives a label to date/time fields' do
@@ -31,7 +31,7 @@ describe 'form_drafts/show.haml' do
     render
     expect(rendered).to have_tag 'div', with: { class: 'label' } do
       with_tag 'label' do
-        with_text(/#{date_time_field.prompt}/)
+        with_text date_time_field.prompt
       end
     end
   end
@@ -45,7 +45,7 @@ describe 'form_drafts/show.haml' do
     render
     expect(rendered).to have_tag 'div', with: { class: 'label' } do
       with_tag 'label' do
-        with_text(/#{date_field.prompt}/)
+        with_text date_field.prompt
       end
     end
   end
@@ -59,7 +59,7 @@ describe 'form_drafts/show.haml' do
     render
     expect(rendered).to have_tag 'div', with: { class: 'label' } do
       with_tag 'label' do
-        with_text(/#{text_field.prompt}/)
+        with_text text_field.prompt
       end
     end
   end
@@ -73,7 +73,7 @@ describe 'form_drafts/show.haml' do
     render
     expect(rendered).to have_tag 'div', with: { class: 'label' } do
       with_tag 'label' do
-        with_text(/#{time_field.prompt}/)
+        with_text time_field.prompt
       end
     end
   end
@@ -87,7 +87,7 @@ describe 'form_drafts/show.haml' do
     render
     expect(rendered).to have_tag 'div', with: { class: 'label' } do
       with_tag 'label' do
-        with_text(/#{long_text_field.prompt}/)
+        with_text long_text_field.prompt
       end
     end
   end
@@ -101,7 +101,7 @@ describe 'form_drafts/show.haml' do
     render
     expect(rendered).to have_tag 'div', with: { class: 'label' } do
       with_tag 'label' do
-        with_text(/#{number_field.prompt}/)
+        with_text number_field.prompt
       end
     end
   end
