@@ -31,8 +31,10 @@ describe 'layouts/application.haml' do
     end
     it 'displays the message' do
       render
-      expect(rendered).to have_tag '#message' do
-        with_text(/this is totally a message/)
+      expect(rendered).to have_tag '#flash' do
+        with_tag '#message' do
+          with_text(/this is totally a message/)
+        end
       end
     end
   end
@@ -42,10 +44,12 @@ describe 'layouts/application.haml' do
     end
     it 'displays a list of errors' do
       render
-      expect(rendered).to have_tag '#errors' do
-        with_tag 'li', text: 'these'
-        with_tag 'li', text: 'are'
-        with_tag 'li', text: 'errors'
+      expect(rendered).to have_tag '#flash' do
+        with_tag '#errors' do
+          with_tag 'li', text: 'these'
+          with_tag 'li', text: 'are'
+          with_tag 'li', text: 'errors'
+        end
       end
     end
   end
