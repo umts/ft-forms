@@ -3,16 +3,18 @@ include RSpecHtmlMatchers
 
 describe 'form_drafts/show.haml' do
   before :each do
-    @draft = create :form_draft
+    @email = 'draft.email@test.host'
+    @draft = create :form_draft, email: @email
     assign :draft, @draft
   end
   let :main_form_path do
     submit_form_path @draft.form
   end
-  it 'has a form preview message' do
+  it 'has a form preview message including the email value of the draft' do
     render
     expect(rendered).to have_tag '#form_preview_message' do
       with_text(/is not live/)
+      with_text(/#{@email}/)
     end
   end
   it 'has a form submitting to submit form path, but with disabled submit' do
