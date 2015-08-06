@@ -43,6 +43,14 @@ class Field < ActiveRecord::Base
     %w(date date/time long-text text time).include? data_type
   end
 
+  def unique_prompt_name
+    "prompt_#{number}"
+  end
+
+  def unique_name
+    "field_#{number}"
+  end
+
   private
 
   # must have form or form draft. cannot have both
