@@ -5,3 +5,11 @@ table#edit_draft{
     text-align: center;
   }
 }
+#flex_wrapper{
+  display: flex;
+  align-items: flex-start;
+  .flex_col{
+    border: 1px solid black;
+    flex-direction: column;
+  }
+}

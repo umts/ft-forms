@@ -1,52 +1,48 @@
 %h1.title Editing #{@draft.form.name}
-#flex_wrapper
-  .flex_col
-    = form_for @draft do |f|
-      %table#edit_draft
-        %tr
-          %td{ colspan: 5 }
-            = f.label :name, 'Change form title:'
-            = f.text_field :name, required: true, size: 50
-        %tr
-          %th Field text
-          %th Example response
-          %th Response type
-          %th Required?
-          %th Options
-        = f.fields_for :fields do |g|
-          - field = g.object
-          - if field.new_record?
-            %tr
-              %td.centered{ colspan: 5 } Add new field...
-          .row.field
-            %tr
-              = g.hidden_field :number
-              %td= g.text_area :prompt, required: !field.new_record?, size: '35x4'
-              %td= g.text_field :placeholder if field.takes_placeholder?
-              %td= g.select :data_type, Field::DATA_TYPES,
-                include_blank: 'Select a data type...',
-                required: !field.new_record?
-              %td= g.check_box :required
-              %td
-                - if field.data_type == 'options'
-                  Options:
-                  %ul
-                    - field.options.each do |option|
-                      %li= option
-                  = link_to 'Configure options', edit_field_path(field)
+= form_for @draft do |f|
+  %table#edit_draft
+    %tr
+      %td{ colspan: 5 }
+        = f.label :name, 'Change form title:'
+        = f.text_field :name, required: true, size: 50
+    %tr
+      %th Field text
+      %tr Example response
+      %tr Response type
+      %tr Required?
+      %tr Options
+  #flex_wrapper
+    .flex_col
+      = f.fields_for :fields do |g|
+        - field = g.object
+        - if field.new_record?
+          .centered{ colspan: 5 } Add new field...
+        .row.field
+          = g.hidden_field :number
+          = g.text_area :prompt, required: !field.new_record?, size: '35x4'
+          = g.text_field :placeholder if field.takes_placeholder?
+          = g.select :data_type, Field::DATA_TYPES,
+            include_blank: 'Select a data type...',
+            required: !field.new_record?
+          = g.check_box :required
+          - if field.data_type == 'options'
+            - field.options.each do |option|
+              = option
+              = link_to 'Configure options', edit_field_path(field)
       .actions
         = f.submit 'Save changes and continue editing'
         = f.submit 'Preview changes'
-  .flex_col
-    - @draft.fields.each do |field|
-      .row.buttons
-        - unless @draft.fields.index(field).zero?
-          = button_to 'Move up',
-            move_field_form_draft_path(@draft, number: field.number,
-                                       direction: :up)
-        - unless field == @draft.fields.not_new.last
-          = button_to 'Move down',
-            move_field_form_draft_path(@draft, number: field.number,
-                                       direction: :down)
-        = button_to 'Remove field',
-          remove_field_form_draft_path(@draft, number: field.number)
+    .flex_col
+      - @draft.fields.each do |field|
+        - unless field.new_record?
+          .row.buttons
+            - unless @draft.fields.index(field).zero?
+              = button_to 'Move up',
+                move_field_form_draft_path(@draft, number: field.number,
+                                           direction: :up)
+            - unless field == @draft.fields.not_new.last
+              = button_to 'Move down',
+                move_field_form_draft_path(@draft, number: field.number,
+                                           direction: :down)
+            = button_to 'Remove field',
+              remove_field_form_draft_path(@draft, number: field.number)
