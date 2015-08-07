@@ -67,7 +67,7 @@ describe Form do
     it 'returns false if a draft exists for the user in question' do
       expect(call).to eql false
     end
-    it 'returns false if a draft does not exist for the user in question' do
+    it 'returns true if a draft does not exist for the user in question' do
       create :form_draft, user: @user, form: @form
       expect(call).to eql true
     end
