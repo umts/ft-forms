@@ -6,6 +6,10 @@
         = f.label :name, 'Change form title:'
         = f.text_field :name, required: true, size: 50
     %tr
+      %td{ colspan: 7 }
+        = f.label :email, 'Change form email destination:'
+        = f.text_field :email, required: true, size: 50
+    %tr
       %th Field text
       %th Example response
       %th Response type

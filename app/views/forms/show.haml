@@ -28,24 +28,27 @@
             .label= r.label field.prompt
             - case field.data_type
               - when 'date', 'date/time', 'text', 'time'
-                = r.text_field field.prompt, required: field.required?,
+                = r.text_field field.unique_name, required: field.required?,
                   placeholder: field.placeholder, size: 45,
                   class: input_class(field.data_type)
               - when 'long-text'
-                = r.text_area field.prompt, required: field.required?,
+                = r.text_area field.unique_name, required: field.required?,
                   placeholder: field.placeholder, size: '36x4'
               - when 'number'
-                = r.number_field field.prompt, required: field.required?
+                = r.number_field field.unique_name, required: field.required?
               - when 'yes/no'
                 Yes
-                = r.radio_button field.prompt, 'yes', required: field.required?
+                = r.radio_button field.unique_name, 'yes',
+                  required: field.required?
                 No
-                = r.radio_button field.prompt, 'no', required: field.required?
+                = r.radio_button field.unique_name, 'no',
+                  required: field.required?
               - when 'options'
-                = r.select field.prompt,
+                = r.select field.unique_name,
                   options_for_select(field.options),
                   include_blank: 'Please select an option...',
                   required: field.required?
             - if field.required
               %span.ast *
+            = r.hidden_field field.unique_prompt_name, value: field.prompt
     .actions= submit_tag 'Submit request', disabled: !@submit
