@@ -22,10 +22,10 @@ class FormsController < ApplicationController
   end
 
   def submit
-    create_user if @current_user.blank?
-    responses = params.require :responses
-    FtFormsMailer.send_form(responses).deliver_now
-    FtFormsMailer.send_confirmation(responses).deliver_now
+    user = @current_user || create_user
+    data = params.require :responses
+    FtFormsMailer.send_form(@form, data).deliver_now
+    FtFormsMailer.send_confirmation(user, data).deliver_now
     redirect_to thank_you_form_url
   end
 
@@ -47,8 +47,10 @@ class FormsController < ApplicationController
   def create_user
     user_attributes = params.require(:user).permit!
     user_attributes.merge! spire: session[:spire], staff: false
-    session[:user_id] = User.create(user_attributes).id
+    user = User.create(user_attributes)
+    session[:user_id] = user.id
     set_current_user
+    user
   end
 
   def find_form

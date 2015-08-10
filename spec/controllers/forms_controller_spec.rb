@@ -99,7 +99,11 @@ describe FormsController do
   describe 'POST #submit' do
     before :each do
       @form = create :form
-      @responses = Hash['Email', 'example value']
+      @field = create :field, form: @form
+      @responses = {
+        @field.unique_name        => 'A response',
+        @field.unique_prompt_name => @field.prompt
+      }
     end
     let :submit do
       post :submit, id: @form.id, responses: @responses, user: @user
@@ -107,7 +111,8 @@ describe FormsController do
     context 'whether staff or not' do
       [:not_staff, :staff].each do |user_type|
         before :each do
-          when_current_user_is user_type
+          @current_user = create :user, user_type
+          when_current_user_is @current_user
         end
         context 'sending form is successful' do
           before :each do
@@ -115,7 +120,7 @@ describe FormsController do
                                                      :send_form)
             expect(FtFormsMailer)
               .to receive(:send_form)
-              .with(@responses)
+              .with(@form, @responses)
               .and_return mail
             expect(mail).to receive(:deliver_now).and_return true
           end
@@ -124,7 +129,7 @@ describe FormsController do
                                                      :send_confirmation)
             expect(FtFormsMailer)
               .to receive(:send_confirmation)
-              .with(@responses)
+              .with(@current_user, @responses)
               .and_return mail
             expect(mail).to receive(:deliver_now).and_return true
             submit

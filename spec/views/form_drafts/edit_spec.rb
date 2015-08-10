@@ -19,6 +19,7 @@ describe 'form_drafts/edit.haml' do
     action_path = form_draft_path @draft
     expect(rendered).to have_form action_path, :post do
       with_text_field 'form_draft[name]'
+      with_text_field 'form_draft[email]'
     end
   end
   # I want these to be lined up, stop yelling at me
