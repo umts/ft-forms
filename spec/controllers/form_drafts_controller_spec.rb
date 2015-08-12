@@ -266,6 +266,11 @@ describe FormDraftsController do
             .to change { @draft.reload.name }
             .to 'a new name'
         end
+        it 'reloads the draft' do
+          expect_any_instance_of(FormDraft)
+            .to receive(:reload)
+          submit
+        end
         it 'redirects to the edit path for the draft' do
           submit
           expect(response).to redirect_to edit_form_draft_path(@draft)
