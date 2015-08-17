@@ -29,7 +29,7 @@
           .explanation= field.prompt
         - else
           .field
-            .label= r.label field.prompt
+            .label= r.label field.prompt, field.prompt
             - case field.data_type
               - when 'date', 'date/time', 'text', 'time'
                 = r.text_field field.prompt, required: field.required?,

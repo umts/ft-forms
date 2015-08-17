@@ -85,6 +85,17 @@ describe 'form_drafts/show.haml' do
       end
     end
   end
+  it 'maintains non-humanized field prompts in labels' do
+    create :field, form_draft: @draft,
+                   data_type: 'text',
+                   prompt: 'A Thing'
+    render
+    expect(rendered).to have_tag 'div', with: { class: 'label' } do
+      with_tag 'label' do
+        with_text 'A Thing'
+      end
+    end
+  end
   it 'makes a text field from a field of type text' do
     create :field, form_draft: @draft, data_type: 'text'
     render
