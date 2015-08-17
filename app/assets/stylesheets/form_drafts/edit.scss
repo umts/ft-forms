@@ -1,15 +1,51 @@
-table#edit_draft{
-  margin: 1em auto;
-  th, td{
-    padding: 0.5em 0.25em;
-    text-align: center;
+html {
+  box-sizing: border-box;
+}
+* {
+  box-sizing: inherit; 
+}
+#top_flex_wrapper{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .form-config{
+    flex: 1;
+    margin-bottom: 2em;
   }
 }
 #flex_wrapper{
   display: flex;
   align-items: flex-start;
-  .flex_col{
-    border: 1px solid black;
+  .column1{
+    list-style-type: none;
     flex-direction: column;
+    flex: 3;
+    .field_row.headers{
+      height: 2em;
+    }
+    .field_row{
+      display: flex;
+      height: 6em;;
+      .field_attribute.prompt{
+        flex: 2;
+      }
+      .field_attribute{
+        flex: 1;
+      }
+    }
+  }
+  .column2{
+    flex-direction: column;
+    flex: 1;
+    .button_row{
+      flex: 1;
+      height: 6em;;
+    }
+    .button_row.headers{
+      height: 1em;
+    }
   }
 }
+  
+  
+  
