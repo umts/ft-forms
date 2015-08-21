@@ -55,7 +55,7 @@ class FormDraft < ActiveRecord::Base
   end
 
   def update_form!
-    form.update(attributes.except 'form_id', 'user_id')
+    form.update(attributes.except 'form_id', 'user_id', 'id')
     # Don't need to retain the fields, since the draft will be deleted.
     # Just switch them over to belonging to the form.
     form.fields.delete_all

@@ -4,10 +4,26 @@ html {
 * {
   box-sizing: inherit; 
 }
-#top_flex_wrapper{
+
+#flex_wrapper{
   display: flex;
-  align-items: center;
-  flex-direction: column;
+  .form_column{
+    border: 1px solid black;
+    flex-direction: column;
+    flex: 3;
+    .field_row{
+      height: 6em;
+      border: 1px solid red;
+    }
+  }
+  .button_column{
+    border: 1px solid blue;
+    flex-direction: column;
+  }
+}
+
+
+/* 
   .form-config{
     flex: 1;
     margin-bottom: 2em;
@@ -44,8 +60,7 @@ html {
     .button_row.headers{
       height: 1em;
     }
-  }
-}
+  } */
   
   
   
