@@ -66,6 +66,6 @@ class FormDraft < ActiveRecord::Base
   private
 
   def new_field_number
-    fields.count + 1
+    fields.last.try(:number).try(:+, 1) || 1
   end
 end
