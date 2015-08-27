@@ -7,7 +7,8 @@ class FtFormsMailer < ActionMailer::Base
     @form_data = parse_form_data(data)
     # TODO: configure email from form
     mail to: user.email,
-         subject: 'Meet & Greet Request Confirmation'
+         subject: 'Meet & Greet Request Confirmation',
+         reply_to: 'fieldtrip@umass.edu'
   end
 
   def send_form(form, data)

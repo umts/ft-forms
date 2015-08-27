@@ -17,6 +17,9 @@ describe FtFormsMailer do
     it 'sends to the email of the user' do
       expect(output.to).to eql Array(@user.email)
     end
+    it 'has a reply-to of fieldtrip@umass.edu' do
+      expect(output.reply_to).to eql Array('fieldtrip@umass.edu')
+    end
     it 'has a subject of Meet & Greet Request Confirmation' do
       expect(output.subject).to eql 'Meet & Greet Request Confirmation'
     end
