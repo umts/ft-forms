@@ -27,11 +27,14 @@ describe 'form_drafts/edit.haml' do
   it 'has inputs for each field' do
     render
     expect(rendered).to have_tag 'tr' do
-      with_hidden_field 'form_draft[fields_attributes][0][number]'
-      with_text_area    'form_draft[fields_attributes][0][prompt]'
-      with_text_field   'form_draft[fields_attributes][0][placeholder]'
-      with_select       'form_draft[fields_attributes][0][data_type]'
-      with_checkbox     'form_draft[fields_attributes][0][required]'
+      (0...@draft.fields.count).each do |index|
+        base_tag_name = "form_draft[fields_attributes][#{index}]"
+        with_hidden_field "#{base_tag_name}[number]"
+        with_text_area    "#{base_tag_name}[prompt]"
+        with_text_field   "#{base_tag_name}[placeholder]"
+        with_select       "#{base_tag_name}[data_type]"
+        with_checkbox     "#{base_tag_name}[required]"
+      end
     end
   end
   # rubocop:enable Style/SingleSpaceBeforeFirstArg

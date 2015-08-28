@@ -9,6 +9,10 @@ describe 'ft_forms_mailer/send_confirmation.text.erb' do
     render
     expect(rendered).to include 'UMass Transit Meet & Greet Service'
   end
+  it 'includes a note about not replying to transit-it' do
+    render
+    expect(rendered).to include 'Please do not reply to this email'
+  end
   it 'includes the form data of the request' do
     render
     expect(rendered).to include 'question1: answer1',
