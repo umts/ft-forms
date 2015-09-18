@@ -8,8 +8,8 @@
       .form-config
         = f.label :email, 'Change form email destination:'
         = f.text_field :email, required: true, size: 50
-      .field-row
-        .field_attribute
+      .header_row
+        .field_attribute_header1
           Field text
         .field_attribute
           Example response
@@ -19,14 +19,14 @@
           Required?
         .field_attribute
           Options
+      .fields_column
         = f.fields_for :fields do |g|
           - field = g.object
           - if field.new_record?
             .centered{ colspan: 5 } Add new field...
-          .field-row
-            .field_attribute
-              = g.hidden_field :number
-            .field_attribute
+          .field_row
+            = g.hidden_field :number
+            .field_attribute_1
               = g.text_area :prompt, required: !field.new_record?, size: '35x4'
             .field_attribute
               = g.text_field :placeholder if field.takes_placeholder?
@@ -45,7 +45,6 @@
           = f.submit 'Save changes and continue editing'
           = f.submit 'Preview changes'
   .button_column
-    .button_row.headers
     - @draft.fields.each do |field|
       - unless field.new_record?
         .button_row

@@ -22,22 +22,29 @@ describe 'form_drafts/edit.haml' do
       with_text_field 'form_draft[email]'
     end
   end
-  # I want these to be lined up, stop yelling at me
-  # rubocop:disable Style/SingleSpaceBeforeFirstArg
   it 'has inputs for each field' do
     render
-    expect(rendered).to have_tag 'tr' do
+    expect(rendered).to have_tag 'input' do
       (0...@draft.fields.count).each do |index|
         base_tag_name = "form_draft[fields_attributes][#{index}]"
         with_hidden_field "#{base_tag_name}[number]"
-        with_text_area    "#{base_tag_name}[prompt]"
-        with_text_field   "#{base_tag_name}[placeholder]"
-        with_select       "#{base_tag_name}[data_type]"
-        with_checkbox     "#{base_tag_name}[required]"
+        with_text_field "#{base_tag_name}[placeholder]"
+        with_checkbox "#{base_tag_name}[required]"
+      end
+    end
+    expect(rendered).to have_tag 'textarea' do
+      (0...@draft.fields.count).each do |index|
+        base_tag_name = "form_draft[fields_attributes][#{index}]"
+        with_text_area "#{base_tag_name}[prompt]"
+      end
+    end
+    expect(rendered).to have_tag 'select' do
+      (0...@draft.fields.count).each do |index|
+        base_tag_name = "form_draft[fields_attributes][#{index}]"
+        with_select "#{base_tag_name}[data_type]"
       end
     end
   end
-  # rubocop:enable Style/SingleSpaceBeforeFirstArg
   context 'input data type is options' do
     before :each do
       @field.update data_type: 'options', options: %w(car van)
