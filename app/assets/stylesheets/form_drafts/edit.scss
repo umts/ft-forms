@@ -4,48 +4,54 @@ html {
 * {
   box-sizing: inherit; 
 }
-#top_flex_wrapper{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  .form-config{
-    flex: 1;
-    margin-bottom: 2em;
-  }
-}
+
 #flex_wrapper{
-  display: flex;
-  align-items: flex-start;
-  .column1{
+  display:flex;
+  .form_column{ /*total height 8em */
+    flex:3;
     list-style-type: none;
-    flex-direction: column;
-    flex: 3;
-    .field_row.headers{
-      height: 2em;
+    .form-config{
+      padding: .5em;
+      height:2em;
+      margin-bottom: 2em;
     }
-    .field_row{
-      display: flex;
-      height: 6em;;
-      .field_attribute.prompt{
-        flex: 2;
-      }
+    .header_row{
+      padding: .5em;
+      display:flex;
+      height:2em; /*total height 2em*/
       .field_attribute{
-        flex: 1;
+        flex:1;
+      }
+      .field_attribute_header1{
+        flex:3;
+      }
+    }
+    .fields_column{
+      display:flex;
+      flex-direction:column;
+      .field_row{
+        height:5em;
+        display: flex;
+        border-bottom:1px solid black;
+        .field_attribute_1{
+          padding: .5em;
+          flex:3;
+        }
+        .field_attribute{
+          padding: .5em;
+          flex:1;
+        }
       }
     }
   }
-  .column2{
+  .button_column{
+    margin-top:10em; /*total em heights from above added together*/
+    display: flex;
     flex-direction: column;
-    flex: 1;
     .button_row{
-      flex: 1;
-      height: 6em;;
-    }
-    .button_row.headers{
-      height: 1em;
+      padding: .5em;
+      border-bottom: 1px solid black;
+      height:5em;
     }
   }
 }
-  
-  
-  

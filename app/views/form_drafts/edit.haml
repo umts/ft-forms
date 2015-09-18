@@ -1,51 +1,50 @@
 %h1.title Editing #{@draft.form.name}
-#top_flex_wrapper
-  = form_for @draft do |f|
-  .form-config
-    = f.label :name, 'Change form title:'
-    = f.text_field :name, required: true, size: 50
-  .form-config
-    = f.label :email, 'Change form email destination:'
-    = f.text_field :email, required: true, size: 50
 #flex_wrapper
-  .column1
-    .field_row.headers
-      .field_attribute.prompt
-        Field text
-      .field_attribute.prompt
-        Example response
-      .field_attribute
-        Response type
-      .field_attribute
-        Required?
-      .field_attribute
-        Options
-    = f.fields_for :fields do |g|
-      - field = g.object
-      - if field.new_record?
-        .centered{ colspan: 5 } Add new field...
-      .field_row
-        = g.hidden_field :number
-        .field_attribute.prompt
-          = g.text_area :prompt, required: !field.new_record?, size: '35x4'
-        .field_attribute.prompt
-          = g.text_field :placeholder if field.takes_placeholder?
+  .form_column
+    = form_for @draft do |f|
+      .form-config
+        = f.label :name, 'Change form title:'
+        = f.text_field :name, required: true, size: 50
+      .form-config
+        = f.label :email, 'Change form email destination:'
+        = f.text_field :email, required: true, size: 50
+      .header_row
+        .field_attribute_header1
+          Field text
         .field_attribute
-          = g.select :data_type, Field::DATA_TYPES,
-            include_blank: 'Select a data type...',
-            required: !field.new_record?
+          Example response
         .field_attribute
-          = g.check_box :required
+          Response type
         .field_attribute
-          - if field.data_type == 'options'
-            - field.options.each do |option|
-              %li= option
-            %li= link_to 'Configure options', edit_field_path(field)
-    .actions
-      = f.submit 'Save changes and continue editing'
-      = f.submit 'Preview changes'
-  .column2
-    .button_row.headers
+          Required?
+        .field_attribute
+          Options
+      .fields_column
+        = f.fields_for :fields do |g|
+          - field = g.object
+          - if field.new_record?
+            .centered{ colspan: 5 } Add new field...
+          .field_row
+            = g.hidden_field :number
+            .field_attribute_1
+              = g.text_area :prompt, required: !field.new_record?, size: '35x4'
+            .field_attribute
+              = g.text_field :placeholder if field.takes_placeholder?
+            .field_attribute
+              = g.select :data_type, Field::DATA_TYPES,
+                include_blank: 'Select a data type...',
+                required: !field.new_record?
+            .field_attribute
+              = g.check_box :required
+            .field_attribute
+              - if field.data_type == 'options'
+                - field.options.each do |option|
+                  %li= option
+                %li= link_to 'Configure options', edit_field_path(field)
+        .actions
+          = f.submit 'Save changes and continue editing'
+          = f.submit 'Preview changes'
+  .button_column
     - @draft.fields.each do |field|
       - unless field.new_record?
         .button_row
