@@ -3,6 +3,7 @@ include RSpecHtmlMatchers
 
 describe 'form_drafts/show.haml' do
   before :each do
+    @draft = create :form_draft
     @email = 'draft.email@test.host'
     @draft = create :form_draft, email: @email
     assign :draft, @draft
