@@ -19,6 +19,7 @@ module ApplicationHelper
     responses = []
     data.each do |k, v|
       data_type, number = k.split '_'
+      binding.pry
       case data_type
       when 'field'
         responses[number.to_i] = v
