@@ -12,7 +12,7 @@
  *
  *= require jquery-ui
  *= require jquery.timepicker
- *= require jquery.datetimepicker
+ *= require datetimepicker
  *= require_tree .
  *= require_self
  */

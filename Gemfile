@@ -5,7 +5,6 @@ gem 'factory_girl_rails'
 gem 'haml'
 gem 'haml-lint'
 gem 'haml-rails'
-gem 'jquery-datetimepicker-rails'
 gem 'jquery-rails'
 gem 'jquery-timepicker-rails'
 gem 'jquery-ui-rails'
@@ -16,6 +15,10 @@ gem 'rubocop'
 gem 'sass-rails'
 gem 'snappconfig'
 gem 'uglifier'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-datetimepicker'
+end
 
 group :production do
   gem 'exception_notification'
