@@ -13,6 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require jquery.datetimepicker
+//= require datetimepicker
 //= require jquery.timepicker
 //= require_tree .
