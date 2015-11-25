@@ -25,15 +25,10 @@ module ApplicationHelper
       when 'prompt'
         prompts[number.to_i] = v
       when 'header'
-        # okay at this point it's different what do
-        # upcase? this method just returns an array of
-        # undifferentiated strings. must do something else.
-        # Perhaps an array of arrays much like in jobapps,
-        # and then I can do something to an array that contains
-        # a header.. but before it becomes just another string.
         prompts[number.to_i] = v
+        responses[number.to_i] = :heading
       end
     end
-    prompts.compact.zip responses.compact
+    prompts.compact.zip(responses.compact)
   end
 end

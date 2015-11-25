@@ -3,8 +3,11 @@ Hello,
 A new Meet & Greet request has been received:
 
 <% @form_data.each do |prompt, response| %>
-  <% # <% if prompt.data_type=='heading' %>
-    <% # <strong><%=prompt poops </strong> %>
-  <% # end %>
-  <%= prompt %>: <%= response %>
+  <% if response == :heading %>
+
+    <%= prompt.upcase %>
+    <%= '=' * prompt.length %>
+  <% else %>
+    <%= prompt %>: <%= response %>
+  <% end %>
 <% end %>
