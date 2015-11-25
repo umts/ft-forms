@@ -15,4 +15,25 @@ describe ApplicationHelper do
       expect(input_class 'time').to eql 'timepicker'
     end
   end
+
+  describe 'parse_form_data' do
+    before :each do
+      # form data sent from view to controller
+      @data = { 'prompt_1' => 'prompt value', 'field_1' => 'field value',
+                'prompt_2' => 'prompt value 2', 'field_2' => 'field value 2',
+                'header_3' => 'header value',
+                'prompt_4' => 'prompt value 4', 'field_4' => 'field value 4' }
+    end
+    let :call do
+      helper.parse_form_data(@data)
+    end
+    it 'returns an array of prompt and field pairs' do
+      expect(call[0]).to eql ['prompt value', 'field value']
+      expect(call[1]).to eql ['prompt value 2', 'field value 2']
+      expect(call[3]).to eql ['prompt value 4', 'field value 4']
+    end
+    it 'assigns :heading as the value of a key containing header' do
+      expect(call[2][1]).to eql :heading
+    end
+  end
 end
