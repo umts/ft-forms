@@ -24,6 +24,14 @@ module ApplicationHelper
         responses[number.to_i] = v
       when 'prompt'
         prompts[number.to_i] = v
+      when 'header'
+        # okay at this point it's different what do
+        # upcase? this method just returns an array of
+        # undifferentiated strings. must do something else.
+        # Perhaps an array of arrays much like in jobapps,
+        # and then I can do something to an array that contains
+        # a header.. but before it becomes just another string.
+        prompts[number.to_i] = v
       end
     end
     prompts.compact.zip responses.compact

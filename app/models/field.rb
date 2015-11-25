@@ -51,6 +51,10 @@ class Field < ActiveRecord::Base
     "field_#{number}"
   end
 
+  def unique_header_name
+    "header_#{number}"
+  end
+
   private
 
   # must have form or form draft. cannot have both

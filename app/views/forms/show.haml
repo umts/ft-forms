@@ -21,8 +21,12 @@
       - @form.fields.each do |field|
         - if field.heading?
           .heading= field.prompt
+          = r.hidden_field field.unique_header_name, value: field.prompt
+          = r.hidden_field field.unique_name, value: ""
         - elsif field.explanation?
           .explanation= field.prompt
+          = r.hidden_field field.unique_header_name, value: field.prompt
+          = r.hidden_field field.unique_name, value: ""
         - else
           .field
             .label= r.label field.prompt
