@@ -24,7 +24,7 @@ module ApplicationHelper
         responses[number.to_i] = v
       when 'prompt'
         prompts[number.to_i] = v
-      when 'header'
+      when 'heading'
         prompts[number.to_i] = v
         responses[number.to_i] = :heading
       end
