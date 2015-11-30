@@ -48,7 +48,7 @@ class Field < ActiveRecord::Base
   end
 
   def unique_heading_name
-    "header_#{number}"
+    "heading_#{number}"
   end
 
   def unique_prompt_name
