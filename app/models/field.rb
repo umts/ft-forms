@@ -47,7 +47,7 @@ class Field < ActiveRecord::Base
     "field_#{number}"
   end
 
-  def unique_header_name
+  def unique_heading_name
     "header_#{number}"
   end
 
