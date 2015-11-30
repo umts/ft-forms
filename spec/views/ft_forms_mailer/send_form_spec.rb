@@ -4,7 +4,7 @@ include RSpecHtmlMatchers
 describe 'ft_forms_mailer/send_form.text.erb' do
   before :each do
     @form_data = [['a question', 'an answer'],
-                  ['a header', :heading],
+                  ['a heading', :heading],
                   %w(email my_email)]
   end
   it 'includes the text of the email' do
@@ -16,8 +16,8 @@ describe 'ft_forms_mailer/send_form.text.erb' do
     expect(rendered).to include 'a question: an answer'
     'email: my_email'
   end
-  it 'only displays the header and not the associated :heading' do
+  it 'only displays the heading and not the associated :heading' do
     render
-    expect(rendered).not_to include 'a header: heading'
+    expect(rendered).not_to include 'a heading: heading'
   end
 end
