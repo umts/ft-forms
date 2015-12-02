@@ -21,6 +21,7 @@
       - @form.fields.each do |field|
         - if field.heading?
           .heading= field.prompt
+          = r.hidden_field field.unique_heading_name, value: field.prompt
         - elsif field.explanation?
           .explanation= field.prompt
         - else

@@ -55,6 +55,17 @@ describe Field do
     end
   end
 
+  describe 'unique_name' do
+    before :each do
+      @form = create :form
+      @field = create :field, form: @form
+    end
+    it 'returns field followed by number' do
+      result = ['field', @field.number].join '_'
+      expect(@field.unique_name).to eql result
+    end
+  end
+
   describe 'unique_prompt_name' do
     before :each do
       @form = create :form
@@ -66,14 +77,14 @@ describe Field do
     end
   end
 
-  describe 'unique_name' do
+  describe 'unique_heading_name' do
     before :each do
       @form = create :form
       @field = create :field, form: @form
     end
-    it 'returns field followed by number' do
-      result = ['field', @field.number].join '_'
-      expect(@field.unique_name).to eql result
+    it 'returns heading followed by number' do
+      result = ['heading', @field.number].join '_'
+      expect(@field.unique_heading_name).to eql result
     end
   end
 

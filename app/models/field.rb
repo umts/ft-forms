@@ -43,12 +43,16 @@ class Field < ActiveRecord::Base
     %w(date date/time long-text text time).include? data_type
   end
 
-  def unique_prompt_name
-    "prompt_#{number}"
-  end
-
   def unique_name
     "field_#{number}"
+  end
+
+  def unique_heading_name
+    "heading_#{number}"
+  end
+
+  def unique_prompt_name
+    "prompt_#{number}"
   end
 
   private

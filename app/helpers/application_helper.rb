@@ -24,8 +24,11 @@ module ApplicationHelper
         responses[number.to_i] = v
       when 'prompt'
         prompts[number.to_i] = v
+      when 'heading'
+        prompts[number.to_i] = v
+        responses[number.to_i] = :heading
       end
     end
-    prompts.compact.zip responses.compact
+    prompts.compact.zip(responses.compact)
   end
 end
