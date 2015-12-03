@@ -270,7 +270,7 @@ DEPENDENCIES
   mocha
   mysql
   pry-byebug
-  rails (~> 4)
+  rails (~> 4.2)
   rails-assets-datetimepicker!
   redcarpet
   rspec-html-matchers
