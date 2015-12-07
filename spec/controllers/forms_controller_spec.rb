@@ -106,7 +106,8 @@ describe FormsController do
       }
     end
     let :submit do
-      post :submit, id: @form.id, responses: @responses, user: @user
+      post :submit, id: @form.id, responses: @responses,
+                    user: @user, reply_to: @form.reply_to
     end
     context 'whether staff or not' do
       [:not_staff, :staff].each do |user_type|
@@ -129,7 +130,7 @@ describe FormsController do
                                                      :send_confirmation)
             expect(FtFormsMailer)
               .to receive(:send_confirmation)
-              .with(@current_user, @responses)
+              .with(@current_user, @responses, @form.reply_to)
               .and_return mail
             expect(mail).to receive(:deliver_now).and_return true
             submit

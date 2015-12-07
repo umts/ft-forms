@@ -3,7 +3,7 @@ class FormDraft < ActiveRecord::Base
   belongs_to :user
   has_many :fields, dependent: :destroy
   accepts_nested_attributes_for :fields
-  validates :form, :name, :reply_to, presence: true
+  validates :form, :name, presence: true
   # One user can only have one draft per form
   validates :form, uniqueness: { scope: :user_id }
 

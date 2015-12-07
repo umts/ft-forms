@@ -6,13 +6,14 @@ describe FtFormsMailer do
       @user = create :user
       @response = 'A response'
       @prompt = 'A prompt'
+      @reply_to = 'fieldtrip@umass.edu'
       @form_data = {
         'field_2'  => @response,
         'prompt_2' => @prompt
       }
     end
     let :output do
-      FtFormsMailer.send_confirmation @user, @form_data
+      FtFormsMailer.send_confirmation @user, @form_data, @reply_to
     end
     it 'sends to the email of the user' do
       expect(output.to).to eql Array(@user.email)
