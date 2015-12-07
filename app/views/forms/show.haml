@@ -2,12 +2,12 @@
 / please reflect them at form_drafts/show.
 .form
   %h1.title= @form.name
-  = hidden_field @form, @form.reply_to
   %strong
     Fields marked with an asterisk (
     %span.ast *
     ) are required.
   = form_tag action: :submit, id: @form.id do
+    = hidden_field_tag 'reply_to', @form.reply_to
     = fields_for :user do |u|
       .field
         .heading Please complete the following personal information.
