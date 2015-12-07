@@ -6,6 +6,7 @@ class Form < ActiveRecord::Base
   accepts_nested_attributes_for :fields
 
   validates :name, presence: true, uniqueness: true
+  validates :reply_to, presence: true
 
   default_scope { order :name }
 
