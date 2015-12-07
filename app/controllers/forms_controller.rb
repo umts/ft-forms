@@ -25,6 +25,7 @@ class FormsController < ApplicationController
     user = @current_user || create_user
     data = params.require :responses
     FtFormsMailer.send_form(@form, data).deliver_now
+    binding.pry
     FtFormsMailer.send_confirmation(user, data, @form.reply_to).deliver_now
     redirect_to thank_you_form_url
   end
