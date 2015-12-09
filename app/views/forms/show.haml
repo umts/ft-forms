@@ -7,6 +7,7 @@
     %span.ast *
     ) are required.
   = form_tag action: :submit, id: @form.id do
+    = hidden_field_tag :reply_to, @form.reply_to
     = fields_for :user do |u|
       .field
         .heading Please complete the following personal information.
