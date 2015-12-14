@@ -2,38 +2,30 @@ require 'rails_helper'
 
 describe Field do
   context 'data_type identification methods' do
-    before :each do
-      @form = create :form
-      @date        = create :field, form: @form, data_type: 'date'
-      @explanation = create :field, form: @form, data_type: 'explanation'
-      @heading     = create :field, form: @form, data_type: 'heading'
+    let(:form) { create :form }
+    let(:date) { create :field, form: form, data_type: 'date' }
+    let(:explanation) { create :field, form: form, data_type: 'explanation' }
+    let(:heading) { create :field, form: form, data_type: 'heading' }
+
+    describe 'date fields' do
+      subject { date }
+      it { is_expected.to be_date }
+      it { is_expected.not_to be_explanation }
+      it { is_expected.not_to be_heading }
     end
 
-    describe 'date?' do
-      it 'returns true if data type is date' do
-        expect(@date.date?).to eql true
-      end
-      it 'returns false if data type is not date' do
-        expect(@explanation.date?).to eql false
-      end
+    describe 'explanation fields' do
+      subject { explanation }
+      it { is_expected.to be_explanation }
+      it { is_expected.not_to be_heading }
+      it { is_expected.not_to be_date }
     end
 
-    describe 'explanation?' do
-      it 'returns true if data type is explanation' do
-        expect(@explanation.explanation?).to eql true
-      end
-      it 'returns false if data type is not explanation' do
-        expect(@heading.explanation?).to eql false
-      end
-    end
-
-    describe 'heading?' do
-      it 'returns true if data type is heading' do
-        expect(@heading.heading?).to eql true
-      end
-      it 'returns false if data type is not heading' do
-        expect(@date.heading?).to eql false
-      end
+    describe 'heading fields' do
+      subject { heading }
+      it { is_expected.to be_heading }
+      it { is_expected.not_to be_date }
+      it { is_expected.not_to be_explanation }
     end
   end
 
