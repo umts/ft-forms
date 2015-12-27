@@ -1,6 +1,7 @@
 require 'codeclimate-test-reporter'
 require 'factory_girl_rails'
 require 'simplecov'
+require 'support/redirect_back_matcher'
 
 CodeClimate::TestReporter.start if ENV['CI']
 SimpleCov.start 'rails'
@@ -10,13 +11,6 @@ RSpec.configure do |config|
     FactoryGirl.reload
   end
   config.include FactoryGirl::Syntax::Methods
-end
-
-def expect_redirect_to_back(path = 'http://test.host/redirect', &block)
-  request.env['HTTP_REFERER'] = path
-  block.call
-  expect(response).to have_http_status :redirect
-  expect(response).to redirect_to path
 end
 
 # Sets current user based on two acceptable values:

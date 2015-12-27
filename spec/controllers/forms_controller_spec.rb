@@ -215,7 +215,7 @@ describe FormsController do
           @changes = Hash['name', '']
         end
         it 'shows errors' do
-          expect_redirect_to_back { submit }
+          expect { submit }.to redirect_back
           expect(flash.keys).to include 'errors'
         end
       end

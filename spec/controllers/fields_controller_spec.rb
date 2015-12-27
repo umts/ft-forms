@@ -24,7 +24,7 @@ describe FieldsController do
           @field = create :field, form: (create :form)
         end
         it 'redirects back' do
-          expect_redirect_to_back { submit }
+          expect { submit }.to redirect_back
         end
       end
       context 'field belongs to a form draft' do
@@ -71,7 +71,7 @@ describe FieldsController do
           @field = create :field, form: (create :form)
         end
         it 'redirects back' do
-          expect_redirect_to_back { submit }
+          expect { submit }.to redirect_back
         end
       end
       context 'fields belongs to a form draft' do
