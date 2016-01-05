@@ -25,7 +25,7 @@ describe 'layouts/_footer.haml' do
   it 'has us as the Site Contact Email' do
     render
     expect(rendered)
-      .to have_tag 'a', with: { href: 'transit-it@admin.umass.edu' } do
+      .to have_tag 'a', with: { href: 'mailto:transit-it@admin.umass.edu' } do
       with_text 'Site Contact'
     end
   end
