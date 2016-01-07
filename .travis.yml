@@ -4,7 +4,9 @@ env: CODECLIMATE_REPO_TOKEN=1db52f66a36ea0f99a5fdfccabaeb065503615fef8dbf49087f9
 before_script: 
   - cp config/database.yml.example config/database.yml
   - mysql -e 'create database ftforms_test'
-script: 'bundle exec rake db:reset travis'
+script: 
+  - bundle exec rake db:reset 
+  - bundle exec rake travis
 notifications:
   email:
     recipients:
