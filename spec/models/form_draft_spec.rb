@@ -65,8 +65,8 @@ describe FormDraft do
     end
     it 'initializes a new field for the draft with the correct number' do
       expect(call.form_draft).to eql @draft
-      expect(call.number).to eql 4
-      expect(call.new_record?).to eql true
+      expect(call.number).to be 4
+      expect(call).to be_new_record
     end
   end
 

@@ -62,7 +62,7 @@ describe FormsController do
         end
         it 'sets submit to true' do
           submit
-          expect(assigns.fetch :submit).to eql true
+          expect(assigns.fetch :submit).to be true
         end
         it 'renders the show template' do
           submit

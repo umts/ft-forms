@@ -17,7 +17,7 @@ describe Form do
         create :form_draft, form: @form, user: @user
       end
       it 'returns false' do
-        expect(call).to eql false
+        expect(call).to be false
       end
     end
     context 'no pre-existing draft' do
@@ -65,11 +65,11 @@ describe Form do
       @form.draft_belonging_to? @user
     end
     it 'returns false if draft does not exist for the user in question' do
-      expect(call).to eql false
+      expect(call).to be false
     end
     it 'returns true if draft exists for the user in question' do
       create :form_draft, user: @user, form: @form
-      expect(call).to eql true
+      expect(call).to be true
     end
   end
 end
