@@ -1,7 +1,7 @@
 require 'codeclimate-test-reporter'
 require 'factory_girl_rails'
 require 'simplecov'
-require 'support/redirect_back_matcher'
+require 'umts-custom-matchers'
 
 CodeClimate::TestReporter.start if ENV['CI']
 SimpleCov.start 'rails' do
@@ -13,6 +13,7 @@ RSpec.configure do |config|
     FactoryGirl.reload
   end
   config.include FactoryGirl::Syntax::Methods
+  config.include UmtsCustomMatchers
 end
 
 # Sets current user based on two acceptable values:
