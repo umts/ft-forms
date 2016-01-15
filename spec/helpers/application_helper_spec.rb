@@ -9,7 +9,7 @@ describe ApplicationHelper do
       expect(input_class 'date/time').to eql 'datetimepicker'
     end
     it 'returns nil for text' do
-      expect(input_class 'text').to eql nil
+      expect(input_class 'text').to be nil
     end
     it 'returns timepicker for time' do
       expect(input_class 'time').to eql 'timepicker'

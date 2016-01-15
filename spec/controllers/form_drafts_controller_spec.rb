@@ -71,7 +71,7 @@ describe FormDraftsController do
         expect { submit }
           .not_to change { @draft.fields.count }
         # Factory draft has 0 fields by default
-        expect(assigns.fetch(:draft).fields.size).to eql 1
+        expect(assigns.fetch(:draft).fields.size).to be 1
       end
       it 'renders the edit template' do
         submit
