@@ -48,7 +48,7 @@ class FormDraft < ActiveRecord::Base
       if field.present?
         field.update field_attributes
       else
-        field_attributes.merge! form_draft_id: id
+        field_attributes[:form_draft_id] = id
         Field.create field_attributes
       end
     end

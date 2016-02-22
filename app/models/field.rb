@@ -3,7 +3,7 @@ class Field < ActiveRecord::Base
   belongs_to :form_draft
 
   DATA_TYPES = %w(date date/time explanation heading long-text
-                  number options text time yes/no)
+                  number options text time yes/no).freeze
   serialize :options, Array
 
   validate :belongs_to_form_or_form_draft?

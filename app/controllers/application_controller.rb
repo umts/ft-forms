@@ -28,7 +28,6 @@ class ApplicationController < ActionController::Base
 
   # '... and return' is correct here, disable rubocop warning
   # rubocop:disable Style/AndOr
-  # rubocop:disable Style/GuardClause
   def redirect_unauthenticated
     unless @current_user.present? || session.key?(:spire)
       logger.info 'Request:'
@@ -38,7 +37,6 @@ class ApplicationController < ActionController::Base
       redirect_to unauthenticated_session_path and return
     end
   end
-  # rubocop:enable Style/GuardClause
   # rubocop:enable Style/AndOr
 
   def set_current_user

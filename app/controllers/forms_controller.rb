@@ -46,7 +46,8 @@ class FormsController < ApplicationController
 
   def create_user
     user_attributes = params.require(:user).permit!
-    user_attributes.merge! spire: session[:spire], staff: false
+    user_attributes[:spire] = session[:spire]
+    user_attributes[:staff] = false
     user = User.create(user_attributes)
     session[:user_id] = user.id
     set_current_user

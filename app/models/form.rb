@@ -11,8 +11,8 @@ class Form < ActiveRecord::Base
   def create_draft(user)
     return false if draft_belonging_to?(user)
     draft_attributes = attributes.symbolize_keys
-                       .except(:id)
-                       .merge user: user, form: self
+                                 .except(:id)
+                                 .merge user: user, form: self
     draft = FormDraft.create draft_attributes
     fields.each do |field|
       new_field = field.dup
