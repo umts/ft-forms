@@ -8,9 +8,8 @@
       .form-config
         = f.label :email, 'Change form email destination:'
         = f.text_field :email, required: true, size: 50
-      .form_config
-        = f.label :reply_to,
-          'Set address that confirmation email will tell people to replyto'
+      .form-config
+        = f.label :reply_to, 'Set reply-to address'
         = f.text_field :reply_to, size: 50
       .header_row
         .field_attribute_header1
