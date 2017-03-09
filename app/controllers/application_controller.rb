@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :set_current_user
   before_action :redirect_unauthenticated
   before_action :access_control
+  before_action :shibboleth_attributes
   layout 'application'
 
   private
@@ -46,6 +47,15 @@ class ApplicationController < ActionController::Base
       elsif session.key? :spire
         User.find_by spire: session[:spire]
       end
+  end
+
+  def shibboleth_attributes
+    mail = request.env['mail']
+    first_name = request.env['givenName']
+    last_name = request.env['surName']
+    @placeholder = User.new(email: mail,
+                            first_name: first_name,
+                            last_name: last_name)
   end
 
   def set_spire
