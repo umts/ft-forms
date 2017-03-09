@@ -6,6 +6,7 @@ class FormsController < ApplicationController
                                              :thank_you]
   # Since these actions are used to edit forms, maintain the form in session.
   before_action :find_form, only: [:show, :submit, :thank_you, :update]
+  before_action :shibboleth_attributes
 
   def index
     @forms = Form.includes :drafts
@@ -22,6 +23,12 @@ class FormsController < ApplicationController
   end
 
   def submit
+    if @current_user.present?
+      @current_user.update_attributes(
+        params.require(:user)
+        .permit(:first_name, :last_name, :email)
+      )
+    end
     user = @current_user || create_user
     data = params.require :responses
     FtFormsMailer.send_form(@form, data).deliver_now
