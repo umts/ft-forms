@@ -10,13 +10,16 @@
     = hidden_field_tag :reply_to, @form.reply_to
     = fields_for :user do |u|
       .field
-        .heading Please complete the following personal information.
-        //.explanation You will be able to log in and review your submission.
+        .explanation 
+          This is the personal information we have on file for you.
+          Please fill in any missing or incorrect information.
+          The confirmation will be sent to this email address.
       - [:first_name, :last_name, :email].each do |field|
         .field
           .label= u.label field
-          = u.text_field field, size: 50, required: true,
-            value: @current_user.try(field)
+          = u.text_field field, size: 50,
+            value: @current_user.try(field) || @placeholder.try(field),
+            required: true
           %span.ast *
     = fields_for :responses do |r|
       - @form.fields.each do |field|
