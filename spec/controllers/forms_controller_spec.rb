@@ -70,6 +70,16 @@ describe FormsController do
         end
       end
     end
+    context 'current user is nil' do
+      it 'populates a placeholder variable with user attributes' do
+        when_current_user_is nil
+        ['mail', 'first_name', 'last_name'].each do |attribute|
+          request.env[attribute] = 'bananas'
+        end
+        submit
+        expect(assigns.fetch :placeholder).not_to be_nil
+      end
+    end
   end
 
   describe 'GET #show' do
@@ -92,6 +102,16 @@ describe FormsController do
           submit
           expect(response).to render_template :show
         end
+      end
+    end
+    context 'current user is nil' do
+      it 'populates a placeholder variable with user attributes' do
+        when_current_user_is nil
+        ['mail', 'first_name', 'last_name'].each do |attribute|
+          request.env[attribute] = 'bananas'
+        end
+        submit
+        expect(assigns.fetch :placeholder).not_to be_nil
       end
     end
   end
