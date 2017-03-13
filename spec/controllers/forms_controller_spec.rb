@@ -105,8 +105,8 @@ describe FormsController do
         @field.unique_prompt_name => @field.prompt
       }
       @user_attributes = { first_name: 'John',
-        last_name: 'Smith',
-        email: 'jsmith@example.com'
+                           last_name: 'Smith',
+                           email: 'jsmith@example.com'
       }
     end
     let :submit do
@@ -146,12 +146,12 @@ describe FormsController do
           it 'updates the current_user object' do
             [:email, :first_name, :last_name].each do |attribute|
               expect(@current_user.send(attribute))
-                                  .not_to eql @user_attributes[attribute]
+                .not_to eql @user_attributes[attribute]
             end
             submit
             [:email, :first_name, :last_name].each do |attribute|
               expect(@current_user.reload.send(attribute))
-                                  .to eql @user_attributes[attribute]
+                .to eql @user_attributes[attribute]
             end
           end
         end

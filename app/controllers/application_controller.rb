@@ -52,10 +52,10 @@ class ApplicationController < ActionController::Base
   def set_spire
     session[:spire] = request.env['fcIdNumber'] if request.env.key? 'fcIdNumber'
   end
-  
+
   def set_shibboleth_attributes
     [:mail, :first_name, :last_name].each do |attribute|
-      if request.env.key? attribute.to_s #request.env keys are strings
+      if request.env.key? attribute.to_s # request.env keys are strings
         session[attribute] = request.env[attribute.to_s]
       end
     end
