@@ -77,7 +77,10 @@ describe FormsController do
           request.env[attribute] = 'bananas'
         end
         submit
-        expect(assigns.fetch :placeholder).not_to be_nil
+        new_user = assigns.fetch :placeholder
+        expect(new_user.first_name).to eql "bananas"
+        expect(new_user.last_name).to eql "bananas"
+        expect(new_user.email).to eql "bananas"
       end
     end
   end
@@ -111,7 +114,10 @@ describe FormsController do
           request.env[attribute] = 'bananas'
         end
         submit
-        expect(assigns.fetch :placeholder).not_to be_nil
+        new_user = assigns.fetch :placeholder
+        expect(new_user.first_name).to eql "bananas"
+        expect(new_user.last_name).to eql "bananas"
+        expect(new_user.email).to eql "bananas"
       end
     end
   end
