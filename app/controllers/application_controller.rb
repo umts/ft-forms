@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :set_current_user
   before_action :redirect_unauthenticated
   before_action :access_control
-  before_action :shibboleth_attributes
+  before_action :set_shibboleth_attributes
   layout 'application'
 
   private
@@ -49,17 +49,16 @@ class ApplicationController < ActionController::Base
       end
   end
 
-  def shibboleth_attributes
-    mail = request.env['mail']
-    first_name = request.env['givenName']
-    last_name = request.env['surName']
-    @placeholder = User.new(email: mail,
-                            first_name: first_name,
-                            last_name: last_name)
-  end
-
   def set_spire
     session[:spire] = request.env['fcIdNumber'] if request.env.key? 'fcIdNumber'
+  end
+  
+  def set_shibboleth_attributes
+    [:mail, :first_name, :last_name].each do |attribute|
+      if request.env.key? attribute.to_s #request.env keys are strings
+        session[attribute] = request.env[attribute.to_s]
+      end
+    end
   end
 
   # '... and return' is correct here, disable rubocop warning
