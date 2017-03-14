@@ -73,14 +73,14 @@ describe FormsController do
     context 'current user is nil' do
       it 'populates a placeholder variable with user attributes' do
         when_current_user_is nil
-        ['mail', 'first_name', 'last_name'].each do |attribute|
+        ['mail', 'givenName', 'surName'].each do |attribute|
           request.env[attribute] = 'bananas'
         end
         submit
         new_user = assigns.fetch :placeholder
-        expect(new_user.first_name).to eql "bananas"
-        expect(new_user.last_name).to eql "bananas"
-        expect(new_user.email).to eql "bananas"
+        expect(new_user.first_name).to eql 'bananas'
+        expect(new_user.last_name).to eql 'bananas'
+        expect(new_user.email).to eql 'bananas'
       end
     end
   end
@@ -110,14 +110,14 @@ describe FormsController do
     context 'current user is nil' do
       it 'populates a placeholder variable with user attributes' do
         when_current_user_is nil
-        ['mail', 'first_name', 'last_name'].each do |attribute|
+        ['mail', 'givenName', 'surName'].each do |attribute|
           request.env[attribute] = 'bananas'
         end
         submit
         new_user = assigns.fetch :placeholder
-        expect(new_user.first_name).to eql "bananas"
-        expect(new_user.last_name).to eql "bananas"
-        expect(new_user.email).to eql "bananas"
+        expect(new_user.first_name).to eql 'bananas'
+        expect(new_user.last_name).to eql 'bananas'
+        expect(new_user.email).to eql 'bananas'
       end
     end
   end

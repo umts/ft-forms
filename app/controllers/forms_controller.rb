@@ -6,7 +6,8 @@ class FormsController < ApplicationController
                                              :thank_you]
   # Since these actions are used to edit forms, maintain the form in session.
   before_action :find_form, only: [:show, :submit, :thank_you, :update]
-  before_action :placeholder, only: [:show, :meet_and_greet]
+  before_action :placeholder_from_shibboleth_attributes, only: [:show,
+    :meet_and_greet]
 
   def index
     @forms = Form.includes :drafts
@@ -65,9 +66,9 @@ class FormsController < ApplicationController
     @form = Form.find(params.require :id)
   end
 
-  def placeholder
-    @placeholder = User.new(email: session[:mail],
-                            first_name: session[:first_name],
-                            last_name: session[:last_name])
+  def placeholder_from_shibboleth_attributes
+    @placeholder = User.new(email: request.env['mail'],
+                            first_name: request.env['givenName'],
+                            last_name: request.env['surName'])
   end
 end
