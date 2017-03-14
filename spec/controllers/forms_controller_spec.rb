@@ -73,14 +73,14 @@ describe FormsController do
     context 'current user is nil' do
       it 'populates a placeholder variable with user attributes' do
         when_current_user_is nil
-        ['mail', 'givenName', 'surName'].each do |attribute|
-          request.env[attribute] = 'bananas'
-        end
+        request.env['mail'] = 'user@example.com'
+        request.env['givenName'] = 'bob'
+        request.env['surName'] = 'dole'
         submit
         new_user = assigns.fetch :placeholder
-        expect(new_user.first_name).to eql 'bananas'
-        expect(new_user.last_name).to eql 'bananas'
-        expect(new_user.email).to eql 'bananas'
+        expect(new_user.first_name).to eql 'bob'
+        expect(new_user.last_name).to eql 'dole'
+        expect(new_user.email).to eql 'user@example.com'
       end
     end
   end
@@ -110,14 +110,14 @@ describe FormsController do
     context 'current user is nil' do
       it 'populates a placeholder variable with user attributes' do
         when_current_user_is nil
-        ['mail', 'givenName', 'surName'].each do |attribute|
-          request.env[attribute] = 'bananas'
-        end
+        request.env['mail'] = 'user@example.com'
+        request.env['givenName'] = 'bob'
+        request.env['surName'] = 'dole'
         submit
         new_user = assigns.fetch :placeholder
-        expect(new_user.first_name).to eql 'bananas'
-        expect(new_user.last_name).to eql 'bananas'
-        expect(new_user.email).to eql 'bananas'
+        expect(new_user.first_name).to eql 'bob'
+        expect(new_user.last_name).to eql 'dole'
+        expect(new_user.email).to eql 'user@example.com'
       end
     end
   end
@@ -199,7 +199,7 @@ describe FormsController do
         it 'sets the current user based on spire' do
           session.delete('user_id')
           submit
-          expect(session['spire']).to eql User.first.spire
+          expect(session['spire']).to eql assigns[:current_user].spire
         end
       end
     end
