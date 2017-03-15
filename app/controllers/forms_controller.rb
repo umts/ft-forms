@@ -7,7 +7,7 @@ class FormsController < ApplicationController
   # Since these actions are used to edit forms, maintain the form in session.
   before_action :find_form, only: [:show, :submit, :thank_you, :update]
   before_action :placeholder_from_shibboleth_attributes, only: [:show,
-    :meet_and_greet]
+                                                                :meet_and_greet]
 
   def index
     @forms = Form.includes :drafts
