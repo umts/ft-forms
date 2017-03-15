@@ -70,6 +70,19 @@ describe FormsController do
         end
       end
     end
+    context 'current user is nil' do
+      it 'populates a placeholder variable with user attributes' do
+        when_current_user_is nil
+        request.env['mail'] = 'user@example.com'
+        request.env['givenName'] = 'bob'
+        request.env['surName'] = 'dole'
+        submit
+        new_user = assigns.fetch :placeholder
+        expect(new_user.first_name).to eql 'bob'
+        expect(new_user.last_name).to eql 'dole'
+        expect(new_user.email).to eql 'user@example.com'
+      end
+    end
   end
 
   describe 'GET #show' do
@@ -94,6 +107,19 @@ describe FormsController do
         end
       end
     end
+    context 'current user is nil' do
+      it 'populates a placeholder variable with user attributes' do
+        when_current_user_is nil
+        request.env['mail'] = 'user@example.com'
+        request.env['givenName'] = 'bob'
+        request.env['surName'] = 'dole'
+        submit
+        new_user = assigns.fetch :placeholder
+        expect(new_user.first_name).to eql 'bob'
+        expect(new_user.last_name).to eql 'dole'
+        expect(new_user.email).to eql 'user@example.com'
+      end
+    end
   end
 
   describe 'POST #submit' do
@@ -104,10 +130,14 @@ describe FormsController do
         @field.unique_name        => 'A response',
         @field.unique_prompt_name => @field.prompt
       }
+      @user_attributes = { first_name: 'John',
+                           last_name: 'Smith',
+                           email: 'jsmith@example.com'
+      }
     end
     let :submit do
       post :submit, id: @form.id, responses: @responses,
-                    user: @user, reply_to: @form.reply_to
+                    user: @user_attributes, reply_to: @form.reply_to
     end
     context 'whether staff or not' do
       [:not_staff, :staff].each do |user_type|
@@ -139,6 +169,17 @@ describe FormsController do
             submit
             expect(response).to redirect_to thank_you_form_url(@form)
           end
+          it 'updates the current_user object' do
+            [:email, :first_name, :last_name].each do |attribute|
+              expect(@current_user.send(attribute))
+                .not_to eql @user_attributes[attribute]
+            end
+            submit
+            [:email, :first_name, :last_name].each do |attribute|
+              expect(@current_user.reload.send(attribute))
+                .to eql @user_attributes[attribute]
+            end
+          end
         end
         context 'sending form is unsuccessful' do
           # TODO
@@ -148,17 +189,18 @@ describe FormsController do
     context 'user does not exist yet' do
       before :each do
         when_current_user_is nil
-        # user attributes which are used to create a user... snrk
-        @user = {
-          first_name: 'John',
-          last_name:  'Doe',
-          email:      'johndoe@test.host'
-        }
       end
       it 'creates a user' do
         expect { submit }
           .to change { User.count }
           .by 1
+      end
+      context 'session has no user_id key' do
+        it 'sets the current user based on spire' do
+          session.delete('user_id')
+          submit
+          expect(session['spire']).to eql assigns[:current_user].spire
+        end
       end
     end
   end

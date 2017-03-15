@@ -6,6 +6,8 @@ class FormsController < ApplicationController
                                              :thank_you]
   # Since these actions are used to edit forms, maintain the form in session.
   before_action :find_form, only: [:show, :submit, :thank_you, :update]
+  before_action :placeholder_from_shibboleth_attributes, only: [:show,
+                                                                :meet_and_greet]
 
   def index
     @forms = Form.includes :drafts
@@ -22,6 +24,12 @@ class FormsController < ApplicationController
   end
 
   def submit
+    if @current_user.present?
+      @current_user.update_attributes(
+        params.require(:user)
+        .permit(:first_name, :last_name, :email)
+      )
+    end
     user = @current_user || create_user
     data = params.require :responses
     FtFormsMailer.send_form(@form, data).deliver_now
@@ -56,5 +64,11 @@ class FormsController < ApplicationController
 
   def find_form
     @form = Form.find(params.require :id)
+  end
+
+  def placeholder_from_shibboleth_attributes
+    @placeholder = User.new(email: request.env['mail'],
+                            first_name: request.env['givenName'],
+                            last_name: request.env['surName'])
   end
 end
