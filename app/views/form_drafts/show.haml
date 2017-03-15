@@ -14,9 +14,9 @@
     = fields_for :user do |u|
       .field
         .explanation 
-          This is the personal information we have for you.
-          Please fill in any missing or incorrect information.
-          The confirmation will be sent to this email address.
+          This is the information we will use to confirm the
+          request. Please fill in any fields that have missing
+          or incorrect data.
       - [:first_name, :last_name, :email].each do |field|
         .field
           .label= u.label field
