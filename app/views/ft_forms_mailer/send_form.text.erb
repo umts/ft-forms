@@ -2,6 +2,8 @@ Hello,
 
 A new Meet & Greet request has been received:
 
+This request was made by <%= @req_user.full_name %> (<%= @req_user.email %>).
+
 <% @form_data.each do |prompt, response| %>
   <% if response == :heading %>
 
