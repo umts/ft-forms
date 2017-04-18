@@ -85,6 +85,8 @@ GEM
     factory_girl_rails (4.6.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     haml (4.0.7)
@@ -264,6 +266,7 @@ DEPENDENCIES
   coffee-rails
   exception_notification
   factory_girl_rails
+  friendly_id (~> 5.1.0)
   haml
   haml-rails
   haml_lint
@@ -289,4 +292,4 @@ DEPENDENCIES
   umts-custom-matchers
 
 BUNDLED WITH
-   1.13.1
+   1.14.6

@@ -49,7 +49,7 @@ describe FormsController do
       @form = create :form, name: 'Meet & Greet Request Form'
     end
     let :submit do
-      get :meet_and_greet
+      get :show, name: form.slug
     end
     context 'whether staff or not' do
       [:not_staff, :staff].each do |user_type|
@@ -91,6 +91,11 @@ describe FormsController do
     end
     let :submit do
       get :show, id: @form.id
+    end
+    context 'it does stuffs' do
+      let :submit do
+        get :show, id: @form.slug
+      end
     end
     context 'whether staff or not' do
       [:not_staff, :staff].each do |user_type|
