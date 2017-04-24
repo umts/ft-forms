@@ -11,12 +11,6 @@ class FormsController < ApplicationController
     @forms = Form.includes :drafts
   end
 
-  def meet_and_greet
-    @form = Form.friendly.find(name: 'Meet & Greet Request Form')
-    @submit = true
-    render 'show'
-  end
-
   def show
     @form = Form.friendly.find(params[:id])
     @submit = true unless params[:no_submit]
@@ -33,7 +27,7 @@ class FormsController < ApplicationController
     data = params.require :responses
     FtFormsMailer.send_form(@form, data).deliver_now
     FtFormsMailer.send_confirmation(user, data, params[:reply_to]).deliver_now
-    redirect_to thank_you_form_url
+    redirect_to thank_you_form_url(@form.friendly_id)
   end
 
   def thank_you
