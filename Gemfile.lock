@@ -173,6 +173,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
     rake (10.5.0)
+    rb-readline (0.5.4)
     redcarpet (3.3.4)
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
@@ -277,6 +278,7 @@ DEPENDENCIES
   rails (~> 4.2)
   rails-assets-datetimepicker!
   rails-assets-moment!
+  rb-readline
   redcarpet
   rspec-html-matchers
   rspec-rails
