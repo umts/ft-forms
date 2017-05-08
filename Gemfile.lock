@@ -157,6 +157,7 @@ GEM
       railties (= 4.2.5.1)
       sprockets-rails
     rails-assets-datetimepicker (2.4.9)
+    rails-assets-moment (2.18.1)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -276,6 +277,7 @@ DEPENDENCIES
   pry-byebug
   rails (~> 4.2)
   rails-assets-datetimepicker!
+  rails-assets-moment!
   rb-readline
   redcarpet
   rspec-html-matchers
