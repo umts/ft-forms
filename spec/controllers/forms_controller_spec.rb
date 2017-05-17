@@ -92,11 +92,6 @@ describe FormsController do
     let :submit do
       get :show, id: @form.slug
     end
-    context 'it does stuffs' do
-      let :submit do
-        get :show, id: @form.slug
-      end
-    end
     context 'whether staff or not' do
       [:not_staff, :staff].each do |user_type|
         before :each do

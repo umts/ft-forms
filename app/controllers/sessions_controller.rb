@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
       @new_spire = new_spire
     elsif request.post?
       assign_user
-      redirect_to meet_and_greet_forms_url
+      redirect_to forms_url
     end
   end
 

@@ -12,6 +12,7 @@ class FormsController < ApplicationController
   end
 
   def show
+    #binding.pry
     @form = Form.friendly.find(params[:id])
     @submit = true unless params[:no_submit]
   end

@@ -15,7 +15,7 @@ class Form < ActiveRecord::Base
     draft_attributes = attributes.symbolize_keys
                                  .except(:id)
                                  .merge user: user, form: self
-    draft = FormDraft.create draft_attributes
+    draft = FormDraft.create draft_attributes.except(:slug)
     fields.each do |field|
       new_field = field.dup
       new_field.assign_attributes form: nil, form_draft: draft

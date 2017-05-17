@@ -9,7 +9,7 @@ describe 'form_drafts/show.haml' do
     assign :draft, @draft
   end
   let :main_form_path do
-    submit_form_path @draft.form
+    submit_form_path (@draft.form.id)
   end
   it 'has a form submitting to submit form path, but with disabled submit' do
     render

@@ -7,7 +7,7 @@ describe 'forms/show.haml' do
     assign :form, @form
   end
   let :main_form_path do
-    submit_form_path @form
+    submit_form_path (@form.id)
   end
   it 'has a form submitting to the submit form path' do
     render
