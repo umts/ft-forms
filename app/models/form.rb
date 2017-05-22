@@ -1,6 +1,6 @@
 class Form < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :forms_name, use: :slugged
+  friendly_id :form_name, use: :slugged
   has_many :fields, dependent: :destroy
   has_many :drafts, class_name: FormDraft,
                     foreign_key: :form_id,
@@ -32,7 +32,7 @@ class Form < ActiveRecord::Base
     draft_belonging_to(user).present?
   end
 
-  def forms_name
+  def form_name
     [name.parameterize].join('-')
   end
 end
