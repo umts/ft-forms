@@ -44,12 +44,12 @@ describe FormsController do
     end
   end
 
-  describe 'GET #show for meet and greet (root)' do
+  describe 'GET #meet_and_greet' do
     before :each do
       @form = create :form, name: 'Meet & Greet Request Form'
     end
     let :submit do
-      get :show, id: @form.slug
+      get :meet_and_greet
     end
     context 'whether staff or not' do
       [:not_staff, :staff].each do |user_type|
