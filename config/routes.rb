@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   end
 
   resources :forms, only: [:index, :show, :update] do
+    collection do
+      get :meet_and_greet # ROOT
+    end
     member do
       post :submit
       get  :thank_you
