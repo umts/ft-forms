@@ -2,10 +2,11 @@ class FormsController < ApplicationController
   # Whitelist actions below for non-staff access.
   skip_before_action :access_control, only: [:show,
                                              :submit,
-                                             :thank_you]
+                                             :thank_you,
+                                             :meet_and_greet]
   # Since these actions are used to edit forms, maintain the form in session.
   before_action :find_form, only: [:submit, :thank_you, :update]
-  before_action :placeholder_from_shibboleth_attributes, only: [:show]
+  before_action :placeholder_from_shibboleth_attributes, only: [:show, :meet_and_greet]
 
   def index
     @forms = Form.includes :drafts
@@ -14,6 +15,12 @@ class FormsController < ApplicationController
   def show
     @form = Form.friendly.find(params[:id])
     @submit = true unless params[:no_submit]
+  end
+
+  def meet_and_greet
+    @form = Form.find_by(name: 'Meet & Greet Request Form') || Form.first
+    @submit = true unless params[:no_submit]
+    render 'show', id: @form.id
   end
 
   def submit
