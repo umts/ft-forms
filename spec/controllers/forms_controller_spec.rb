@@ -44,47 +44,6 @@ describe FormsController do
     end
   end
 
-  describe 'GET #meet_and_greet' do
-    before :each do
-      @form = create :form, name: 'Meet & Greet Request Form'
-    end
-    let :submit do
-      get :meet_and_greet
-    end
-    context 'whether staff or not' do
-      [:not_staff, :staff].each do |user_type|
-        before :each do
-          when_current_user_is user_type
-        end
-        it 'assigns the correct form to the correct instance variable' do
-          submit
-          expect(assigns.fetch :form).to eql @form
-        end
-        it 'sets submit to true' do
-          submit
-          expect(assigns.fetch :submit).to be true
-        end
-        it 'renders the show template' do
-          submit
-          expect(response).to render_template :show
-        end
-      end
-    end
-    context 'current user is nil' do
-      it 'populates a placeholder variable with user attributes' do
-        when_current_user_is nil
-        request.env['mail'] = 'user@example.com'
-        request.env['givenName'] = 'bob'
-        request.env['surName'] = 'dole'
-        submit
-        new_user = assigns.fetch :placeholder
-        expect(new_user.first_name).to eql 'bob'
-        expect(new_user.last_name).to eql 'dole'
-        expect(new_user.email).to eql 'user@example.com'
-      end
-    end
-  end
-
   describe 'GET #show' do
     before :each do
       @form = create :form
