@@ -44,7 +44,7 @@ describe FormsController do
     end
   end
 
-  describe 'GET #meet_and_greet (root)' do
+  describe 'GET #show for meet and greet (root)' do
     before :each do
       @form = create :form, name: 'Meet & Greet Request Form'
     end
