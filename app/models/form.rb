@@ -33,6 +33,6 @@ class Form < ActiveRecord::Base
   end
 
   def form_name
-    [name.parameterize].join('-')
+    name.parameterize
   end
 end
