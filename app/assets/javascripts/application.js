@@ -14,5 +14,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require datetimepicker
+//= require moment
+//= require jquery.datetimepicker.full.js
 //= require jquery.timepicker
 //= require_tree .

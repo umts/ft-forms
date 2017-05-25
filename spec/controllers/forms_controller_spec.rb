@@ -110,7 +110,7 @@ describe FormsController do
                                                      :send_form)
             expect(FtFormsMailer)
               .to receive(:send_form)
-              .with(@form, @responses)
+              .with(@form, @responses, @current_user)
               .and_return mail
             expect(mail).to receive(:deliver_now).and_return true
           end

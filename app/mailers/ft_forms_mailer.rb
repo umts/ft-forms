@@ -12,8 +12,9 @@ class FtFormsMailer < ActionMailer::Base
          reply_to: reply_to
   end
 
-  def send_form(form, data)
+  def send_form(form, data, requesting_user)
     @form_data = parse_form_data(data)
+    @req_user = requesting_user
     # TODO: configure email from form
     mail to: form.email,
          subject: 'New Meet & Greet Request'

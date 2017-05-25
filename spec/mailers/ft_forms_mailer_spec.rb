@@ -32,6 +32,7 @@ describe FtFormsMailer do
   describe 'send_form' do
     before :each do
       @form = create :form
+      @user = create :user
       @response = 'A response'
       @prompt = 'A prompt'
       @form_data = {
@@ -40,7 +41,7 @@ describe FtFormsMailer do
       }
     end
     let :output do
-      FtFormsMailer.send_form @form, @form_data
+      FtFormsMailer.send_form @form, @form_data, @user
     end
     it 'sends to the email of the form' do
       expect(output.to).to eql Array(@form.email)
