@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151204165537) do
+ActiveRecord::Schema.define(version: 20170414155904) do
 
   create_table "fields", force: :cascade do |t|
     t.integer  "number",        limit: 4
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20151204165537) do
     t.datetime "updated_at"
     t.string   "email",      limit: 255
     t.string   "reply_to",   limit: 255
+    t.string   "slug",       limit: 255
   end
 
   create_table "users", force: :cascade do |t|
