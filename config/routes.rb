@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :forms, only: [:index, :show, :update] do
+  resources :forms, only: [:index, :show, :update, :new] do
     collection do
       get  :meet_and_greet # ROOT
     end
@@ -33,4 +33,5 @@ Rails.application.routes.draw do
   end
   get 'sessions/unauthenticated', to: 'sessions#unauthenticated', as: :unauthenticated_session
   get 'sessions/destroy', to: 'sessions#destroy', as: :destroy_session
+
 end

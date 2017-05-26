@@ -14,4 +14,4 @@
             form_draft_path(draft), method: :delete
         - else
           = link_to 'Edit', new_form_draft_path(form_id: form.id)
-.actions= button_to 'New form', nil, disabled: true
+.actions= button_to 'New form', new_form_path, method: :get

@@ -71,4 +71,8 @@ class FormsController < ApplicationController
                             first_name: request.env['givenName'],
                             last_name: request.env['surName'])
   end
+
+  def new
+
+  end
 end
