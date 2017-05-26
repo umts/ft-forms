@@ -2,8 +2,9 @@ Rails.application.routes.draw do
 
   if Rails.env.development?
     root 'sessions#dev_login'
-  else root 'forms#meet_and_greet'
+  else root to: redirect('/forms/meet-greet-request-form')
   end
+
 
   resources :form_drafts, except: [:create, :index] do
     member do
@@ -14,9 +15,6 @@ Rails.application.routes.draw do
   end
 
   resources :forms, only: [:index, :show, :update, :new] do
-    collection do
-      get  :meet_and_greet # ROOT
-    end
     member do
       post :submit
       get  :thank_you

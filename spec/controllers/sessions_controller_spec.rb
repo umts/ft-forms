@@ -82,18 +82,18 @@ describe SessionsController do
       before :each do
         @user = create :user, :not_staff
       end
-      it 'redirects to the meet and greet form' do
+      it 'redirects to forms index' do
         submit
-        expect(response).to redirect_to meet_and_greet_forms_url
+        expect(response).to redirect_to forms_url
       end
     end
     context 'staff' do
       before :each do
         @user = create :user, :staff
       end
-      it 'redirects to the meet and greet form' do
+      it 'redirects to forms index' do
         submit
-        expect(response).to redirect_to meet_and_greet_forms_url
+        expect(response).to redirect_to forms_url
       end
     end
   end
