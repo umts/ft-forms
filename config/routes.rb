@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :forms, only: [:index, :show, :update, :new] do
+  resources :forms do
     member do
       post :submit
       get  :thank_you

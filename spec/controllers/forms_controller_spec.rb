@@ -235,4 +235,71 @@ describe FormsController do
       end
     end
   end
+  describe 'GET #new' do
+    let :submit do
+      get :new
+    end
+    context 'not staff' do
+      before :each do
+        when_current_user_is :not_staff
+      end
+      it 'does not allow access' do
+        expect_any_instance_of(Form)
+          .not_to receive :create
+        submit
+        expect(response).to have_http_status :unauthorized
+      end
+    end
+    context 'staff' do
+      before :each do
+        when_current_user_is :staff
+      end
+      it 'creates a form' do
+        expect{ submit }.to change {Form.count}.by 1
+      end
+      it 'gives the form a name' do
+        submit
+        expect(assigns.fetch(:draft).name).to eql 'new-form'
+      end
+      it 'creates a draft for the current user' do
+        submit
+        expect(assigns[:current_user].form_drafts).to include assigns[:draft]
+      end
+      it 'redirects to edit form page' do
+        submit
+        expect(response).to redirect_to edit_form_draft_path assigns[:draft]
+      end
+    end
+  end  
+  describe 'DELETE #destroy' do
+    before :each do
+      @form = create :form
+    end
+    let :submit do
+      delete :destroy, id: @form.id
+    end
+    context 'not staff' do
+      before :each do
+        when_current_user_is :not_staff
+      end
+      it 'does not allow access' do
+        expect_any_instance_of(Form)
+          .not_to receive :destroy
+        submit
+        expect(response).to have_http_status :unauthorized
+      end
+    end
+    context 'staff' do
+      before :each do
+        when_current_user_is :staff
+      end
+      it 'destroys form' do
+        expect{submit}.to change {Form.count}.by -1 
+      end
+      it 'redirects to form page' do
+        submit
+        expect(response).to redirect_to forms_path
+      end
+    end
+  end
 end

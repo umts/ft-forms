@@ -4,7 +4,7 @@ class FormsController < ApplicationController
                                              :submit,
                                              :thank_you]
   # Since these actions are used to edit forms, maintain the form in session.
-  before_action :find_form, only: [:submit, :thank_you, :update]
+  before_action :find_form, only: [:submit, :thank_you, :update, :destroy]
   before_action :placeholder_from_shibboleth_attributes, only: [:show]
 
   def index
@@ -43,6 +43,19 @@ class FormsController < ApplicationController
     end
   end
 
+  def new
+    form = Form.create! name: "new-form"
+    @draft = form.create_draft @current_user
+    redirect_to edit_form_draft_path(@draft)
+  end
+
+  def destroy
+    @form.destroy
+    redirect_to forms_url
+    flash[:message] = 'Form successfully deleted.'
+
+  end
+
   private
 
   def create_user
@@ -63,9 +76,5 @@ class FormsController < ApplicationController
     @placeholder = User.new(email: request.env['mail'],
                             first_name: request.env['givenName'],
                             last_name: request.env['surName'])
-  end
-
-  def new
-
   end
 end
