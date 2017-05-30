@@ -293,12 +293,20 @@ describe FormsController do
       before :each do
         when_current_user_is :staff
       end
+      it 'assigns correct form to instance variable' do
+        submit
+        expect(assigns.fetch :form).to eql @form
+      end
       it 'destroys form' do
         expect{submit}.to change {Form.count}.by -1 
       end
       it 'redirects to form page' do
         submit
         expect(response).to redirect_to forms_path
+      end
+      it 'includes a flash message' do
+        submit
+        expect(flash[:message]).not_to be_empty
       end
     end
   end
