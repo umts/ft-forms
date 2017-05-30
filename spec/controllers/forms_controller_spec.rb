@@ -255,7 +255,7 @@ describe FormsController do
         when_current_user_is :staff
       end
       it 'creates a form' do
-        expect{ submit }.to change {Form.count}.by 1
+        expect { submit }.to change { Form.count }.by 1
       end
       it 'gives the form a name' do
         submit
@@ -270,7 +270,7 @@ describe FormsController do
         expect(response).to redirect_to edit_form_draft_path assigns[:draft]
       end
     end
-  end  
+  end
   describe 'DELETE #destroy' do
     before :each do
       @form = create :form
@@ -298,7 +298,7 @@ describe FormsController do
         expect(assigns.fetch :form).to eql @form
       end
       it 'destroys form' do
-        expect{submit}.to change {Form.count}.by -1 
+        expect { submit }.to change { Form.count }.by(-1)
       end
       it 'redirects to form page' do
         submit

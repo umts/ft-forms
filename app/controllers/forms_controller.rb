@@ -44,7 +44,7 @@ class FormsController < ApplicationController
   end
 
   def new
-    form = Form.create! name: "new-form"
+    form = Form.create! name: 'new-form'
     @draft = form.create_draft @current_user
     redirect_to edit_form_draft_path(@draft)
   end
@@ -53,7 +53,6 @@ class FormsController < ApplicationController
     @form.destroy
     redirect_to forms_url
     flash[:message] = 'Form successfully deleted.'
-
   end
 
   private
