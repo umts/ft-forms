@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   end
 
 
-  resources :form_drafts, except: [:create, :index] do
+  resources :form_drafts, except: [:index] do
     member do
       post :move_field
       post :remove_field
