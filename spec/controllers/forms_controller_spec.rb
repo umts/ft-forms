@@ -299,6 +299,7 @@ describe FormsController do
       end
       it 'destroys form' do
         expect { submit }.to change { Form.count }.by(-1)
+        expect(Form.all).not_to include @form
       end
       it 'redirects to form page' do
         submit
@@ -306,7 +307,7 @@ describe FormsController do
       end
       it 'includes a flash message' do
         submit
-        expect(flash[:message]).not_to be_empty
+        expect(flash[:message]).to eql 'Form successfully deleted.'
       end
     end
   end

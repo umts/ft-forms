@@ -44,9 +44,9 @@ class FormsController < ApplicationController
   end
 
   def new
-    form = Form.create! name: 'new-form'
+    form = Form.new
     @draft = form.create_draft @current_user
-    redirect_to edit_form_draft_path(@draft)
+    @draft.fields << @draft.new_field
   end
 
   def destroy
