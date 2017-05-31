@@ -1,5 +1,5 @@
 class FormDraftsController < ApplicationController
-  before_action :find_form_draft, except: :new
+  before_action :find_form_draft, except: [:new, :create]
 
   def destroy
     @draft.destroy
@@ -35,12 +35,14 @@ class FormDraftsController < ApplicationController
 
   def create
     params.require(:form_draft).permit!
-    @draft.update params[:form_draft].except(:fields_attributes)
-    @draft.update_fields params[:form_draft][:fields_attributes]
-    @draft.reload # since fields have been updated
+    form_params = params[:form_draft].except(:fields_attributes)
+    form = Form.create!(form_params)
+    draft = form.create_draft(@current_user)
+    draft.update_fields params[:form_draft][:fields_attributes]
+    draft.reload # since fields have been updated
     case params.require :commit
       when 'Save changes and continue editing'
-        redirect_to edit_form_draft_path(@draft)
+        redirect_to edit_form_draft_path(draft)
       when 'Preview changes'
         render 'show'
     end
