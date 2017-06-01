@@ -234,7 +234,7 @@ describe FormDraftsController do
 
   describe 'POST #create' do
     let :submit do
-      post :create, form_draft: {name: 'test'}, commit: @commit
+      post :create, form_draft: { name: 'test' }, commit: @commit
     end
     context 'not staff' do
       before :each do
@@ -278,7 +278,6 @@ describe FormDraftsController do
       end
     end
   end
-
 
   describe 'POST #update' do
     before :each do
