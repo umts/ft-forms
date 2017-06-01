@@ -254,20 +254,13 @@ describe FormsController do
       before :each do
         when_current_user_is :staff
       end
-      it 'creates a form' do
-        expect { submit }.to change { Form.count }.by 1
-      end
-      it 'gives the form a name' do
-        submit
-        expect(assigns.fetch(:draft).name).to eql 'new-form'
+      it 'does not create a form or draft' do
+        expect { submit }.not_to change { Form.count }
+        expect { submit }.not_to change { FormDraft.count }
       end
       it 'creates a draft for the current user' do
         submit
-        expect(assigns[:current_user].form_drafts).to include assigns[:draft]
-      end
-      it 'redirects to edit form page' do
-        submit
-        expect(response).to redirect_to edit_form_draft_path assigns[:draft]
+        expect(assigns[:draft].form).to be_a_new Form
       end
     end
   end
