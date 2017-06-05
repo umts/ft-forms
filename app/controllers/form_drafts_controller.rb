@@ -69,7 +69,15 @@ class FormDraftsController < ApplicationController
   private
 
   def draft_params
-    @draft_params = params.require(:form_draft).permit!
+    @draft_params = params.require(:form_draft)
+                          .permit(:name,
+                                  :email,
+                                  :reply_to,
+                                  fields_attributes: [:number,
+                                                      :prompt,
+                                                      :data_type,
+                                                      :required,
+                                                      :id])
   end
 
   def find_form_draft
