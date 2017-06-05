@@ -188,53 +188,6 @@ describe FormsController do
     end
   end
 
-  describe 'PUT #update' do
-    before :each do
-      @form = create :form
-      @changes = Hash['name', 'a new name']
-    end
-    let :submit do
-      put :update, id: @form.id, form: @changes
-    end
-    context 'not staff' do
-      before :each do
-        when_current_user_is :not_staff
-      end
-      it 'does not allow access' do
-        expect_any_instance_of(Form)
-          .not_to receive :update
-        submit
-        expect(response).to have_http_status :unauthorized
-      end
-    end
-    context 'staff' do
-      before :each do
-        when_current_user_is :staff
-      end
-      context 'invalid input' do
-        before :each do
-          @changes = Hash['name', '']
-        end
-        it 'shows errors' do
-          expect { submit }.to redirect_back
-          expect(flash.keys).to include 'errors'
-        end
-      end
-      context 'valid input' do
-        it 'updates the form with the changes' do
-          expect { submit }.to change { @form.reload.name }
-        end
-        it 'adds a message to the flash' do
-          submit
-          expect(flash['message']).not_to be_empty
-        end
-        it 'redirects to the index' do
-          submit
-          expect(response).to redirect_to forms_url
-        end
-      end
-    end
-  end
   describe 'GET #new' do
     let :submit do
       get :new
