@@ -46,7 +46,9 @@ class FormsController < ApplicationController
   private
 
   def create_user
-    user_attributes = params.require(:user).permit(:first_name, :last_name, :email)
+    user_attributes = params.require(:user).permit(:first_name,
+                                                   :last_name,
+                                                   :email)
     user_attributes[:spire] = session[:spire]
     user_attributes[:staff] = false
     user = User.create(user_attributes)
