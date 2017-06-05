@@ -60,9 +60,10 @@ describe 'forms/index.haml' do
       end
     end
   end
-  it 'has a button for a new form (currently disabled)' do
+  it 'has a link for a new form' do
     render
-    expect(rendered).to have_tag 'input', with: { disabled: 'disabled',
-                                                  value: 'New form' }
+    expect(rendered).to have_tag 'a', with: { href: new_form_path } do
+      with_text 'New form'
+    end
   end
 end

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   end
 
 
-  resources :form_drafts, except: [:create, :index] do
+  resources :form_drafts, except: [:index] do
     member do
       post :move_field
       post :remove_field
@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :forms, only: [:index, :show, :update] do
+  resources :forms do
     member do
       post :submit
       get  :thank_you
@@ -31,4 +31,5 @@ Rails.application.routes.draw do
   end
   get 'sessions/unauthenticated', to: 'sessions#unauthenticated', as: :unauthenticated_session
   get 'sessions/destroy', to: 'sessions#destroy', as: :destroy_session
+
 end

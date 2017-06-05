@@ -51,12 +51,4 @@ class ApplicationController < ActionController::Base
   def set_spire
     session[:spire] = request.env['fcIdNumber'] if request.env.key? 'fcIdNumber'
   end
-
-  # '... and return' is correct here, disable rubocop warning
-  # rubocop:disable Style/AndOr
-  def show_errors(object, redirect_path = :back)
-    flash[:errors] = object.errors.full_messages
-    redirect_to redirect_path and return
-  end
-  # rubocop:enable Style/AndOr
 end

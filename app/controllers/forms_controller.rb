@@ -1,11 +1,9 @@
 class FormsController < ApplicationController
   # Whitelist actions below for non-staff access.
-  skip_before_action :access_control, only: [:show,
-                                             :submit,
-                                             :thank_you]
+  skip_before_action :access_control, only: %i[show submit thank_you]
   # Since these actions are used to edit forms, maintain the form in session.
-  before_action :find_form, only: [:submit, :thank_you, :update]
-  before_action :placeholder_from_shibboleth_attributes, only: [:show]
+  before_action :find_form, only: %i[submit thank_you update destroy]
+  before_action :placeholder_from_shibboleth_attributes, only: %i[show]
 
   def index
     @forms = Form.includes :drafts
@@ -33,20 +31,24 @@ class FormsController < ApplicationController
   def thank_you
   end
 
-  def update
-    @form_changes = params.require(:form).permit!
-    if @form.update @form_changes
-      session.delete :forms
-      flash[:message] = 'Form has been updated.'
-      redirect_to forms_url
-    else show_errors @form
-    end
+  def new
+    form = Form.new
+    @draft = form.create_draft @current_user
+    @draft.fields << @draft.new_field
+  end
+
+  def destroy
+    @form.destroy
+    redirect_to forms_url
+    flash[:message] = 'Form successfully deleted.'
   end
 
   private
 
   def create_user
-    user_attributes = params.require(:user).permit!
+    user_attributes = params.require(:user).permit(:first_name,
+                                                   :last_name,
+                                                   :email)
     user_attributes[:spire] = session[:spire]
     user_attributes[:staff] = false
     user = User.create(user_attributes)
@@ -56,7 +58,7 @@ class FormsController < ApplicationController
   end
 
   def find_form
-    @form = Form.find(params.require :id)
+    @form = Form.friendly.find(params.require :id)
   end
 
   def placeholder_from_shibboleth_attributes

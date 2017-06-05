@@ -232,6 +232,54 @@ describe FormDraftsController do
     end
   end
 
+  describe 'POST #create' do
+    let :submit do
+      post :create, form_draft: { name: 'test' }, commit: @commit
+    end
+    context 'not staff' do
+      before :each do
+        when_current_user_is :not_staff
+      end
+      it 'does not allow access' do
+        expect_any_instance_of(FormDraft).not_to receive :create
+        submit
+        expect(response).to have_http_status :unauthorized
+      end
+    end
+    context 'staff' do
+      before :each do
+        when_current_user_is :staff
+      end
+      context 'commit is Save changes and continue editing' do
+        before :each do
+          @commit = 'Save changes and continue editing'
+        end
+        it 'creates a form with the changes given' do
+          expect { submit }.to change { Form.count }.by 1
+          expect(assigns.fetch(:draft).form.name).to eql 'test'
+        end
+        it 'redirects to the edit path for the draft' do
+          submit
+          id = assigns.fetch(:draft).id
+          expect(response).to redirect_to "/form_drafts/#{id}/edit"
+        end
+      end
+      context 'commit is Preview changes' do
+        before :each do
+          @commit = 'Preview changes'
+        end
+        it 'updates the draft with the changes given' do
+          expect { submit }.to change { Form.count }.by 1
+          expect(assigns[:draft].form.name).to eql 'test'
+        end
+        it 'renders the show page' do
+          submit
+          expect(response).to render_template 'show'
+        end
+      end
+    end
+  end
+
   describe 'POST #update' do
     before :each do
       @draft = create :form_draft

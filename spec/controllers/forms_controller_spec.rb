@@ -188,13 +188,9 @@ describe FormsController do
     end
   end
 
-  describe 'PUT #update' do
-    before :each do
-      @form = create :form
-      @changes = Hash['name', 'a new name']
-    end
+  describe 'GET #new' do
     let :submit do
-      put :update, id: @form.id, form: @changes
+      get :new
     end
     context 'not staff' do
       before :each do
@@ -202,7 +198,7 @@ describe FormsController do
       end
       it 'does not allow access' do
         expect_any_instance_of(Form)
-          .not_to receive :update
+          .not_to receive :create
         submit
         expect(response).to have_http_status :unauthorized
       end
@@ -211,27 +207,53 @@ describe FormsController do
       before :each do
         when_current_user_is :staff
       end
-      context 'invalid input' do
-        before :each do
-          @changes = Hash['name', '']
-        end
-        it 'shows errors' do
-          expect { submit }.to redirect_back
-          expect(flash.keys).to include 'errors'
-        end
+      it 'does not create a form or draft' do
+        expect { submit }.not_to change { Form.count }
+        expect { submit }.not_to change { FormDraft.count }
       end
-      context 'valid input' do
-        it 'updates the form with the changes' do
-          expect { submit }.to change { @form.reload.name }
-        end
-        it 'adds a message to the flash' do
-          submit
-          expect(flash['message']).not_to be_empty
-        end
-        it 'redirects to the index' do
-          submit
-          expect(response).to redirect_to forms_url
-        end
+      it 'creates a draft for the current user' do
+        submit
+        expect(assigns[:draft].form).to be_a_new Form
+      end
+    end
+  end
+  describe 'DELETE #destroy' do
+    before :each do
+      @form = create :form
+    end
+    let :submit do
+      delete :destroy, id: @form.id
+    end
+    context 'not staff' do
+      before :each do
+        when_current_user_is :not_staff
+      end
+      it 'does not allow access' do
+        expect_any_instance_of(Form)
+          .not_to receive :destroy
+        submit
+        expect(response).to have_http_status :unauthorized
+      end
+    end
+    context 'staff' do
+      before :each do
+        when_current_user_is :staff
+      end
+      it 'assigns correct form to instance variable' do
+        submit
+        expect(assigns.fetch :form).to eql @form
+      end
+      it 'destroys form' do
+        expect { submit }.to change { Form.count }.by(-1)
+        expect(Form.all).not_to include @form
+      end
+      it 'redirects to form page' do
+        submit
+        expect(response).to redirect_to forms_path
+      end
+      it 'includes a flash message' do
+        submit
+        expect(flash[:message]).to eql 'Form successfully deleted.'
       end
     end
   end

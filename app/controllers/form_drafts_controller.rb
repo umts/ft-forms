@@ -1,5 +1,6 @@
 class FormDraftsController < ApplicationController
-  before_action :find_form_draft, except: :new
+  before_action :find_form_draft, except: %i[create new]
+  before_action :draft_params, only: %i[create update]
 
   def destroy
     @draft.destroy
@@ -33,10 +34,22 @@ class FormDraftsController < ApplicationController
   def show
   end
 
+  def create
+    form_params = @draft_params.except(:fields_attributes)
+    form = Form.create! form_params
+    @draft = form.create_draft(@current_user)
+    @draft.update_fields @draft_params[:fields_attributes]
+    case params.require :commit
+    when 'Save changes and continue editing'
+      redirect_to edit_form_draft_path(@draft)
+    when 'Preview changes'
+      render 'show'
+    end
+  end
+
   def update
-    params.require(:form_draft).permit!
-    @draft.update params[:form_draft].except(:fields_attributes)
-    @draft.update_fields params[:form_draft][:fields_attributes]
+    @draft.update @draft_params.except(:fields_attributes)
+    @draft.update_fields @draft_params[:fields_attributes]
     @draft.reload # since fields have been updated
     case params.require :commit
     when 'Save changes and continue editing'
@@ -54,6 +67,18 @@ class FormDraftsController < ApplicationController
   end
 
   private
+
+  def draft_params
+    @draft_params = params.require(:form_draft)
+                          .permit(:name,
+                                  :email,
+                                  :reply_to,
+                                  fields_attributes: [:number,
+                                                      :prompt,
+                                                      :data_type,
+                                                      :required,
+                                                      :id])
+  end
 
   def find_form_draft
     @draft = FormDraft.includes(:fields).find(params.require :id)
