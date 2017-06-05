@@ -11,16 +11,11 @@
         = f.label :reply_to, 'Set reply-to address'
         = f.text_field :reply_to, size: 50
       .header_row
-        .field_attribute_header1
-          Field text
-        .field_attribute
-          Example response
-        .field_attribute
-          Response type
-        .field_attribute
-          Required?
-        .field_attribute
-          Options
+        .field_attribute_header1 Field text
+        .field_attribute Example response
+        .field_attribute Response type
+        .field_attribute Required?
+        .field_attribute Options
       .fields_column
         = f.fields_for :fields do |g|
           - field = g.object

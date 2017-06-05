@@ -14,6 +14,6 @@
             form_draft_path(draft), method: :delete
         - else
           = link_to 'Edit', new_form_draft_path(form_id: form.id)
-      %td= link_to 'Delete', form_path(form.id), method: :delete,
+      %td= link_to 'Delete', form_path(form), method: :delete,
       data: {confirm: "Are you sure you want to delete #{form.name}?"}
 .actions= link_to 'New form', new_form_path

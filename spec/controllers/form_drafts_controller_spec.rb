@@ -256,11 +256,12 @@ describe FormDraftsController do
         end
         it 'creates a form with the changes given' do
           expect { submit }.to change { Form.count }.by 1
-          expect(assigns[:draft].form.name).to eql 'test'
+          expect(assigns.fetch(:draft).form.name).to eql 'test'
         end
         it 'redirects to the edit path for the draft' do
           submit
-          expect(response).to redirect_to edit_form_draft_path(assigns[:draft])
+          id = assigns.fetch(:draft).id
+          expect(response).to redirect_to "/form_drafts/#{id}/edit"
         end
       end
       context 'commit is Preview changes' do
