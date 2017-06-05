@@ -1,6 +1,6 @@
 class FormDraftsController < ApplicationController
-  before_action :find_form_draft, except: %i(create new)
-  before_action :draft_params, only: %i(create update)
+  before_action :find_form_draft, except: %i[create new]
+  before_action :draft_params, only: %i[create update]
 
   def destroy
     @draft.destroy
