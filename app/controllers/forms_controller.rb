@@ -31,16 +31,6 @@ class FormsController < ApplicationController
   def thank_you
   end
 
-  def update
-    @form_changes = params.require(:form).permit!
-    if @form.update @form_changes
-      session.delete :forms
-      flash[:message] = 'Form has been updated.'
-      redirect_to forms_url
-    else show_errors @form
-    end
-  end
-
   def new
     form = Form.new
     @draft = form.create_draft @current_user
@@ -56,7 +46,7 @@ class FormsController < ApplicationController
   private
 
   def create_user
-    user_attributes = params.require(:user).permit!
+    user_attributes = params.require(:user).permit(:first_name, :last_name, :email)
     user_attributes[:spire] = session[:spire]
     user_attributes[:staff] = false
     user = User.create(user_attributes)
