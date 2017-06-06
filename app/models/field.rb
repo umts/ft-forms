@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Field < ActiveRecord::Base
+class Field < ApplicationRecord
   belongs_to :form
   belongs_to :form_draft
 

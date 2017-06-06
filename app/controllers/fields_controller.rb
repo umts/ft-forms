@@ -14,7 +14,7 @@ class FieldsController < ApplicationController
   # rubocop:disable Style/AndOr
   def find_field
     @field = Field.find(params.require :id)
-    redirect_to request.referer and return if @field.form_draft.blank?
+    redirect_back(fallback_location: forms_path) and return if @field.form_draft.blank?
   end
   # rubocop:enable Style/AndOr
 end

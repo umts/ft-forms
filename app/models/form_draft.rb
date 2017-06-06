@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FormDraft < ActiveRecord::Base
+class FormDraft < ApplicationRecord
   belongs_to :form
   belongs_to :user
   has_many :fields, dependent: :destroy
