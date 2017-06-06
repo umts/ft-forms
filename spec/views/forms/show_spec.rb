@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 include RSpecHtmlMatchers
 
@@ -187,7 +189,7 @@ describe 'forms/show.haml' do
     end
   end
   it 'makes selectable options for option fields' do
-    create :field, form: @form, data_type: 'options', options: %w(car)
+    create :field, form: @form, data_type: 'options', options: %w[car]
     render
     expect(rendered).to have_tag 'select' do
       with_tag 'option', with: { value: 'car' }

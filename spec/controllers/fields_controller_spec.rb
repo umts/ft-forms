@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe FieldsController do
   describe 'GET #edit' do
     let :submit do
-      get :edit, id: @field.id
+      get :edit, params: { id: @field.id }
     end
     context 'not staff' do
       before :each do
@@ -46,10 +48,10 @@ describe FieldsController do
   describe 'PUT #update' do
     before :each do
       @field = create :field, form_draft: (create :form_draft)
-      @options = %w(some options)
+      @options = %w[some options]
     end
     let :submit do
-      post :update, id: @field.id, options: @options.join("\r\n")
+      post :update, params: { id: @field.id, options: @options.join("\r\n") }
     end
     context 'not staff' do
       before :each do

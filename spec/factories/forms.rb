@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryGirl.define do
   factory :form do
     sequence(:name) { |n| "Form #{n}" }

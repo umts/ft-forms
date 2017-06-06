@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe FormsController do
@@ -23,9 +25,11 @@ describe FormsController do
       end
       context 'XHR request' do
         it 'does not allow access' do
-          xhr :get, :index
+          headers = { 'HTTP_X_REQUESTED_WITH' => 'XMLHTTPRequest' }
+          request.headers.merge! headers
+          get :index
           expect(response).to have_http_status :unauthorized
-          expect(response.body).to be_blank
+          expect(response.body).to be_empty
         end
       end
     end
@@ -49,10 +53,10 @@ describe FormsController do
       @form = create :form
     end
     let :submit do
-      get :show, id: @form.slug
+      get :show, params: { id: @form.slug }
     end
     context 'whether staff or not' do
-      [:not_staff, :staff].each do |user_type|
+      %i[not_staff staff].each do |user_type|
         before :each do
           when_current_user_is user_type
         end
@@ -91,15 +95,14 @@ describe FormsController do
       }
       @user_attributes = { first_name: 'John',
                            last_name: 'Smith',
-                           email: 'jsmith@example.com'
-      }
+                           email: 'jsmith@example.com' }
     end
     let :submit do
-      post :submit, id: @form.id, responses: @responses,
-                    user: @user_attributes, reply_to: @form.reply_to
+      post :submit, params: { id: @form.id, responses: @responses,
+                              user: @user_attributes, reply_to: 'email' }
     end
     context 'whether staff or not' do
-      [:not_staff, :staff].each do |user_type|
+      %i[not_staff staff].each do |user_type|
         before :each do
           @current_user = create :user, user_type
           when_current_user_is @current_user
@@ -119,7 +122,7 @@ describe FormsController do
                                                      :send_confirmation)
             expect(FtFormsMailer)
               .to receive(:send_confirmation)
-              .with(@current_user, @responses, @form.reply_to)
+              .with(@current_user, @responses, 'email')
               .and_return mail
             expect(mail).to receive(:deliver_now).and_return true
             submit
@@ -129,12 +132,12 @@ describe FormsController do
             expect(response).to redirect_to thank_you_form_url(@form)
           end
           it 'updates the current_user object' do
-            [:email, :first_name, :last_name].each do |attribute|
+            %i[email first_name last_name].each do |attribute|
               expect(@current_user.send(attribute))
                 .not_to eql @user_attributes[attribute]
             end
             submit
-            [:email, :first_name, :last_name].each do |attribute|
+            %i[email first_name last_name].each do |attribute|
               expect(@current_user.reload.send(attribute))
                 .to eql @user_attributes[attribute]
             end
@@ -169,10 +172,10 @@ describe FormsController do
       @form = create :form
     end
     let :submit do
-      get :thank_you, id: @form.id
+      get :thank_you, params: { id: @form.id }
     end
     context 'whether staff or not' do
-      [:not_staff, :staff].each do |user_type|
+      %i[not_staff staff].each do |user_type|
         before :each do
           when_current_user_is user_type
         end
@@ -222,7 +225,7 @@ describe FormsController do
       @form = create :form
     end
     let :submit do
-      delete :destroy, id: @form.id
+      delete :destroy, params: { id: @form.id }
     end
     context 'not staff' do
       before :each do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe FormDraftsController do
@@ -6,7 +8,7 @@ describe FormDraftsController do
       @draft = create :form_draft
     end
     let :submit do
-      delete :destroy, id: @draft.id
+      delete :destroy, params: { id: @draft.id }
     end
     context 'not staff' do
       before :each do
@@ -48,7 +50,7 @@ describe FormDraftsController do
       @draft = create :form_draft
     end
     let :submit do
-      get :edit, id: @draft.id
+      get :edit, params: { id: @draft.id }
     end
     context 'not staff' do
       before :each do
@@ -85,7 +87,7 @@ describe FormDraftsController do
       @form = create :form
     end
     let :submit do
-      get :new, form_id: @form.id
+      get :new, params: { form_id: @form.id }
     end
     context 'not staff' do
       before :each do
@@ -124,9 +126,9 @@ describe FormDraftsController do
     end
     let :submit do
       post :move_field,
-           id: @draft.id,
-           number: @field.number,
-           direction: @direction
+           params: { id: @draft.id,
+                     number: @field.number,
+                     direction: @direction }
     end
     context 'not staff' do
       before :each do
@@ -166,7 +168,7 @@ describe FormDraftsController do
       @field = create :field, form_draft: @draft
     end
     let :submit do
-      post :remove_field, id: @draft.id, number: @field.number
+      post :remove_field, params: { id: @draft.id, number: @field.number }
     end
     context 'not staff' do
       before :each do
@@ -205,7 +207,7 @@ describe FormDraftsController do
       @draft = create :form_draft
     end
     let :submit do
-      get :show, id: @draft.id
+      get :show, params: { id: @draft.id }
     end
     context 'not staff' do
       before :each do
@@ -234,7 +236,7 @@ describe FormDraftsController do
 
   describe 'POST #create' do
     let :submit do
-      post :create, form_draft: { name: 'test' }, commit: @commit
+      post :create, params: { form_draft: { name: 'test' }, commit: @commit }
     end
     context 'not staff' do
       before :each do
@@ -286,9 +288,9 @@ describe FormDraftsController do
       @changes = Hash['name', 'a new name']
     end
     let :submit do
-      post :update, id: @draft,
-                    form_draft: @changes,
-                    commit: @commit
+      post :update, params: { id: @draft,
+                              form_draft: @changes,
+                              commit: @commit }
     end
     context 'not staff' do
       before :each do
@@ -345,7 +347,7 @@ describe FormDraftsController do
         @draft = create :form_draft
       end
       let :submit do
-        post :update_form, id: @draft.id
+        post :update_form, params: { id: @draft.id }
       end
       context 'not staff' do
         before :each do

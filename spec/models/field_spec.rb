@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Field do
@@ -36,13 +38,13 @@ describe Field do
       @draft = create :form_draft
     end
     it 'returns true for date, date/time, long-text, text or time' do
-      %w(date date/time long-text text time).each do |data_type|
+      %w[date date/time long-text text time].each do |data_type|
         field = create :field, form_draft: @draft, data_type: data_type
         expect(field.takes_placeholder?).to be true
       end
     end
     it 'returns false for explanation, heading, number, options, or yes/no' do
-      %w(explanation heading number options yes/no).each do |data_type|
+      %w[explanation heading number options yes/no].each do |data_type|
         field = create :field, form_draft: @draft, data_type: data_type
         expect(field.takes_placeholder?).to be false
       end

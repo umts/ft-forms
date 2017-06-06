@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 include RSpecHtmlMatchers
 
@@ -47,7 +49,7 @@ describe 'form_drafts/edit.haml' do
   end
   context 'input data type is options' do
     before :each do
-      @field.update data_type: 'options', options: %w(car van)
+      @field.update data_type: 'options', options: %w[car van]
     end
     it 'lists the current options' do
       render

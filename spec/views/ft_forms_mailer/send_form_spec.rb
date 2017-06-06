@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 include RSpecHtmlMatchers
 
@@ -5,7 +7,7 @@ describe 'ft_forms_mailer/send_form.text.erb' do
   before :each do
     @form_data = [['a question', 'an answer'],
                   ['a heading', :heading],
-                  %w(email my_email)]
+                  %w[email my_email]]
     @req_user = create :user
   end
   it 'includes the name and email of the user who made the request' do
