@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class Field < ActiveRecord::Base
   belongs_to :form
   belongs_to :form_draft
 
-  DATA_TYPES = %w(date date/time explanation heading long-text
-                  number options text time yes/no).freeze
+  DATA_TYPES = %w[date date/time explanation heading long-text
+                  number options text time yes/no].freeze
   serialize :options, Array
 
   validate :belongs_to_form_or_form_draft?
@@ -40,7 +42,7 @@ class Field < ActiveRecord::Base
   end
 
   def takes_placeholder?
-    %w(date date/time long-text text time).include? data_type
+    %w[date date/time long-text text time].include? data_type
   end
 
   def unique_name

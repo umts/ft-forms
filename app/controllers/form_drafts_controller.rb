@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FormDraftsController < ApplicationController
   before_action :find_form_draft, except: %i[create new]
   before_action :draft_params, only: %i[create update]
@@ -29,9 +31,6 @@ class FormDraftsController < ApplicationController
     field_number = params.require(:number).to_i
     @draft.remove_field field_number
     redirect_to edit_form_draft_path
-  end
-
-  def show
   end
 
   def create
@@ -73,11 +72,11 @@ class FormDraftsController < ApplicationController
                           .permit(:name,
                                   :email,
                                   :reply_to,
-                                  fields_attributes: [:number,
-                                                      :prompt,
-                                                      :data_type,
-                                                      :required,
-                                                      :id])
+                                  fields_attributes: %i[number
+                                                        prompt
+                                                        data_type
+                                                        required
+                                                        id])
   end
 
   def find_form_draft

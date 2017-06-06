@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Form < ActiveRecord::Base
   extend FriendlyId
   friendly_id :form_name, use: :slugged

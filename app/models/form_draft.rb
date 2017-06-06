@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FormDraft < ActiveRecord::Base
   belongs_to :form
   belongs_to :user

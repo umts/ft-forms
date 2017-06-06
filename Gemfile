@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 gem 'coffee-rails'
 gem 'factory_girl_rails'
 gem 'friendly_id', '~> 5.1.0'
 gem 'haml'
-gem 'haml_lint'
 gem 'haml-rails'
+gem 'haml_lint'
 gem 'jquery-rails'
 gem 'jquery-timepicker-rails'
 gem 'jquery-ui-rails'
-gem 'mysql'
-gem 'rails', '~> 4.2'
+gem 'mysql2'
+gem 'rails', '~> 5.1'
 gem 'redcarpet'
 gem 'sass-rails'
 gem 'snappconfig'
@@ -27,10 +29,10 @@ end
 
 group :development do
   gem 'capistrano', require: false
-  gem 'capistrano-pending', require: false
   gem 'capistrano-bundler', require: false
-  gem 'capistrano-rails', require: false
   gem 'capistrano-passenger', require: false
+  gem 'capistrano-pending', require: false
+  gem 'capistrano-rails', require: false
   gem 'rb-readline', require: false
 end
 
@@ -40,6 +42,7 @@ group :development, :test do
   gem 'codeclimate-test-reporter', '~> 1.0'
   gem 'mocha'
   gem 'pry-byebug'
+  gem 'rails-controller-testing'
   gem 'rspec-html-matchers'
   gem 'rspec-rails'
   gem 'rubocop'
