@@ -49,10 +49,10 @@ describe FtFormsMailer do
       expect(output.to).to eql Array(@form.email)
     end
     it 'sends to multiple emails of the form if separated by comma' do
-      email_1 = 'person@test.host'
-      email_2 = 'people@test.host'
-      @form.update email: [email_1, email_2].join(', ')
-      expect(output.to).to eql [email_1, email_2]
+      email1 = 'person@test.host'
+      email2 = 'people@test.host'
+      @form.update email: [email1, email2].join(', ')
+      expect(output.to).to eql [email1, email2]
     end
     it 'has a subject of New Meet & Greet Request' do
       expect(output.subject).to eql 'New Meet & Greet Request'

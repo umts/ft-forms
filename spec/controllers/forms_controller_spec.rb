@@ -5,9 +5,9 @@ require 'rails_helper'
 describe FormsController do
   describe 'GET #index' do
     before :each do
-      @form_1 = create :form
-      @form_2 = create :form
-      @form_3 = create :form
+      @form1 = create :form
+      @form2 = create :form
+      @form3 = create :form
     end
     let :submit do
       get :index
@@ -39,7 +39,7 @@ describe FormsController do
       end
       it 'puts all the forms in the correct instance variable' do
         submit
-        expect(assigns.fetch :forms).to include @form_1, @form_2, @form_3
+        expect(assigns.fetch :forms).to include @form1, @form2, @form3
       end
       it 'renders the index' do
         submit
