@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FormsController < ApplicationController
   # Whitelist actions below for non-staff access.
   skip_before_action :access_control, only: %i[show submit thank_you]
@@ -26,9 +28,6 @@ class FormsController < ApplicationController
     FtFormsMailer.send_form(@form, data, user).deliver_now
     FtFormsMailer.send_confirmation(user, data, params[:reply_to]).deliver_now
     redirect_to thank_you_form_url(@form.friendly_id)
-  end
-
-  def thank_you
   end
 
   def new

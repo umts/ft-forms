@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   # Returns the needed CSS class on the text field tag
   # based on the data type of the field.

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe SessionsController do
@@ -67,7 +69,7 @@ describe SessionsController do
       @user = create :user
     end
     let :submit do
-      post :dev_login, user_id: @user.id
+      post :dev_login, params: { user_id: @user.id }
     end
     it 'creates a session for the user specified' do
       submit
@@ -75,7 +77,7 @@ describe SessionsController do
     end
     it 'accepts a SPIRE also' do
       spire = '13243546'
-      post :dev_login, spire: spire
+      post :dev_login, params: { spire: spire }
       expect(session[:spire]).to eql spire
     end
     context 'not staff' do

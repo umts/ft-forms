@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   attr_accessor :current_user
   protect_from_forgery with: :exception
@@ -26,18 +28,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # '... and return' is correct here, disable rubocop warning
-  # rubocop:disable Style/AndOr
   def redirect_unauthenticated
-    unless @current_user.present? || session.key?(:spire)
-      logger.info 'Request:'
-      logger.info request.inspect
-      logger.info 'Session:'
-      logger.info session.inspect
-      redirect_to unauthenticated_session_path and return
-    end
+    return if @current_user.present? || session.key?(:spire)
+    logger.info 'Request:'
+    logger.info request.inspect
+    logger.info 'Session:'
+    logger.info session.inspect
+    redirect_to unauthenticated_session_path
   end
-  # rubocop:enable Style/AndOr
 
   def set_current_user
     @current_user =

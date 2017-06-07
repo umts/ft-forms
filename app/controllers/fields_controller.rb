@@ -1,8 +1,7 @@
+# frozen_string_literal: true
+
 class FieldsController < ApplicationController
   before_action :find_field
-
-  def edit
-  end
 
   def update
     @field.update options: params.require(:options).split("\r\n")
@@ -15,7 +14,9 @@ class FieldsController < ApplicationController
   # rubocop:disable Style/AndOr
   def find_field
     @field = Field.find(params.require :id)
-    redirect_to :back and return unless @field.form_draft.present?
+    redirect_back(fallback_location: forms_path) and return if @field
+                                                               .form_draft
+                                                               .blank?
   end
   # rubocop:enable Style/AndOr
 end

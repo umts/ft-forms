@@ -1,8 +1,10 @@
-class Form < ActiveRecord::Base
+# frozen_string_literal: true
+
+class Form < ApplicationRecord
   extend FriendlyId
   friendly_id :form_name, use: :slugged
   has_many :fields, dependent: :destroy
-  has_many :drafts, class_name: FormDraft,
+  has_many :drafts, class_name: 'FormDraft',
                     foreign_key: :form_id,
                     dependent: :destroy
   accepts_nested_attributes_for :fields

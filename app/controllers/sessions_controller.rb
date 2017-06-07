@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   layout false
   skip_before_action :redirect_unauthenticated, :access_control
@@ -19,10 +21,6 @@ class SessionsController < ApplicationController
       assign_user
       redirect_to forms_url
     end
-  end
-
-  # Only shows if no user in database AND no SPIRE provided from Shibboleth
-  def unauthenticated
   end
 
   private
