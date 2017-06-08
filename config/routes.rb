@@ -5,17 +5,10 @@ Rails.application.routes.draw do
   else root to: redirect('/forms/meet-greet-request-form')
   end
 
-
-  resources :form_drafts, except: [:index] do
+  resources :forms do
     member do
       post :move_field
       post :remove_field
-      post :update_form
-    end
-  end
-
-  resources :forms do
-    member do
       post :submit
       get  :thank_you
     end
