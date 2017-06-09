@@ -31,9 +31,7 @@ class FormsController < ApplicationController
   end
 
   def new
-    form = Form.new
-    @draft = form.create_draft @current_user
-    @draft.fields << @draft.new_field
+    @form = Form.new
   end
 
   def destroy

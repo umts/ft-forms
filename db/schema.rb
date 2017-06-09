@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,50 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170414155904) do
+ActiveRecord::Schema.define(version: 20170608185521) do
 
-  create_table "fields", force: :cascade do |t|
-    t.integer  "number",        limit: 4
-    t.text     "prompt",        limit: 65535
-    t.string   "data_type",     limit: 255
-    t.integer  "form_id",       limit: 4
+  create_table "fields", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.integer "number"
+    t.text "prompt"
+    t.string "data_type"
+    t.integer "form_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "required"
-    t.text     "options",       limit: 65535
-    t.integer  "form_draft_id", limit: 4
-    t.string   "placeholder",   limit: 255
+    t.boolean "required"
+    t.text "options"
+    t.integer "form_draft_id"
+    t.string "placeholder"
   end
 
-  create_table "form_drafts", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.text     "intro_text", limit: 65535
-    t.integer  "form_id",    limit: 4
+  create_table "forms", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string "name"
+    t.text "intro_text"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id",    limit: 4
-    t.string   "email",      limit: 255
-    t.string   "reply_to",   limit: 255
+    t.string "email"
+    t.string "reply_to"
+    t.string "slug"
   end
 
-  create_table "forms", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.text     "intro_text", limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "email",      limit: 255
-    t.string   "reply_to",   limit: 255
-    t.string   "slug",       limit: 255
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string   "first_name", limit: 255
-    t.string   "last_name",  limit: 255
-    t.boolean  "staff"
-    t.string   "spire",      limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "email",      limit: 255
+  create_table "users", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.boolean "staff"
+    t.string "spire"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email"
   end
 
 end

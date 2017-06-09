@@ -1,6 +1,6 @@
 #flex_wrapper
   .form_column
-    = form_for @draft do |f|
+    = form_for @form do |f|
       .form-config
         = f.label :name, 'Change form title:'
         = f.text_field :name, required: true, size: 50
@@ -42,16 +42,16 @@
           = f.submit 'Save changes and continue editing'
           = f.submit 'Preview changes'
   .button_column
-    - @draft.fields.each do |field|
+    - @form.fields.each do |field|
       - unless field.new_record?
         .button_row
-          - unless @draft.fields.index(field).zero?
+          - unless @form.fields.index(field).zero?
             = button_to 'Move up',
-              move_field_form_draft_path(@draft, number: field.number,
+              move_field_form_path(@form, number: field.number,
                                          direction: :up)
-          - unless field == @draft.fields.not_new.last
+          - unless field == @form.fields.not_new.last
             = button_to 'Move down',
-              move_field_form_draft_path(@draft, number: field.number,
+              move_field_form_path(@form, number: field.number,
                                          direction: :down)
           = button_to 'Remove field',
-            remove_field_form_draft_path(@draft, number: field.number)
+            remove_field_form_path(@form, number: field.number)
