@@ -2,10 +2,10 @@
   .form_column
     = form_for @form do |f|
       .form-config
-        = f.label :name, 'Change form title:'
+        = f.label :name, 'Form title:'
         = f.text_field :name, required: true, size: 50
       .form-config
-        = f.label :email, 'Change form email destination:'
+        = f.label :email, 'Form email destination:'
         = f.text_field :email, required: true, size: 50
       .form-config
         = f.label :reply_to, 'Set reply-to address'

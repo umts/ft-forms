@@ -2,13 +2,11 @@
 
 class Field < ApplicationRecord
   belongs_to :form
-  belongs_to :form_draft
 
   DATA_TYPES = %w[date date/time explanation heading long-text
                   number options text time yes/no].freeze
   serialize :options, Array
 
-  validate :belongs_to_form_or_form_draft?
   validates :data_type,
             inclusion: { in: DATA_TYPES }
   validates :number,
@@ -20,8 +18,6 @@ class Field < ApplicationRecord
   # not the other way around
   validates :number, uniqueness: { scope: :form,
                                    if: -> { form.present? } }
-  validates :number, uniqueness: { scope: :form_draft,
-                                   if: -> { form_draft.present? } }
   validates :required,
             inclusion: { in: [true, false],
                          message: 'must be true or false' }
@@ -55,14 +51,5 @@ class Field < ApplicationRecord
 
   def unique_prompt_name
     "prompt_#{number}"
-  end
-
-  private
-
-  # must have form or form draft. cannot have both
-  def belongs_to_form_or_form_draft?
-    return if form.present? ^ form_draft.present?
-    errors.add :base,
-               'You must specify either a form or form_draft, but not both'
   end
 end

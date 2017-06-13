@@ -8,12 +8,16 @@ class FormsController < ApplicationController
   before_action :placeholder_from_shibboleth_attributes, only: %i[show]
 
   def index
-    @forms = Form.includes :drafts
+    @forms = Form.live.includes(:draft)
   end
 
   def show
     @form = Form.friendly.find(params[:id])
     @submit = true unless params[:no_submit]
+  end
+
+  def edit
+    @form = Form.friendly.find(params[:id])
   end
 
   def submit
@@ -35,7 +39,7 @@ class FormsController < ApplicationController
   end
 
   def destroy
-    @form.destroy
+    @form.draft_destruction
     redirect_to forms_url
     flash[:message] = 'Form successfully deleted.'
   end

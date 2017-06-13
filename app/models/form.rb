@@ -5,6 +5,7 @@ class Form < ApplicationRecord
   friendly_id :form_name, use: :slugged
   has_many :fields, dependent: :destroy
   accepts_nested_attributes_for :fields
+  has_drafts
 
   validates :name, presence: true, uniqueness: true
   default_scope { order :name }
