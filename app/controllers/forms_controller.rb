@@ -6,6 +6,7 @@ class FormsController < ApplicationController
   # Since these actions are used to edit forms, maintain the form in session.
   before_action :find_form, only: %i[submit thank_you update destroy]
   before_action :placeholder_from_shibboleth_attributes, only: %i[show]
+  before_action :form_params, only: %i[create update]
 
   def index
     @forms = Form.live.includes(:draft)
@@ -38,10 +39,31 @@ class FormsController < ApplicationController
     @form = Form.new
   end
 
+  def create
+    form = Form.assign_attributes form_params.except(:fields_attributes)
+    if form.save
+      form.update_fields form_params[:fields_attributes]
+      render :show
+    else
+      render :edit
+    end
+  end
+
   def destroy
-    @form.draft_destruction
     redirect_to forms_url
     flash[:message] = 'Form successfully deleted.'
+  end
+
+  def update
+    @form.update form_params.except(:fields_attributes)
+    @form.update_fields form_params[:fields_attributes]
+    @form.reload # since fields have been updated
+    if @form.save
+      @form.update_fields form_params[:fields_attributes]
+      redirect_to forms_path
+    else
+      render :show
+    end
   end
 
   private
@@ -66,5 +88,16 @@ class FormsController < ApplicationController
     @placeholder = User.new(email: request.env['mail'],
                             first_name: request.env['givenName'],
                             last_name: request.env['surName'])
+  end
+
+  def form_params
+    params.require(:form).permit(:name,
+                                 :email,
+                                 :reply_to,
+                                 fields_attributes: %i[number
+                                                       prompt
+                                                       data_type
+                                                       required
+                                                       id])
   end
 end
