@@ -54,3 +54,7 @@
                                          direction: :down)
           = button_to 'Remove field',
             remove_field_form_path(@form, number: field.number)
+      - if field.new_record?
+        .button_row
+          = button_to 'Add field'
+          /add_field_form_path(@form, number: field.number)

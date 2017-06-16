@@ -47,6 +47,8 @@ class Form < ApplicationRecord
   def update_fields(field_data)
     return if field_data.blank?
     field_data.each do |_index, field_attributes|
+      binding.pry
+      next if field_attributes[:prompt].blank?
       field = fields.find_by number: field_attributes.fetch(:number)
       if field.present?
         field.update field_attributes

@@ -37,12 +37,16 @@ class FormsController < ApplicationController
 
   def new
     @form = Form.new
+    @form.fields << @form.new_field
   end
 
   def create
     form = Form.new form_params.except(:fields_attributes)
+    fields_attributes = form_params[:fields_attributes]
+    binding.pry
     if form.save
-      form.update_fields form_params[:fields_attributes]
+      unless form_params[:fields_attributes]['0'][:prompt].blank?
+      form.update_fields fields_attributes
       render :show
     else
       render :edit
