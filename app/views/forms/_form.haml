@@ -39,8 +39,7 @@
                   %li= option
                 %li= link_to 'Configure options', edit_field_path(field)
         .actions
-          = f.submit 'Save changes and continue editing'
-          = f.submit 'Preview changes'
+          = f.submit 'Save'
   .button_column
     - @form.fields.each do |field|
       - unless field.new_record?
