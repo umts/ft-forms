@@ -40,7 +40,7 @@ class FormsController < ApplicationController
   end
 
   def create
-    form = Form.assign_attributes form_params.except(:fields_attributes)
+    form = Form.new form_params.except(:fields_attributes)
     if form.save
       form.update_fields form_params[:fields_attributes]
       render :show
@@ -50,6 +50,7 @@ class FormsController < ApplicationController
   end
 
   def destroy
+    @form.destroy
     redirect_to forms_url
     flash[:message] = 'Form successfully deleted.'
   end
@@ -59,10 +60,11 @@ class FormsController < ApplicationController
     @form.update_fields form_params[:fields_attributes]
     @form.reload # since fields have been updated
     if @form.save
-      @form.update_fields form_params[:fields_attributes]
-      redirect_to forms_path
-    else
+      flash[:message] = 'Form successfully updated'
       render :show
+    else
+      flash[:error] = 'Something went wrong'
+      render :edit
     end
   end
 
