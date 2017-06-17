@@ -12,6 +12,7 @@ capybara-*.html
 /coverage/.resultset.json.lock
 /coverage/assets
 /spec/tmp
+/node_modules
 **.orig
 rerun.txt
 pickle-email-*.html
