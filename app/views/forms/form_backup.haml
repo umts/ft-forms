@@ -16,7 +16,7 @@
         .field_attribute Response type
         .field_attribute Required?
         .field_attribute Options
-      .fields_column.sortable
+      .fields_column
         = f.fields_for :fields do |g|
           - field = g.object
           - if field.new_record?
@@ -38,19 +38,23 @@
                 - field.options.each do |option|
                   %li= option
                 %li= link_to 'Configure options', edit_field_path(field)
-            .buttons
-              - unless field.new_record?
-                - unless @form.fields.index(field).zero?
-                  - button_to 'Move up',
-                    move_field_form_path(@form, number: field.number,
-                                               direction: :up)
-                - unless field == @form.fields.not_new.last
-                  = button_to 'Move down',
-                    move_field_form_path(@form, number: field.number,
-                                               direction: :down)
-                  = button_to 'Remove field',
-                    remove_field_form_path(@form, number: field.number)
-              - if field.new_record?
-                = button_to 'Add field'
         .actions
           = f.submit 'Save'
+  .button_column
+    - @form.fields.each do |field|
+      - unless field.new_record?
+        .button_row
+          - unless @form.fields.index(field).zero?
+            = button_to 'Move up',
+              move_field_form_path(@form, number: field.number,
+                                         direction: :up)
+          - unless field == @form.fields.not_new.last
+            = button_to 'Move down',
+              move_field_form_path(@form, number: field.number,
+                                         direction: :down)
+          = button_to 'Remove field',
+            remove_field_form_path(@form, number: field.number)
+      - if field.new_record?
+        .button_row
+          = button_to 'Add field'
+          /add_field_form_path(@form, number: field.number)
