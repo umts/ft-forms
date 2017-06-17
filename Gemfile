@@ -8,9 +8,6 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'haml'
 gem 'haml-rails'
 gem 'haml_lint'
-gem 'jquery-rails'
-gem 'jquery-timepicker-rails'
-gem 'jquery-ui-rails'
 gem 'mysql2'
 gem 'rails', '~> 5.1'
 gem 'redcarpet'
@@ -20,7 +17,6 @@ gem 'uglifier'
 gem 'draftsman', '~> 0.7.0'
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-datetimepicker'
   gem 'rails-assets-moment'
 end
 

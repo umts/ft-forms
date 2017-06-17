@@ -19,6 +19,7 @@ class FormsController < ApplicationController
 
   def edit
     @form = Form.friendly.find(params[:id])
+    @form.fields << @form.new_field
   end
 
   def submit
@@ -46,6 +47,7 @@ class FormsController < ApplicationController
     binding.pry
     if form.save
       unless form_params[:fields_attributes]['0'][:prompt].blank?
+      end
       form.update_fields fields_attributes
       render :show
     else

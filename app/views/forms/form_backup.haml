@@ -40,3 +40,21 @@
                 %li= link_to 'Configure options', edit_field_path(field)
         .actions
           = f.submit 'Save'
+  .button_column
+    - @form.fields.each do |field|
+      - unless field.new_record?
+        .button_row
+          - unless @form.fields.index(field).zero?
+            = button_to 'Move up',
+              move_field_form_path(@form, number: field.number,
+                                         direction: :up)
+          - unless field == @form.fields.not_new.last
+            = button_to 'Move down',
+              move_field_form_path(@form, number: field.number,
+                                         direction: :down)
+          = button_to 'Remove field',
+            remove_field_form_path(@form, number: field.number)
+      - if field.new_record?
+        .button_row
+          = button_to 'Add field'
+          /add_field_form_path(@form, number: field.number)

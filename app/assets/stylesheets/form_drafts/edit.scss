@@ -30,7 +30,7 @@ html {
       display:flex;
       flex-direction:column;
       .field_row{
-        height:5em;
+        height:7em;
         display: flex;
         border-bottom:1px solid black;
         .field_attribute_1{
@@ -55,3 +55,7 @@ html {
     }
   }
 }
+
+  #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+  #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+  #sortable li span { position: absolute; margin-left: -1.3em; }

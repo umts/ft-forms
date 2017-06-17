@@ -10,12 +10,11 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
-//= require jquery-ui
-//= require datetimepicker
+//= require jquery/dist/jquery
+//= require jquery/dist/core
+//= require jquery-ui/ui/widgets/datepicker
 //= require moment
-//= require jquery.datetimepicker.full.js
 //= require bootstrap/dist/js/bootstrap
-//= require jquery.timepicker
+//= require jquery-datetimepicker/jquery.datetimepicker.js
+//= require jquery-ui/ui/widgets/sortable
 //= require_tree .
