@@ -1,56 +1,65 @@
-#flex_wrapper
-  .form_column
-    = form_for @form do |f|
-      .form-config
-        = f.label :name, 'Form title:'
-        = f.text_field :name, required: true, size: 50
-      .form-config
-        = f.label :email, 'Form email destination:'
-        = f.text_field :email, required: true, size: 50
-      .form-config
-        = f.label :reply_to, 'Set reply-to address'
-        = f.text_field :reply_to, size: 50
-      .header_row
-        .field_attribute_header1 Field text
-        .field_attribute Example response
-        .field_attribute Response type
-        .field_attribute Required?
-        .field_attribute Options
-      .fields_column.sortable
-        = f.fields_for :fields do |g|
-          - field = g.object
-          - if field.new_record?
-            .centered{ colspan: 5 } Add new field...
-          .field_row
-            = g.hidden_field :number
-            .field_attribute_1
-              = g.text_area :prompt, required: !field.new_record?, size: '35x4'
-            .field_attribute
-              = g.text_field :placeholder if field.takes_placeholder?
-            .field_attribute
-              = g.select :data_type, Field::DATA_TYPES,
-                include_blank: 'Select a data type...',
-                required: !field.new_record?
-            .field_attribute
-              = g.check_box :required
-            .field_attribute
-              - if field.data_type == 'options'
-                - field.options.each do |option|
-                  %li= option
-                %li= link_to 'Configure options', edit_field_path(field)
-            .buttons
-              - unless field.new_record?
-                - unless @form.fields.index(field).zero?
-                  - button_to 'Move up',
-                    move_field_form_path(@form, number: field.number,
-                                               direction: :up)
-                - unless field == @form.fields.not_new.last
-                  = button_to 'Move down',
-                    move_field_form_path(@form, number: field.number,
-                                               direction: :down)
-                  = button_to 'Remove field',
-                    remove_field_form_path(@form, number: field.number)
-              - if field.new_record?
-                = button_to 'Add field'
-        .actions
-          = f.submit 'Save'
+=form_for @form do |f|
+  .form-inline.form-group
+    = f.label :name, 'Form title:'
+    = f.text_field :name, required: true, size: 50, class: 'form-control'
+  .form-inline.form-group
+    = f.label :email, 'Form email destination:'
+    = f.text_field :email, required: true, size: 50, class: 'form-control'
+  .form-inline.form-group
+    = f.label :reply_to, 'Set reply-to address'
+    = f.text_field :reply_to, size: 50, class: 'form-control'
+  .container
+    .row
+      .col-md-3 Field text
+      .col-md-2 Example response
+      .col-md-2 Response type
+      .col-md-2 Required?
+      .col-md-2 Options
+  .container.sortable
+    Click to drag..
+    = f.fields_for :fields do |g|
+      - field = g.object
+      - unless field.new_record?
+        .row
+          = g.hidden_field :number
+          %span.grabbable.btn.btn-default #{field.number}
+          .col-md-3
+            = g.text_area :prompt, size: '35x4', class: 'form-control'
+          .col-md-2
+            = g.text_field :placeholder if field.takes_placeholder?
+          .col-md-2
+            = g.select :data_type, Field::DATA_TYPES,
+              include_blank: 'Select a data type...'
+          .col-md-2
+            = g.check_box :required
+          .col-md-2
+            - if field.data_type == 'options'
+              - field.options.each do |option|
+                %li= option
+              %li= link_to 'Configure options', edit_field_path(field)
+          .col-md-2
+            = button_to 'Remove field',
+              remove_field_form_path(@form, number: field.number)
+            - if field.new_record?
+              = button_to 'Add field'
+      - else
+        Add new field...
+        .row.no-sort
+          = g.hidden_field :number
+          %span#add-new.btn.btn-default +
+          .col-md-3
+            = g.text_area :prompt, size: '35x4', class: 'form-control'
+          .col-md-2
+          .col-md-2
+            = g.select :data_type, Field::DATA_TYPES,
+              include_blank: 'Select a data type...'
+          .col-md-2
+            = g.check_box :required
+          .col-md-2
+          .col-md-2
+            = button_to 'Remove field',
+              remove_field_form_path(@form, number: field.number)
+            - if field.new_record?
+              = button_to 'Add field'
+    .actions.no-sort
+      = f.submit 'Save'
