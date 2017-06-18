@@ -19,7 +19,7 @@
     Click to drag..
     = f.fields_for :fields do |g|
       - field = g.object
-      .row.padded
+      .row.padded-field
         = g.hidden_field :number
         %span.grabbable.btn.btn-default #{field.number}
         .col-md-3
@@ -31,14 +31,13 @@
             include_blank: 'Select a data type...'
         .col-md-2
           = g.check_box :required
-        .col-md-2
+        .col-md-3
           - if field.data_type == 'options'
             - field.options.each do |option|
               %li= option
             %li= link_to 'Configure options', edit_field_path(field)
-        .col-md-2
-          = button_to 'Remove field',
-            remove_field_form_path(@form, number: field.number)
+        .col-md-1
+          .remove.btn.btn-default Remove field
   .container
     .col-md-3
       #add-new.btn.btn-default Add new field
