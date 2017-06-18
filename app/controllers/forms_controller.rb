@@ -19,7 +19,6 @@ class FormsController < ApplicationController
 
   def edit
     @form = Form.friendly.find(params[:id])
-    @form.fields << @form.new_field
   end
 
   def submit
