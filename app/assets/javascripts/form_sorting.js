@@ -1,16 +1,24 @@
 $( document ).ready( function() {
-  $('.sortable').sortable({
+
+  $('.sortable').sortable({});
+
+  $('#add-new').click(function(){
+    var newField = $('.row.padded').last().clone();
+    setDefaultValues(newField);
+    newField.appendTo('.container.sortable');
   });
+
 });
 
 
-
-function reNumber() {
-  $('.grabbable');
+function setDefaultValues(selector) {
+  selector.find('textarea').text('')
+  selector.find('span').text(newNumber())
+  selector.find('select').val('')
 }
 
-function serializeFields() {
-
+function newNumber() {
+  return $('.row.padded').length + 1
 }
 
 //when new question is added:
