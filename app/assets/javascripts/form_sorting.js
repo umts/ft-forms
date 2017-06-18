@@ -3,9 +3,13 @@ $( document ).ready( function() {
   $('.sortable').sortable({});
 
   $('#add-new').click(function(){
-    var newField = $('.row.padded').last().clone();
+    var newField = $('.row.padded-field').last().clone();
     setDefaultValues(newField);
     newField.appendTo('.container.sortable');
+  });
+
+  $('.remove').click(function(){
+    $(this).parents('.row.padded-field').remove();
   });
 
 });
