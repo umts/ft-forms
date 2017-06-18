@@ -19,47 +19,28 @@
     Click to drag..
     = f.fields_for :fields do |g|
       - field = g.object
-      - unless field.new_record?
-        .row
-          = g.hidden_field :number
-          %span.grabbable.btn.btn-default #{field.number}
-          .col-md-3
-            = g.text_area :prompt, size: '35x4', class: 'form-control'
-          .col-md-2
-            = g.text_field :placeholder if field.takes_placeholder?
-          .col-md-2
-            = g.select :data_type, Field::DATA_TYPES,
-              include_blank: 'Select a data type...'
-          .col-md-2
-            = g.check_box :required
-          .col-md-2
-            - if field.data_type == 'options'
-              - field.options.each do |option|
-                %li= option
-              %li= link_to 'Configure options', edit_field_path(field)
-          .col-md-2
-            = button_to 'Remove field',
-              remove_field_form_path(@form, number: field.number)
-            - if field.new_record?
-              = button_to 'Add field'
-      - else
-        Add new field...
-        .row.no-sort
-          = g.hidden_field :number
-          %span#add-new.btn.btn-default +
-          .col-md-3
-            = g.text_area :prompt, size: '35x4', class: 'form-control'
-          .col-md-2
-          .col-md-2
-            = g.select :data_type, Field::DATA_TYPES,
-              include_blank: 'Select a data type...'
-          .col-md-2
-            = g.check_box :required
-          .col-md-2
-          .col-md-2
-            = button_to 'Remove field',
-              remove_field_form_path(@form, number: field.number)
-            - if field.new_record?
-              = button_to 'Add field'
-    .actions.no-sort
-      = f.submit 'Save'
+      .row.padded
+        = g.hidden_field :number
+        %span.grabbable.btn.btn-default #{field.number}
+        .col-md-3
+          = g.text_area :prompt, size: '35x4', class: 'form-control'
+        .col-md-2
+          = g.text_field :placeholder if field.takes_placeholder?
+        .col-md-2
+          = g.select :data_type, Field::DATA_TYPES,
+            include_blank: 'Select a data type...'
+        .col-md-2
+          = g.check_box :required
+        .col-md-2
+          - if field.data_type == 'options'
+            - field.options.each do |option|
+              %li= option
+            %li= link_to 'Configure options', edit_field_path(field)
+        .col-md-2
+          = button_to 'Remove field',
+            remove_field_form_path(@form, number: field.number)
+  .container
+    .col-md-3
+      #add-new.btn.btn-default Add new field
+  .actions
+    = f.submit 'Save'
