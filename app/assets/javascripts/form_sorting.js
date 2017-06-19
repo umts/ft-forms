@@ -9,7 +9,13 @@ $( document ).ready( function() {
   });
 
   $('.remove').click(function(){
-    $(this).parents('.row.padded-field').remove();
+    fields = $('.row.padded-field');
+    parentField = $(this).parents('.row.padded-field')
+    if(fields.length > 1) {
+      parentField.remove();
+    }
+    // If they want to remove the last field, just empty it instead.
+    else setDefaultValues(parentField)
   });
 
 });
