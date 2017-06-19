@@ -24,10 +24,10 @@
         %span.grabbable.btn.btn-default #{field.number}
         .col-md-3
           = g.text_area :prompt, size: '35x4', class: 'form-control'
-        .col-md-2
+        .col-md-2.placeholder
           = g.text_field :placeholder if field.takes_placeholder?
         .col-md-2
-          = g.select :data_type, Field::DATA_TYPES,
+          .data-type= g.select :data_type, Field::DATA_TYPES,
             include_blank: 'Select a data type...'
         .col-md-2
           .required= g.check_box :required
