@@ -3,7 +3,7 @@ $( document ).ready( function() {
   $('.sortable').sortable({});
 
   $('#add-new').click(function(){
-    var newField = $('.row.padded-field').last().clone();
+    var newField = $('.row.padded-field').last().clone(true);
     setDefaultValues(newField);
     newField.appendTo('.container.sortable');
   });
@@ -15,20 +15,20 @@ $( document ).ready( function() {
       parentField.remove();
     }
     // If they want to remove the last field, just empty it instead.
-    else setDefaultValues(parentField)
+    else setDefaultValues(parentField);
   });
 
 });
 
 
 function setDefaultValues(selector) {
-  selector.find('textarea').text('')
-  selector.find('span').text(newNumber())
-  selector.find('select').val('')
+  selector.find('textarea').text('');
+  selector.find('.grabbable').text(newNumber());
+  selector.find('select').val('');
 }
 
 function newNumber() {
-  return $('.row.padded').length + 1
+  return $('.row.padded-field').length + 1;
 }
 
 //when new question is added:
