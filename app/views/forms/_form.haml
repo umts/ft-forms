@@ -1,4 +1,4 @@
-=form_for @form do |f|
+=form_with model: @form do |f|
   .form-inline.form-group
     = f.label :name, 'Form title:'
     = f.text_field :name, required: true, size: 50, class: 'form-control'
@@ -9,7 +9,7 @@
     = f.label :reply_to, 'Set reply-to address'
     = f.text_field :reply_to, size: 50, class: 'form-control'
   .container
-    .row
+    .row.headers
       .col-md-3 Field text
       .col-md-2 Example response
       .col-md-2 Response type
@@ -30,7 +30,7 @@
           = g.select :data_type, Field::DATA_TYPES,
             include_blank: 'Select a data type...'
         .col-md-2
-          = g.check_box :required
+          .required= g.check_box :required
         .col-md-3
           - if field.data_type == 'options'
             - field.options.each do |option|
@@ -42,4 +42,6 @@
     .col-md-3
       #add-new.btn.btn-default Add new field
   .actions
-    = f.submit 'Save'
+    = submit_tag 'Save and preview', id: '#save'
+    = submit_tag 'Cancel', id: '#trash'
+    = submit_tag 'Save as draft'
