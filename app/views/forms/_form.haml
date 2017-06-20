@@ -1,13 +1,13 @@
-=form_with model: @form do |f|
+=form_with model: @form, data: { id: @form.id } do |f|
   .form-inline.form-group
     = f.label :name, 'Form title:'
-    = f.text_field :name, required: true, size: 50, class: 'form-control'
+    #name= f.text_field :name, required: true, size: 50, class: 'form-control'
   .form-inline.form-group
     = f.label :email, 'Form email destination:'
-    = f.text_field :email, required: true, size: 50, class: 'form-control'
+    #email= f.text_field :email, required: true, size: 50, class: 'form-control' 
   .form-inline.form-group
     = f.label :reply_to, 'Set reply-to address'
-    = f.text_field :reply_to, size: 50, class: 'form-control'
+    #reply-to= f.text_field :reply_to, size: 50, class: 'form-control'
   .container
     .row.headers
       .col-md-3 Field text
@@ -31,7 +31,7 @@
             include_blank: 'Select a data type...'
         .col-md-2
           .required= g.check_box :required
-        .col-md-3
+        .col-md-3.options
           - if field.data_type == 'options'
             - field.options.each do |option|
               %li= option
@@ -42,6 +42,6 @@
     .col-md-3
       #add-new.btn.btn-default Add new field
   .actions
-    = submit_tag 'Save and preview', id: '#save'
+    = submit_tag 'Save and preview', id: 'save'
     = submit_tag 'Cancel', id: '#trash'
     = submit_tag 'Save as draft'
