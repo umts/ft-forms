@@ -1,7 +1,10 @@
 $( document ).ready( function() {
 
-  $('.sortable').sortable();
-  //TODO: trigger a re-number function when finished sorting
+  $('.sortable').sortable({
+    stop: function (event, ui) {
+      reNumber()
+    }
+  });
 
   $('#add-new').click(function(){
     var newField = $('.row.padded-field').last().clone(true);
@@ -15,7 +18,10 @@ $( document ).ready( function() {
       parentField.remove();
     }
     // If they want to remove the last field, just empty it instead.
-    else setDefaultValues(parentField);
+    else { 
+      setDefaultValues(parentField);
+    }
+    reNumber();
   });
 
   $('#save').click(function(e){
@@ -80,7 +86,13 @@ function extractFieldData(fields) {
 }
 
 function newNumber() {
-  return $('.row.padded-field').length + 1;
+  return $('.grabbable').length + 1;
+}
+
+function reNumber() {
+  $('.grabbable').each(function (index){
+    $(this).text(index + 1);
+  })
 }
 
 function setDefaultValues(field) {
