@@ -1,11 +1,11 @@
 $( document ).ready( function() {
 
   $('.sortable').sortable();
+  //TODO: trigger a re-number function when finished sorting
 
   $('#add-new').click(function(){
     var newField = $('.row.padded-field').last().clone(true);
-    setDefaultValues(newField);
-    newField.appendTo('.container.sortable');
+    appendField(newField, setDefaultValues)
   });
 
   $('.remove').click(function(){
@@ -20,16 +20,32 @@ $( document ).ready( function() {
 
   $('#save').click(function(e){
     e.preventDefault;
-    var formID = 4; //something
-    var fieldsCount = $('.row.padded-field').length;
-    var fieldData = []
+    var allFieldData = {}
+    $('.padded-field').each( function (index) {
+      var fieldData = {};
+      fieldData['number'] = index + 1;
+      fieldData['prompt'] = $(this).find('textarea').val();
+      fieldData['placeholder'] = $(this).find('.placeholder').val();
+      fieldData['required'] = $(this).find('.required :checkbox').prop('checked');
+      fieldData['dataType'] = $(this).find('.data-type').val();
+      allFieldData[index] = fieldData;
+      //TODO: $(this).find('.options')
+    });
+    var formData = {
+      name: $('#name').val(),
+      email: $('#email').val(),
+      replyTo: $('#reply-to').val()
+    }
+    var data = {form: formData, fields: allFieldData}
+    var ID = $('#id').val();
     $.ajax({
-      url: '/forms/4/update',
-      data: []
+      url: '/forms/' + ID,
+      method: 'PUT',
+      data: data
     }).done(function(){
-      //something?
-    })
-  })
+      //TODO: something?
+    });
+  });
 
   $('.data-type').change(function(){
     placeholder = $(this).parents('.padded-field').find('.placeholder');
@@ -63,20 +79,18 @@ function extractFieldData(fields) {
   })
 }
 
-function setDefaultValues(selector) {
-  selector.find('textarea').text('');
-  selector.find('.grabbable').text(newNumber());
-  selector.find('select').val('');
-}
-
 function newNumber() {
   return $('.row.padded-field').length + 1;
 }
 
-//when Preview: 
-//$( ".selector" ).sortable( "refresh" );
-//reload all sortable items, cause new to be recognized
-//
-//send new order to server: http://api.jqueryui.com/sortable/#method-serialize
-//$( ".sortable" ).sortable( "serialize", { key: "sort", expression: /(\d)[_](.+)/ } );
-//
+function setDefaultValues(field) {
+  field.find('textarea').val('');
+  field.find('.grabbable').text(newNumber());
+  field.find('select').val('');
+}
+
+function appendField(field, callback){
+  callback(field);
+  field.appendTo('.container.sortable');
+}
+
