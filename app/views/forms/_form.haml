@@ -20,12 +20,11 @@
     = f.fields_for :fields do |g|
       - field = g.object
       .row.padded-field
-        = g.hidden_field :number
-        %span.grabbable.btn.btn-default #{field.number}
+        %span.grabbable-number.btn.btn-default #{field.number}
         .col-md-3
-          = g.text_area :prompt, size: '35x4', class: 'form-control'
-        .col-md-2.placeholder
-          = g.text_field :placeholder if field.takes_placeholder?
+          .prompt= g.text_area :prompt, size: '35x4', class: 'form-control'
+        .col-md-2
+          .placeholder= g.text_field :placeholder if field.takes_placeholder?
         .col-md-2
           .data-type= g.select :data_type, Field::DATA_TYPES,
             include_blank: 'Select a data type...'
@@ -38,9 +37,11 @@
             %li= link_to 'Configure options', edit_field_path(field)
         .col-md-1
           .remove.btn.btn-default Remove field
+    - if @form.fields.empty?
+      = render 'new_field'
   .container
     .col-md-3
-      #add-new.btn.btn-default Add new field
+      .btn.btn-default#add-new Add new field
   .actions
     = submit_tag 'Save and preview', id: 'save'
     = submit_tag 'Cancel', id: '#trash'

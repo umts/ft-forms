@@ -1,0 +1,14 @@
+.row.padded-field
+  %span.grabbable-number.btn.btn-default 1
+  .col-md-3
+    .prompt= text_area_tag :prompt, nil, size: '35x4', class: 'form-control'
+  .col-md-2
+    .placeholder= text_field_tag :placeholder
+  .col-md-2
+    .data-type= select_tag :data_type, options_for_select(Field::DATA_TYPES),
+      include_blank: 'select a data type...'
+  .col-md-2
+    .required= check_box_tag :required
+  .col-md-3.options
+  .col-md-1
+    .remove.btn.btn-default remove field
