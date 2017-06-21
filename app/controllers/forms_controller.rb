@@ -4,7 +4,7 @@ class FormsController < ApplicationController
   # Whitelist actions below for non-staff access.
   skip_before_action :access_control, only: %i[show submit thank_you]
   # Since these actions are used to edit forms, maintain the form in session.
-  before_action :find_form, only: %i[submit thank_you update destroy]
+  before_action :find_form, only: %i[new_field submit thank_you update destroy]
   before_action :placeholder_from_shibboleth_attributes, only: %i[show]
   before_action :form_params, only: %i[create update]
 
@@ -61,12 +61,19 @@ class FormsController < ApplicationController
   end
 
   def update
-    @form.update form_params.except(:fields_attributes)
-    @form.update_fields form_params[:fields_attributes]
-    @form.reload # since fields have been updated
+    form_attributes = params.require('form').permit(:name, :email, :reply_to)
+    fields = params.require(:fields).permit!
+    # instead of determining which fields have changed and which
+    # are new, just delete and rebuild
+    @form.fields.destroy_all 
+    @form.update_attributes form_attributes
+    fields.each do |_index, attributes|
+      Field.create! attributes.merge(form: @form)
+    end
     if @form.save
       flash[:message] = 'Form successfully updated'
-      render :show
+      binding.pry
+      redirect_to @form
     else
       flash[:error] = 'Something went wrong'
       render :edit

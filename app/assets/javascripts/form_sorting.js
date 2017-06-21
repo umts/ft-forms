@@ -2,7 +2,7 @@ $( document ).ready( function() {
 
   $('.sortable').sortable({
     stop: function (event, ui) {
-      reNumber()
+      reNumber();
     }
   });
 
@@ -24,35 +24,6 @@ $( document ).ready( function() {
     reNumber();
   });
 
-  $('#save').click(function(e){
-    e.preventDefault;
-    var allFieldData = {}
-    $('.padded-field').each( function (index) {
-      var fieldData = {};
-      fieldData['number'] = index + 1;
-      fieldData['prompt'] = $(this).find('textarea').val();
-      fieldData['placeholder'] = $(this).find('.placeholder').val();
-      fieldData['required'] = $(this).find('.required :checkbox').prop('checked');
-      fieldData['dataType'] = $(this).find('.data-type').val();
-      allFieldData[index] = fieldData;
-      //TODO: $(this).find('.options')
-    });
-    var formData = {
-      name: $('#name').val(),
-      email: $('#email').val(),
-      replyTo: $('#reply-to').val()
-    }
-    var data = {form: formData, fields: allFieldData}
-    var ID = $('#id').val();
-    $.ajax({
-      url: '/forms/' + ID,
-      method: 'PUT',
-      data: data
-    }).done(function(){
-      //TODO: something?
-    });
-  });
-
   $('.data-type').change(function(){
     placeholder = $(this).parents('.padded-field').find('.placeholder');
     value = $(this).children('select').val()
@@ -65,7 +36,27 @@ $( document ).ready( function() {
     }
   });
 
-});
+  $('#save').click(function(e){
+    e.preventDefault;
+    fields = $('.padded-field')
+    var allFieldData = extractFieldData(fields)
+    var formData = {
+      name: $('#name input').val(),
+      email: $('#email input').val(),
+      reply_to: $('#reply-to input').val()
+    }
+    var data = {form: formData, fields: allFieldData}
+    var ID = $('form').data('id')
+    $.ajax({
+      url: '/forms/' + ID,
+      method: 'PUT',
+      data: data
+    }).done(function(){
+      //TODO: something?
+    });
+  });
+
+}); // END of document.ready
 
 function checkValues(value){
   types = ['date', 'date/time', 'long-text', 'text', 'time']
@@ -75,32 +66,33 @@ function checkValues(value){
     } 
   }
 }
-
 function extractFieldData(fields) {
-  fields.each(function(){
-    var fieldData = {}
-    fieldData['text'] = $(this).find('textarea').text();
-    fieldData['data_type'] = $(this).find('select').val();
+  var allFieldData = {}
+  $('.padded-field').each( function (index) {
+    var fieldData = {};
+    fieldData['number'] = index + 1;
+    fieldData['prompt'] = $(this).find('textarea').val();
+    fieldData['placeholder'] = $(this).find('.placeholder').val();
     fieldData['required'] = $(this).find('.required :checkbox').prop('checked');
-  })
+    fieldData['data_type'] = $(this).find('.data-type select').val();
+    allFieldData[index] = fieldData;
+    //TODO: $(this).find('.options')
+  }); 
+  return allFieldData
 }
-
 function newNumber() {
-  return $('.grabbable').length + 1;
+  return $('.grabbable-number').length + 1;
 }
-
 function reNumber() {
-  $('.grabbable').each(function (index){
+  $('.grabbable-number').each(function (index){
     $(this).text(index + 1);
   })
 }
-
 function setDefaultValues(field) {
   field.find('textarea').val('');
-  field.find('.grabbable').text(newNumber());
+  field.find('.grabbable-number').text(newNumber());
   field.find('select').val('');
 }
-
 function appendField(field, callback){
   callback(field);
   field.appendTo('.container.sortable');
