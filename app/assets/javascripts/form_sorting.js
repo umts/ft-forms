@@ -36,9 +36,13 @@ $( document ).ready( function() {
     }
   });
 
-  $('#save').click(function(e){
+  //haha formform
+
+  $('form#form').on('ajax:before', function(event, xhr, settings){return false});
+
+  $('form#form').submit(function(e){
     e.preventDefault;
-    fields = $('.padded-field')
+    fields = $('.padded-field');
     var allFieldData = extractFieldData(fields)
     var formData = {
       name: $('#name input').val(),
@@ -52,7 +56,7 @@ $( document ).ready( function() {
       method: 'PUT',
       data: data
     }).done(function(){
-      //TODO: something?
+      document.location.href = '/forms/' + ID;
     });
   });
 
