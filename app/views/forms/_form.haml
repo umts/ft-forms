@@ -1,4 +1,4 @@
-=form_with model: @form, data: { id: @form.id } do |f|
+=form_with model: @form, id: 'form', data: { id: @form.id } do |f|
   .form-inline.form-group
     = f.label :name, 'Form title:'
     #name= f.text_field :name, required: true, size: 50, class: 'form-control'
@@ -43,6 +43,4 @@
     .col-md-3
       .btn.btn-default#add-new Add new field
   .actions
-    = submit_tag 'Save and preview', id: 'save'
-    = submit_tag 'Cancel', id: '#trash'
-    = submit_tag 'Save as draft'
+    = f.submit 'Save and preview', id: 'save'
