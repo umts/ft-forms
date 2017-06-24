@@ -4,16 +4,20 @@ class FormsController < ApplicationController
   # Whitelist actions below for non-staff access.
   skip_before_action :access_control, only: %i[show submit thank_you]
   # Since these actions are used to edit forms, maintain the form in session.
-  before_action :find_form, only: %i[new_field submit thank_you update destroy]
+  before_action :find_form, only: %i[show 
+                                     new_field 
+                                     submit 
+                                     thank_you 
+                                     update 
+                                     destroy]
   before_action :placeholder_from_shibboleth_attributes, only: %i[show]
-  before_action :form_params, only: %i[create update]
+  before_action :form_params, only: %i[create]
 
   def index
     @forms = Form.live.includes(:draft)
   end
 
   def show
-    @form = Form.friendly.find(params[:id])
     @submit = true unless params[:no_submit]
   end
 
@@ -63,20 +67,18 @@ class FormsController < ApplicationController
   def update
     form_attributes = params.require('form').permit(:name, :email, :reply_to)
     fields = params.require(:fields).permit!
-    # instead of determining which fields have changed and which
-    # are new, just delete and rebuild
-    @form.fields.destroy_all 
+    @form.fields.destroy_all
     @form.update_attributes form_attributes
     fields.each do |_index, attributes|
       Field.create! attributes.merge(form: @form)
     end
-    if @form.save
-      flash[:message] = 'Form successfully updated'
-      binding.pry
-      redirect_to @form
-    else
-      flash[:error] = 'Something went wrong'
-      render :edit
+    @form.reload # because fields are added
+    respond_to do |format|
+      if @form.save
+        format.json { render json: @form, status: 'updated' }
+      else
+        format.json { render json: @form.errors, status: :unprocessable_entity }
+      end
     end
   end
 
