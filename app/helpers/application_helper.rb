@@ -5,10 +5,10 @@ module ApplicationHelper
   # based on the data type of the field.
   def input_class(data_type)
     case data_type
-    when 'date' then 'datepicker'
-    when 'date/time' then 'datetimepicker'
-    when 'text' then nil
-    when 'time' then 'timepicker'
+    when 'date' then 'datepicker form-control'
+    when 'date/time' then 'datetimepicker form-control'
+    when 'text' then 'form-control'
+    when 'time' then 'timepicker form-control'
     end
   end
 

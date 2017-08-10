@@ -1,0 +1,22 @@
+- FIX SHOW PAGE
+
+- clear the example response when cloning
+- clear the required attribute when cloning
+
+- FIX OPTIONS STUFF
+
+- remove required checkbox if data type is explanation or heading LOL
+
+- FORM VALIDATION
+  if text box is filled in, need to pick option for data. Otherwise no.
+  need form email destination and reply-to address (if model validates it)
+
+//when Preview: 
+//$( ".selector" ).sortable( "refresh" );
+//reload all sortable items, cause new to be recognized?
+
+- WRITE TESTS FUCK
+
+
+- Change yes/no data type to "radio" and configure options just
+  like you configure options for like the dropdown
