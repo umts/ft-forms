@@ -1,4 +1,4 @@
-class CreateFormDrafts < ActiveRecord::Migration
+class CreateFormDrafts < ActiveRecord::Migration[4.2]
   def change
     create_table :form_drafts do |t|
       t.string :name
