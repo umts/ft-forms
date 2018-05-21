@@ -1,10 +1,10 @@
 require 'csv'
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 
 exit if Rails.env.test?
 
 # USERS
-FactoryGirl.create :user, first_name: 'David', last_name: 'Faulkenberry', staff: true, email: 'dfaulken@umass.edu', spire: '12345678@umass.edu'
+FactoryBot.create :user, first_name: 'David', last_name: 'Faulkenberry', staff: true, email: 'dfaulken@umass.edu', spire: '12345678@umass.edu'
 
 # FORM DATA
 
