@@ -2,8 +2,9 @@
 
 source 'https://rubygems.org'
 
+gem 'rails', '~> 5.2'
 gem 'coffee-rails'
-gem 'factory_girl_rails'
+gem 'factory_bot_rails'
 gem 'friendly_id', '~> 5.1.0'
 gem 'haml'
 gem 'haml-rails'
@@ -12,7 +13,6 @@ gem 'jquery-rails'
 gem 'jquery-timepicker-rails'
 gem 'jquery-ui-rails'
 gem 'mysql2'
-gem 'rails', '~> 5.1'
 gem 'redcarpet'
 gem 'sass-rails'
 gem 'snappconfig'
