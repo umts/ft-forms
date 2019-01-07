@@ -14,15 +14,12 @@ class FormsController < ApplicationController
   before_action :form_params, only: %i[create]
 
   def index
-    @forms = Form.live.includes(:draft)
+    @forms = Form.includes :draft
   end
 
   def show
-    @submit = true unless params[:no_submit]
-  end
-
-  def edit
     @form = Form.friendly.find(params[:id])
+    @submit = true unless params[:no_submit]
   end
 
   def submit
@@ -40,22 +37,9 @@ class FormsController < ApplicationController
   end
 
   def new
-    @form = Form.new
-    @form.fields << @form.new_field
-  end
-
-  def create
-    form = Form.new form_params.except(:fields_attributes)
-    fields_attributes = form_params[:fields_attributes]
-    binding.pry
-    if form.save
-      unless form_params[:fields_attributes]['0'][:prompt].blank?
-      end
-      form.update_fields fields_attributes
-      render :show
-    else
-      render :edit
-    end
+    form = Form.new
+    @draft = form.create_draft
+    @draft.fields << @draft.new_field
   end
 
   def destroy
@@ -107,13 +91,10 @@ class FormsController < ApplicationController
   end
 
   def form_params
-    params.require(:form).permit(:name,
-                                 :email,
-                                 :reply_to,
-                                 fields_attributes: %i[number
-                                                       prompt
-                                                       data_type
-                                                       required
-                                                       id])
+    params.require(:form).permit(
+      :name, :email, :reply_to,
+      fields: %i[number prompt data_type required placeholder]
+    )
   end
+  
 end
