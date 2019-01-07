@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :drafts
+
   # Editing options
   resources :fields, only: [:edit, :update]
 

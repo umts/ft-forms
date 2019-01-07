@@ -2,6 +2,7 @@
 
 class Field < ApplicationRecord
   belongs_to :form
+  belongs_to :form_draft
 
   DATA_TYPES = %w[date date/time explanation heading long-text
                   number options text time yes/no].freeze

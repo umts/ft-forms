@@ -1,0 +1,75 @@
+#form_preview_message
+  This is a preview of your changes.
+  This form, as shown here, is not live.
+  %br
+  This form will email to '#{@draft.email}'.
+
+%h1= @draft.name
+.field
+  %strong
+    Fields marked with an asterisk (
+    %span.ast *
+    ) are required.
+.field
+  %em
+    This is the information we will use to confirm this
+    request. Please fill in any fields that have missing
+    or incorrect data.
+= form_tag({ action: :submit, id: @draft.form.id }, { class: 'form-horizontal' }) do
+  = hidden_field_tag :reply_to, @draft.reply_to
+  = fields_for :user do |u|
+    - [:first_name, :last_name, :email].each do |field|
+      .form-group
+        .col-md-3= u.label field, class: 'control-label'
+        .col-md-4= u.text_field field, size: 50,
+          value: @current_user.try(field) || @placeholder.try(field),
+          required: true,
+          class: 'form-control'
+        %span.ast *
+  = fields_for :responses do |r|
+    - @draft.fields.each do |field|
+      - if field.heading?
+        .field.heading
+          = field.prompt
+        = r.hidden_field field.unique_heading_name, value: field.prompt
+      - elsif field.explanation?
+        .field.text-center
+          %em= field.prompt
+      - else
+        .form-group
+          .col-md-3= r.label field.prompt, class: 'control-label'
+          - case field.data_type
+            - when 'date', 'date/time', 'text', 'time'
+              .col-md-5= r.text_field field.unique_name, required: field.required?,
+                placeholder: field.placeholder, size: 45,
+                class: input_class(field.data_type)
+            - when 'long-text'
+              .col-md-5= r.text_area field.unique_name, required: field.required?,
+                placeholder: field.placeholder, rows: 3, class: 'form-control'
+            - when 'number'
+              .col-md-1= r.number_field field.unique_name, required: field.required?, class: 'form-control'
+            - when 'yes/no'
+              .col-md-5
+                %label.radio-inline
+                  = r.radio_button field.unique_name, 'yes',
+                    required: field.required?
+                  Yes
+                %label.radio-inline
+                  = r.radio_button field.unique_name, 'no',
+                    required: field.required?
+                  No
+            - when 'options'
+              .col-md-5= r.select(field.unique_name,
+                options_for_select(field.options),
+                { include_blank: 'Please select an option...',
+                required: field.required? }, { class: 'form-control' })
+            - if field.required
+              %span.ast *
+            = r.hidden_field field.unique_prompt_name, value: field.prompt
+  .actions= submit_tag 'Submit request', disabled: !@submit
+
+.form
+  .actions
+    = button_to 'Continue editing', edit_form_draft_path(@draft), method: :get
+    = button_to 'Discard draft', @draft, method: :delete
+    = button_to 'Save and publish form', update_form_form_draft_path(@draft)
