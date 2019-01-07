@@ -17,7 +17,6 @@ gem 'redcarpet'
 gem 'sass-rails'
 gem 'snappconfig'
 gem 'uglifier'
-gem 'draftsman', '~> 0.7.0'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-datetimepicker'
