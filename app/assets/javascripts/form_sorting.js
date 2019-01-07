@@ -98,9 +98,9 @@ function setDefaultValues(field) {
   field.find('textarea').val('');
   field.find('.grabbable-number').text(newNumber());
   field.find('select').val('');
+  field.find('input').val('');
 }
 function appendField(field, callback){
   callback(field);
   field.appendTo('.container.sortable');
 }
-
