@@ -43,20 +43,26 @@ $( document ).ready( function() {
   $('form#form').submit(function(e){
     e.preventDefault;
     fields = $('.padded-field');
-    var allFieldData = extractFieldData(fields)
     var formData = {
       name: $('#name input').val(),
       email: $('#email input').val(),
-      reply_to: $('#reply-to input').val()
+      reply_to: $('#reply-to input').val(),
+      fields: extractFieldData(fields)
     }
-    var data = {form: formData, fields: allFieldData}
+    var data = { form_draft: formData }
     var ID = $('form').data('id')
+    var URL = '/form_drafts/'
+    var method = 'POST' // create
+    if(ID != undefined){
+      URL = '/form_drafts/' + ID
+      method = 'PUT' // update
+    }
     $.ajax({
-      url: '/forms/' + ID,
-      method: 'PUT',
+      url: URL,
+      method: method,
       data: data
     }).done(function(){
-      document.location.href = '/forms/' + ID;
+      document.location.href = '/form_drafts/' + ID;
     });
   });
 
