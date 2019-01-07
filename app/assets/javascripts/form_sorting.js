@@ -27,7 +27,7 @@ $( document ).ready( function() {
   $('.data-type').change(function(){
     placeholder = $(this).parents('.padded-field').find('.placeholder');
     value = $(this).children('select').val()
-    if(checkValues(value) == true) {
+    if(takesPlaceholder(value) == true) {
       if(placeholder.children().length == 0) {
         $('<input type="text" value="">').appendTo(placeholder);
       }
@@ -68,14 +68,10 @@ $( document ).ready( function() {
 
 }); // END of document.ready
 
-function checkValues(value){
-  types = ['date', 'date/time', 'long-text', 'text', 'time']
-  for (var i = 0; i < types.length; i++) {
-    if(types[i] == value){
-      return true;
-    } 
-  }
+function takesPlaceholder(value){
+  return ['date', 'date/time', 'long-text', 'text', 'time'].includes(value);
 }
+
 function extractFieldData(fields) {
   var allFieldData = {}
   $('.padded-field').each( function (index) {
