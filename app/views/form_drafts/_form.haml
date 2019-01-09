@@ -1,45 +1,49 @@
 =form_with model: @draft, id: 'form', data: { id: @draft.form_id } do |f|
-  .form-inline.form-group
-    = f.label :name, 'Form title:'
-    #name= f.text_field :name, required: true, size: 50, class: 'form-control'
-  .form-inline.form-group
-    = f.label :email, 'Form email destination:'
-    #email= f.text_field :email, required: true, size: 50, class: 'form-control' 
-  .form-inline.form-group
-    = f.label :reply_to, 'Set reply-to address'
-    #reply-to= f.text_field :reply_to, size: 50, class: 'form-control'
+  .form-attributes
+    .form-inline.form-group
+      = f.label :name, 'Form title:'
+      = f.text_field :name, required: true, size: 50, class: 'form-control'
+    .form-inline.form-group
+      = f.label :email, 'Form email destination:'
+      = f.text_field :email, required: true, size: 50, class: 'form-control' 
+    .form-inline.form-group
+      = f.label :reply_to, 'Set reply-to address'
+      = f.text_field :reply_to, size: 50, class: 'form-control'
   .container
     .row.headers
-      .col-md-3 Field text
-      .col-md-2 Example response
-      .col-md-2 Response type
-      .col-md-2 Required?
-      .col-md-2 Options
+      .col-3 Field text
+      .col-2 Example response
+      .col-2 Response type
+      .col Required?
+      .col-2 Options
+      .col
   .container.sortable
     Click to drag..
     = f.fields_for :fields do |g|
       - field = g.object
       .row.padded-field
-        %span.grabbable-number.btn.btn-default #{field.number}
-        .col-md-3
-          .prompt= g.text_area :prompt, size: '35x4', class: 'form-control'
-        .col-md-2
+        %span.grabbable-number.btn.btn-info #{field.number}
+        .col-3
+          .prompt= g.text_area :prompt, size: '30x4', class: 'form-control'
+        .col-2
           .placeholder= g.text_field :placeholder if field.takes_placeholder?
-        .col-md-2
+        .col
           .data-type= g.select :data_type, Field::DATA_TYPES,
             include_blank: 'Select a data type...'
-        .col-md-2
+        .col
           .required= g.check_box :required
-        .col-md-3.options
+        .col-2
           - if field.data_type == 'options'
-            - field.options.each do |option|
-              %li= option
-            %li= link_to 'Configure options', edit_field_path(field)
-        .col-md-1
-          .remove.btn.btn-default Remove field
+            = g.text_area :options,
+              value: field.options.join(', '),
+              placeholder: 'add options separated by a comma',
+              size: '10x4',
+              class: 'form-control'
+        .col
+          .remove.btn-sm.btn-outline-danger Remove
   .container
-    .col-md-3
-      .btn.btn-default#add-new Add new field
+    .col
+      .btn.btn-secondary#add-new Add new field
   .actions
     = f.submit 'Save draft and preview changes', id: 'save'
 .actions
