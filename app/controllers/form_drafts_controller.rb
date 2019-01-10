@@ -79,7 +79,7 @@ class FormDraftsController < ApplicationController
       attributes[:prompt].blank?
     end
     @draft_params[:fields_attributes].each do |index, attributes|
-      attributes[:number] = index
+      attributes[:number] = (index.to_i + 1)
       if attributes[:options].present?
         attributes[:options] = attributes[:options].gsub(/\s+/, "").split(',')
       end
