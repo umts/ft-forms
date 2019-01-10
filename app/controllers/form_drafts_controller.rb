@@ -74,7 +74,16 @@ class FormDraftsController < ApplicationController
                                                         prompt
                                                         data_type
                                                         required
-                                                        id])
+                                                        options])
+    @draft_params[:fields_attributes].reject! do |_i, attributes| 
+      attributes[:prompt].blank?
+    end
+    @draft_params[:fields_attributes].each do |index, attributes|
+      attributes[:number] = index
+      if attributes[:options].present?
+        attributes[:options] = attributes[:options].gsub(/\s+/, "").split(',')
+      end
+    end
   end
 
   def find_form_draft
