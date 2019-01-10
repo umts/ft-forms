@@ -1,6 +1,6 @@
 $( document ).ready( function() {
   $('.sortable').sortable({
-    stop: function(event, ui) {
+    stop: function() {
       reNumber();
     },
   });
