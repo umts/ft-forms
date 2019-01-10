@@ -11,8 +11,8 @@ $( document ).ready( function() {
   });
 
   $('.remove').click(function() {
-    fields = $('.row.padded-field');
-    parentField = $(this).parents('.row.padded-field');
+    var fields = $('.row.padded-field');
+    var parentField = $(this).parents('.row.padded-field');
     if (fields.length > 1) {
       parentField.remove();
     } else { // If they want to remove the last field, just empty it instead.
