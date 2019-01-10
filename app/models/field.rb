@@ -9,11 +9,8 @@ class Field < ApplicationRecord
   serialize :options, Array
 
   validate :belongs_to_form_or_form_draft?
-  validates :data_type,
-            inclusion: { in: DATA_TYPES }
-  validates :number,
-            :prompt,
-            presence: true
+  validates :data_type, inclusion: { in: DATA_TYPES }
+  validates :number, :prompt, presence: true
   # Equivalent to
   # validates :form, uniqueness: { scope: :number, allow_blank: true }
   # but the point is that the number is unique respective to the form,
