@@ -72,6 +72,7 @@ class FormDraftsController < ApplicationController
                                   :reply_to,
                                   fields_attributes: %i[number
                                                         prompt
+                                                        placeholder
                                                         data_type
                                                         required
                                                         options])
