@@ -6,7 +6,7 @@ $( document ).ready( function() {
   });
 
   $('#add-new').click(function() {
-    const newField = $('.row.padded-field').last().clone(true);
+    var newField = $('.row.padded-field').last().clone(true);
     appendField(newField, setDefaultValues);
   });
 
@@ -33,7 +33,7 @@ $( document ).ready( function() {
       placeholder.children().remove();
     }
     if (value == 'options') {
-      const optionsField = $('<textarea class="form-control" rows="4">');
+      var optionsField = $('<textarea class="form-control" rows="4">');
       optionsField.appendTo($('.options'));
     }
   });
@@ -47,16 +47,16 @@ $( document ).ready( function() {
   $('form#form').submit(function(e) {
     e.preventDefault;
     fields = $('.padded-field');
-    const formData = {
+    var formData = {
       name: $('[name="form_draft[name]"]').val(),
       email: $('[name="form_draft[email]"]').val(),
       reply_to: $('[name="form_draft[reply_to]"]').val(),
       fields: extractFieldData(fields),
     };
-    const data = {form_draft: formData};
-    const ID = $('form').data('id');
+    var data = {form_draft: formData};
+    var ID = $('form').data('id');
     let URL = '/form_drafts/';
-    const method = 'POST'; // create
+    var method = 'POST'; // create
     if (ID != undefined) {
       URL = '/form_drafts/' + ID;
       method = 'PUT'; // update
@@ -76,9 +76,9 @@ function takesPlaceholder(value) {
 }
 
 function extractFieldData(fields) {
-  const allFieldData = {};
+  var allFieldData = {};
   $('.padded-field').each( function(index) {
-    const fieldData = {};
+    var fieldData = {};
     fieldData['number'] = index + 1;
     fieldData['prompt'] = $(this).find('textarea').val();
     fieldData['placeholder'] = $(this).find('.placeholder').val();
