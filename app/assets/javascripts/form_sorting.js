@@ -39,57 +39,10 @@ $( document ).ready( function() {
       options.children().remove();
     }
   });
-
-  // haha formform
-  /*
-  $('form#form').on('ajax:before', function(event, xhr, settings) {
-    return false;
-  });
-
-  $('form#form').submit(function(e) {
-    e.preventDefault;
-    const fields = $('.padded-field');
-    const formData = {
-      name: $('[name="form_draft[name]"]').val(),
-      email: $('[name="form_draft[email]"]').val(),
-      reply_to: $('[name="form_draft[reply_to]"]').val(),
-      fields: extractFieldData(fields),
-    };
-    const data = {form_draft: formData};
-    const ID = $('form').data('id');
-    let URL = '/form_drafts/';
-    let method = 'POST'; // create
-    if (ID != undefined) {
-      URL = '/form_drafts/' + ID;
-      method = 'PUT'; // update
-    }
-    $.ajax({
-      url: URL,
-      method: method,
-      data: data,
-    }).done(function() {
-      document.location.href = '/form_drafts/' + ID;
-    });
-  });
 }); // END of document.ready
 
 function takesPlaceholder(value) {
   return ['date', 'date/time', 'long-text', 'text', 'time'].includes(value);
-}
-
-function extractFieldData(fields) {
-  const allFieldData = {};
-  $('.padded-field').each( function(index) {
-    const fieldData = {};
-    fieldData['number'] = index + 1;
-    fieldData['prompt'] = $(this).find('textarea').val();
-    fieldData['placeholder'] = $(this).find('.placeholder').val();
-    fieldData['required'] = $(this).find('.required :checkbox').prop('checked');
-    fieldData['data_type'] = $(this).find('.data-type select').val();
-    allFieldData[index] = fieldData;
-    // TODO: $(this).find('.options')
-  });
-  return allFieldData;
 }
 function newNumber() {
   return $('.grabbable-number').length + 1;
@@ -109,5 +62,3 @@ function appendField(field, callback) {
   callback(field);
   field.appendTo('.container.sortable');
 }
-
-// $('.options').children('textarea').val() is how you grab options
