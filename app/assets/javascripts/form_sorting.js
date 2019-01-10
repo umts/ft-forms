@@ -6,13 +6,13 @@ $( document ).ready( function() {
   });
 
   $('#add-new').click(function() {
-    var newField = $('.row.padded-field').last().clone(true);
+    const newField = $('.row.padded-field').last().clone(true);
     appendField(newField, setDefaultValues);
   });
 
   $('.remove').click(function() {
-    var fields = $('.row.padded-field');
-    var parentField = $(this).parents('.row.padded-field');
+    const fields = $('.row.padded-field');
+    const parentField = $(this).parents('.row.padded-field');
     if (fields.length > 1) {
       parentField.remove();
     } else { // If they want to remove the last field, just empty it instead.
@@ -22,9 +22,9 @@ $( document ).ready( function() {
   });
 
   $('.data-type select').change(function() {
-    var placeholder = $(this).parents('.padded-field').find('.placeholder');
-    var options = $(this).parents('.padded-field').find('.options');
-    var value = this.value;
+    const placeholder = $(this).parents('.padded-field').find('.placeholder');
+    const options = $(this).parents('.padded-field').find('.options');
+    const value = this.value;
     if (takesPlaceholder(value) == true) {
       if (placeholder.children().length == 0) {
         $('<input type="text" value="">').appendTo(placeholder);
@@ -33,10 +33,10 @@ $( document ).ready( function() {
       placeholder.children().remove();
     }
     if (value == 'options') {
-      var optionsField = $('<textarea class="form-control" rows="4">');
+      const optionsField = $('<textarea class="form-control" rows="4">');
       optionsField.appendTo(options);
     } else {
-      options.children().remove();
+      optins.children().remove();
     }
   });
 
@@ -48,16 +48,16 @@ $( document ).ready( function() {
   $('form#form').submit(function(e) {
     e.preventDefault;
     fields = $('.padded-field');
-    var formData = {
+    const formData = {
       name: $('[name="form_draft[name]"]').val(),
       email: $('[name="form_draft[email]"]').val(),
       reply_to: $('[name="form_draft[reply_to]"]').val(),
       fields: extractFieldData(fields),
     };
-    var data = {form_draft: formData};
-    var ID = $('form').data('id');
-    var URL = '/form_drafts/';
-    var method = 'POST'; // create
+    const data = {form_draft: formData};
+    const ID = $('form').data('id');
+    let URL = '/form_drafts/';
+    const method = 'POST'; // create
     if (ID != undefined) {
       URL = '/form_drafts/' + ID;
       method = 'PUT'; // update
@@ -77,9 +77,9 @@ function takesPlaceholder(value) {
 }
 
 function extractFieldData(fields) {
-  var allFieldData = {};
+  const allFieldData = {};
   $('.padded-field').each( function(index) {
-    var fieldData = {};
+    const fieldData = {};
     fieldData['number'] = index + 1;
     fieldData['prompt'] = $(this).find('textarea').val();
     fieldData['placeholder'] = $(this).find('.placeholder').val();
