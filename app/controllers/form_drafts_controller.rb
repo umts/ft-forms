@@ -47,14 +47,12 @@ class FormDraftsController < ApplicationController
   end
 
   def update
-    @draft.update @draft_params.except(:fields_attributes)
-    @draft.update_fields @draft_params[:fields_attributes]
-    @draft.reload # since fields have been updated
-    case params.require :commit
-    when 'Save changes and continue editing'
-      redirect_to edit_form_draft_path(@draft)
-    when 'Preview changes'
-      render 'show'
+    @draft.fields.delete_all
+    if @draft.update_attributes @draft_params
+      redirect_to action: 'show'
+    else
+      flash[:errors] = @draft.errors.full_messages
+      render 'edit'
     end
   end
 
