@@ -55,7 +55,7 @@ $( document ).ready( function() {
     };
     const data = {form_draft: formData};
     const ID = $('form').data('id');
-    const URL = '/form_drafts/';
+    let URL = '/form_drafts/';
     const method = 'POST'; // create
     if (ID != undefined) {
       URL = '/form_drafts/' + ID;
