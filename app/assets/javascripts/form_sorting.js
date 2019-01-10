@@ -21,25 +21,24 @@ $( document ).ready( function() {
     reNumber();
   });
 
-  $('.data-type').change(function() {
-    placeholder = $(this).parents('.padded-field').find('.placeholder');
-    value = $(this).children('select').val();
+  $('.data-type select').change(function() {
+    var placeholder = $(this).parents('.padded-field').find('.placeholder');
+    var options = $(this).parents('.padded-field').find('.options');
+    var value = this.value;
     if (takesPlaceholder(value) == true) {
-      debugger;
-      if (placeholder.children().length == 0) {
-        $('<input type="text" value="">').appendTo(placeholder);
-      }
+      $('<input type="text" value="">').appendTo(placeholder);
     } else {
       placeholder.children().remove();
     }
     if (value == 'options') {
       var optionsField = $('<textarea class="form-control" rows="4">');
-      optionsField.appendTo($('.options'));
+      optionsField.appendTo(options);
+    } else {
+      options.children().remove();
     }
   });
 
   // haha formform
-
   $('form#form').on('ajax:before', function(event, xhr, settings) {
     return false;
   });
