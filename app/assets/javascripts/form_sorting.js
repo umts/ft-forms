@@ -36,18 +36,19 @@ $( document ).ready( function() {
       const optionsField = $('<textarea class="form-control" rows="4">');
       optionsField.appendTo(options);
     } else {
-      optins.children().remove();
+      options.children().remove();
     }
   });
 
   // haha formform
+  /*
   $('form#form').on('ajax:before', function(event, xhr, settings) {
     return false;
   });
 
   $('form#form').submit(function(e) {
     e.preventDefault;
-    fields = $('.padded-field');
+    const fields = $('.padded-field');
     const formData = {
       name: $('[name="form_draft[name]"]').val(),
       email: $('[name="form_draft[email]"]').val(),
@@ -57,7 +58,7 @@ $( document ).ready( function() {
     const data = {form_draft: formData};
     const ID = $('form').data('id');
     let URL = '/form_drafts/';
-    const method = 'POST'; // create
+    let method = 'POST'; // create
     if (ID != undefined) {
       URL = '/form_drafts/' + ID;
       method = 'PUT'; // update
