@@ -26,7 +26,9 @@ $( document ).ready( function() {
     var options = $(this).parents('.padded-field').find('.options');
     var value = this.value;
     if (takesPlaceholder(value) == true) {
-      $('<input type="text" value="">').appendTo(placeholder);
+      if (placeholder.children().length == 0) {
+        $('<input type="text" value="">').appendTo(placeholder);
+      }
     } else {
       placeholder.children().remove();
     }
