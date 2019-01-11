@@ -27,7 +27,7 @@ $( document ).ready( function() {
     const value = this.value;
     if (takesPlaceholder(value) == true) {
       if (placeholder.children().length == 0) {
-        $('<input type="text" value="">').appendTo(placeholder);
+        $('<input class="form-control" type="text" value="">').appendTo(placeholder);
       }
     } else {
       placeholder.children().remove();
