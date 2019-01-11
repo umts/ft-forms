@@ -42,11 +42,17 @@
               class: 'form-control'
         .col
           .remove.btn-sm.btn-outline-danger Remove
-  .btn.btn-secondary#add-new Add new field
-  .actions
-    = f.submit 'Save draft and preview changes', id: 'save'
-.actions
-  - if @draft.persisted?
-    = button_to 'Discard changes', @draft, method: :delete
-  - else
-    = button_to 'Cancel', forms_url, method: :get
+  .container
+    .row
+      .col-2
+        .btn.btn-secondary#add-new Add new field
+      .col
+        = f.submit 'Save draft and preview changes', id: 'save', class: 'btn btn-primary'
+.container
+  .row
+    .col-2
+    .col
+      - if @draft.persisted?
+        = button_to 'Discard changes', @draft, method: :delete, class: 'btn btn-danger'
+      - else
+        = button_to 'Cancel', forms_url, method: :get, class: 'btn btn-secondary'
