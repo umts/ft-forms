@@ -2,6 +2,7 @@
 
 source 'https://rubygems.org'
 
+gem 'bootstrap', '~> 4.2.1'
 gem 'coffee-rails'
 gem 'factory_girl_rails'
 gem 'friendly_id', '~> 5.1.0'

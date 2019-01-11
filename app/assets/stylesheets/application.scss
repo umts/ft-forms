@@ -13,10 +13,11 @@
  *= require jquery-ui
  *= require jquery.timepicker
  *= require jquery.datetimepicker.css
- *= require bootstrap/dist/css/bootstrap
  *= require_tree .
  *= require_self
  */
+
+@import 'bootstrap';
 
 body{
   display: flex;

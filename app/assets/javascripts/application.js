@@ -17,5 +17,4 @@
 //= require moment
 //= require jquery.datetimepicker.full.js
 //= require jquery.timepicker
-//= require bootstrap/dist/js/bootstrap
 //= require_tree .
