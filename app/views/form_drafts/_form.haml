@@ -15,7 +15,7 @@
       .col-2 Example response
       .col-2 Response type
       .col Required?
-      .col-2 Options
+      .col Options
       .col
   .container.sortable
     Click to drag..
@@ -26,13 +26,14 @@
         .col-3
           .prompt= g.text_area :prompt, size: '30x4', class: 'form-control'
         .col-2
-          .placeholder= g.text_field :placeholder if field.takes_placeholder?
-        .col
+          -if field.takes_placeholder?
+            .placeholder= g.text_field :placeholder, class: 'form-control'
+        .col-2
           .data-type= g.select :data_type, Field::DATA_TYPES,
-            include_blank: 'Select a data type...'
+            {include_blank: 'Select a data type...'}, {class: 'form-control'}
         .col
           .required= g.check_box :required
-        .col-2.options
+        .col.options
           - if field.data_type == 'options'
             = g.text_area :options,
               value: field.options.join(', '),
@@ -41,9 +42,7 @@
               class: 'form-control'
         .col
           .remove.btn-sm.btn-outline-danger Remove
-  .container
-    .col
-      .btn.btn-secondary#add-new Add new field
+  .btn.btn-secondary#add-new Add new field
   .actions
     = f.submit 'Save draft and preview changes', id: 'save'
 .actions
