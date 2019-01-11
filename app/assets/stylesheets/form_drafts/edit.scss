@@ -11,12 +11,21 @@ html {
     width: 95%;
     margin-left: 4em;
   }
+  .ui-sortable-handle{
+    border-radius: 5px;
+    border: 1px solid #5b7f95;
+    cursor: grab;
+    padding: 1em;
+  }
 }
-span.grabbable-number.btn.btn-info{
-  cursor: move;
+span.grabbable-number.btn.btn-primary{
   float: left;
-  height: 2.5em;
-  width: 2.5em;
+  cursor: grab;
+  &:after{
+    content: "\28FF";
+    display: block;
+    font-size: 1.5em;
+  }
 }
 .options textarea{
   height: 4em;
