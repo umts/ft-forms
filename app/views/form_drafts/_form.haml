@@ -18,11 +18,10 @@
       .col Options
       .col
   .container.sortable
-    Click to drag..
     = f.fields_for :fields do |g|
       - field = g.object
       .row.padded-field
-        %span.grabbable-number.btn.btn-info #{field.number}
+        %span.grabbable-number.btn.btn-primary #{field.number}
         .col-3
           .prompt= g.text_area :prompt, size: '30x4', class: 'form-control'
         .col-2
