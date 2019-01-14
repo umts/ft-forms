@@ -9,25 +9,6 @@ class FormDraft < ApplicationRecord
   # One user can only have one draft per form
   validates :form, uniqueness: { scope: :user_id }
 
-  def move_field(field_number, direction)
-    transaction do
-      field = fields.find_by number: field_number
-      other_number = case direction
-                     when :up   then field_number - 1
-                     when :down then field_number + 1
-                     end
-      other_field = fields.find_by number: other_number
-      return unless other_field
-      # Move the specified field without validation, since before we move
-      # the other field out of its place, it will be invalid.
-      field.number = other_number
-      field.save validate: false
-      other_field.update number: field_number
-      # Validate it afterwards, and do nothing if there is an error.
-      raise ActiveRecord::Rollback unless field.valid?
-    end
-  end
-
   def new_field
     Field.new form_draft: self, number: new_field_number
   end
