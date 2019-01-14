@@ -14,7 +14,12 @@ class FormDraft < ApplicationRecord
   end
 
   def update_form!
-    form.update(attributes.except 'form_id', 'user_id', 'id')
+    form_attributes = attributes.except 'form_id', 'user_id', 'id'
+    if form.present?
+      form.update form_attributes
+    else
+      form.create form_attributes
+    end
     # Don't need to retain the fields, since the draft will be deleted.
     # Just switch them over to belonging to the form.
     form.fields.delete_all
