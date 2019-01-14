@@ -57,8 +57,13 @@
               %span.ast *
     .actions= submit_tag 'Submit request', disabled: true
 
-.form
-  .actions
-    = button_to 'Save Draft & Continue editing', edit_form_draft_path(@draft), method: :get
-    = button_to 'Discard changes', @draft, method: :delete
-    = button_to 'Save form', update_form_form_draft_path(@draft)
+.container
+  .row
+    .col
+      = link_to 'Continue editing', edit_form_draft_path(@draft), class: 'btn btn-secondary'
+    .col
+      = link_to 'Save draft & go back to index', forms_path, class: 'btn btn-secondary'
+    .col
+      = button_to 'Discard changes', @draft, method: :delete, class: 'btn btn-danger'
+    .col
+      = button_to 'Save and publish form', update_form_form_draft_path(@draft), class: 'btn btn-primary'
