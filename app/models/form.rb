@@ -35,6 +35,6 @@ class Form < ApplicationRecord
   end
 
   def form_name
-    name.parameterize
+    name.try(:parameterize)
   end
 end

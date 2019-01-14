@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Field < ApplicationRecord
-  belongs_to :form
-  belongs_to :form_draft
+  belongs_to :form, optional: true
+  belongs_to :form_draft, optional: true
 
   DATA_TYPES = %w[date date/time explanation heading long-text
                   number options text time yes/no].freeze
