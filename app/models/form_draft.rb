@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class FormDraft < ApplicationRecord
-  belongs_to :form
+  belongs_to :form, optional: true
   belongs_to :user
   has_many :fields, dependent: :destroy
   accepts_nested_attributes_for :fields
-  validates :form, :name, presence: true
+  validates :name, presence: true
   # One user can only have one draft per form
   validates :form, uniqueness: { scope: :user_id }
 
