@@ -15,9 +15,13 @@ class FormDraftsController < ApplicationController
   end
 
   def new
-    form = Form.find(params.require :form_id)
-    @draft = form.create_draft @current_user
-    redirect_to edit_form_draft_path(@draft)
+    form = Form.find_by(id: params[:form_id]) || Form.new
+    if form.persisted?
+      @draft = form.create_draft @current_user
+    else
+      @draft = FormDraft.new user: @current_user
+    end
+    @draft.fields << @draft.new_field
   end
 
   def create
