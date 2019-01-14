@@ -32,30 +32,6 @@ class FormDraft < ApplicationRecord
     Field.new form_draft: self, number: new_field_number
   end
 
-  def remove_field(field_number)
-    field_to_remove = fields.find_by number: field_number
-    field_to_remove.delete
-    fields.where('number > ?', field_number).find_each do |field|
-      field.number -= 1
-      field.save
-    end
-    save
-    field_to_remove
-  end
-
-  def update_fields(field_data)
-    return if field_data.blank?
-    field_data.each do |_index, field_attributes|
-      field = fields.find_by number: field_attributes.fetch(:number)
-      if field.present?
-        field.update field_attributes
-      else
-        field_attributes[:form_draft_id] = id
-        Field.create field_attributes
-      end
-    end
-  end
-
   def update_form!
     form.update(attributes.except 'form_id', 'user_id', 'id')
     # Don't need to retain the fields, since the draft will be deleted.
