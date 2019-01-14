@@ -10,7 +10,7 @@
     Fields marked with an asterisk (
     %span.ast *
     ) are required.
-  = form_tag controller: :forms, action: :submit, id: @draft.form.id do
+  = form_tag controller: :forms, action: :submit do
     = fields_for :user do |u|
       .field
         .explanation 
