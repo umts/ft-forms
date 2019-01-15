@@ -9,6 +9,7 @@ class FormsController < ApplicationController
 
   def index
     @forms = Form.includes :drafts
+    @drafts = @current_user.form_drafts.where form_id: nil
   end
 
   def show
