@@ -52,6 +52,6 @@
     .col-2
     .col
       - if @draft.persisted?
-        = button_to 'Discard changes', @draft, method: :delete, class: 'btn btn-danger'
+        = button_to 'Discard draft', @draft, method: :delete, class: 'btn btn-danger'
       - else
         = button_to 'Cancel', forms_url, method: :get, class: 'btn btn-secondary'
