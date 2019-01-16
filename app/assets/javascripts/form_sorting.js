@@ -28,15 +28,14 @@ function takesPlaceholder(value) {
   return ['date', 'date/time', 'long-text', 'text', 'time'].includes(value);
 }
 function reNumber() {
-  $('.grabbable-number').each(function(index) {
-    $(this).text(index + 1);
+  $('.number input:visible').each(function(index) {
+    $(this).attr('name', 'form_draft[fields_attributes][' + index + '][number]' );
+    $(this).attr('id', 'form_draft_fields_attributes_' + index + '_number');
+    $(this).val(index + 1);
   });
 }
-function setDefaultValues(field) {
-  field.find('textarea').val('');
-  field.find('.grabbable-number').text(newNumber());
-  field.find('select').val('');
-  field.find('input').val('');
+function newName(fieldType){
+  return 'form_draft[fields_attributes][' + newIndex() + '][' + fieldType + ']';
 }
 function newNumber(){
   // the number of padded fields will the number of visible fields + 1,
