@@ -1,18 +1,20 @@
-%span.grabbable-number.btn.btn-primary 
-  .number= g.text_field :number, value: field.number, readonly: true
-.col-3.prompt= g.text_area :prompt, size: '30x4', class: 'form-control'
-.col-2.placeholder
-  -if field.takes_placeholder?
-    =g.text_field :placeholder, class: 'form-control'
-.col-2.data-type= g.select :data_type, Field::DATA_TYPES,
-    {include_blank: 'Select a data type...'}, {class: 'form-control'}
-.col.required= g.check_box :required
-.col.options
-  - if field.data_type == 'options'
-    = g.text_area :options,
-      value: field.options.join(', '),
-      placeholder: 'add options separated by a comma',
-      size: '10x4',
-      class: 'form-control'
-.col
-  .remove.btn-sm.btn-outline-danger Remove
+- field = g.object
+.row.padded-field
+  %span.grabbable-number.btn.btn-primary 
+    .number= g.text_field :number, value: field.number, readonly: true
+  .col-3.prompt= g.text_area :prompt, size: '30x4', class: 'form-control'
+  .col-2.placeholder
+    -if field.takes_placeholder?
+      =g.text_field :placeholder, class: 'form-control'
+  .col-2.data-type= g.select :data_type, Field::DATA_TYPES,
+      {include_blank: 'Select a data type...'}, {class: 'form-control'}
+  .col.required= g.check_box :required
+  .col.options
+    - if field.data_type == 'options'
+      = g.text_area :options,
+        value: field.options.join(', '),
+        placeholder: 'add options separated by a comma',
+        size: '10x4',
+        class: 'form-control'
+  .col
+    .remove.btn-sm.btn-outline-danger Remove

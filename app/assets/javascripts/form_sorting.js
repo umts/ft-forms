@@ -6,7 +6,7 @@ $( document ).ready( function() {
   });
 
   $('#add-new').click(function() {
-    const newField = $('.row.padded-field.hidden').clone(true).removeClass('hidden');
+    const newField = $('.hidden').find('.row.padded-field').clone(true).removeClass('hidden');
     newField.find('.grabbable-number input').attr('name', newName('number'));
     newField.find('.grabbable-number input').attr('id', newID('number'));
     newField.find('.grabbable-number input').val(newNumber());

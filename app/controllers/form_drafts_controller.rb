@@ -10,9 +10,7 @@ class FormDraftsController < ApplicationController
     redirect_to forms_url
   end
 
-  def edit
-    @draft.fields << @draft.new_field
-  end
+  def edit; end
 
   def new
     form = Form.find_by(id: params[:form_id]) || Form.new

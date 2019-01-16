@@ -11,7 +11,7 @@ html {
     width: 95%;
     margin-left: 4em;
   }
-  .ui-sortable-handle{
+  .row.padded-field{
     border-radius: 5px;
     border: 1px solid #5b7f95;
     cursor: grab;
@@ -54,7 +54,7 @@ span.grabbable-number.btn.btn-primary{
 #add-new{
   float: left;
 }
-.hidden.row.padded-field{
+.hidden{
   display: none;
 }
 .number input{
