@@ -25,22 +25,7 @@ $( document ).ready( function() {
   });
 
   $('.data-type select').change(function() {
-    const placeholder = $(this).parents('.padded-field').find('.placeholder');
-    const options = $(this).parents('.padded-field').find('.options');
-    const value = this.value;
-    if (takesPlaceholder(value) == true) {
-      if (placeholder.children().length == 0) {
-        $('<input class="form-control" type="text" value="">').appendTo(placeholder);
-      }
-    } else {
-      placeholder.children().remove();
-    }
-    if (value == 'options') {
-      const optionsField = $('<textarea class="form-control" rows="4">');
-      optionsField.appendTo(options);
-    } else {
-      options.children().remove();
-    }
+    toggleFields(this)
   });
 }); // END of document.ready
 
@@ -61,7 +46,40 @@ function setDefaultValues(field) {
   field.find('select').val('');
   field.find('input').val('');
 }
-function appendField(field, callback) {
-  callback(field);
-  field.appendTo('.container.sortable');
+function newNumber(){
+  // the number of padded fields will the number of visible fields + 1,
+  // which is what we want for the number of a new visible field.
+  return $('.row.padded-field').length
+}
+function newID(fieldType){
+  return 'form_draft_fields_attributes_' + newIndex() + '_' + fieldType
+}
+function newIndex(){
+  return newNumber() - 1;
+}
+function toggleFields(dataField) {
+  const dataType = dataField.value;
+  const container = $(dataField).parents('.padded-field');
+  if (takesPlaceholder(dataType) == true) {
+    if (container.find('.placeholder').children().length == 0) {
+      const newField = $('<input class="form-control" type="text" name="' + newName('placeholder') + '">')
+      newField.appendTo(container.find('.placeholder'));
+    }
+  } else {
+    container.find('.placeholder').children().remove();
+  }
+  if (dataType == 'options') {
+    const newField = $('<textarea placeholder="add options separated by a comma" class="form-control" rows="4" name="' + newName('options') + '">');
+    newField.appendTo(container.find('.options'));
+  } else {
+      container.find('.options').children().remove();
+  }
+  if (dataType == 'heading' || dataType == 'explanation') {
+    container.find('.required').children().remove();
+  } else {
+    if (container.find('.required').children().length == 0) {
+      const newField = $('<input type="checkbox" name="' + newName('required') + '">')
+      newField.appendTo(container.find('.required'));
+    }
+  }
 }
