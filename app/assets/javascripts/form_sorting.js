@@ -14,13 +14,8 @@ $( document ).ready( function() {
   });
 
   $('.remove').click(function() {
-    const fields = $('.row.padded-field');
     const parentField = $(this).parents('.row.padded-field');
-    if (fields.length > 1) {
-      parentField.remove();
-    } else { // If they want to remove the last field, just empty it instead.
-      setDefaultValues(parentField);
-    }
+    parentField.remove();
     reNumber();
   });
 
