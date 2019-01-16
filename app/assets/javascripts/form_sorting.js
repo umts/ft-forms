@@ -27,9 +27,6 @@ $( document ).ready( function() {
 function takesPlaceholder(value) {
   return ['date', 'date/time', 'long-text', 'text', 'time'].includes(value);
 }
-function newNumber() {
-  return $('.grabbable-number').length + 1;
-}
 function reNumber() {
   $('.grabbable-number').each(function(index) {
     $(this).text(index + 1);
