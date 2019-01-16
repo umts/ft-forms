@@ -6,8 +6,11 @@ $( document ).ready( function() {
   });
 
   $('#add-new').click(function() {
-    const newField = $('.row.padded-field').last().clone(true);
-    appendField(newField, setDefaultValues);
+    const newField = $('.row.padded-field.hidden').clone(true).removeClass('hidden');
+    newField.find('.grabbable-number input').attr('name', newName('number'));
+    newField.find('.grabbable-number input').attr('id', newID('number'));
+    newField.find('.grabbable-number input').val(newNumber());
+    newField.appendTo('.container.sortable');
   });
 
   $('.remove').click(function() {

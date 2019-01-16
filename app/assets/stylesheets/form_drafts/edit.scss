@@ -54,3 +54,13 @@ span.grabbable-number.btn.btn-primary{
 #add-new{
   float: left;
 }
+.hidden.row.padded-field{
+  display: none;
+}
+.number input{
+  width: 1em;
+  background-color: inherit;
+  border: none;
+  color: white;
+  text-align: center;
+}
