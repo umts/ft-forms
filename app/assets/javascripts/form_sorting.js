@@ -10,6 +10,10 @@ $( document ).ready( function() {
     newField.find('.grabbable-number input').attr('name', newName('number'));
     newField.find('.grabbable-number input').attr('id', newID('number'));
     newField.find('.grabbable-number input').val(newNumber());
+    newField.find('.prompt textarea').attr('name', newName('prompt'));
+    newField.find('.prompt textarea').attr('id', newID('prompt'));
+    newField.find('.required input').attr('name', newName('required'));
+    newField.find('.required input').attr('id', newID('required'));
     newField.appendTo('.container.sortable');
   });
 
