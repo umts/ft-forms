@@ -13,7 +13,7 @@ class Form < ApplicationRecord
   default_scope { order :name }
 
   def create_draft(user)
-    return false if draft_belonging_to?(user)
+    return draft_belonging_to(user) if draft_belonging_to?(user)
     draft_attributes = attributes.symbolize_keys
                                  .except(:id)
                                  .merge user: user, form: self
