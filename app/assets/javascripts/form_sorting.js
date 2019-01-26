@@ -1,70 +1,71 @@
 $( document ).ready( function() {
   $('.sortable').sortable({
     stop: function() {
-      reNumber();
+      reAttribute();
     },
   });
 
   $('#add-new').click(function() {
     const newField = $('.hidden').find('.row.padded-field').clone(true).removeClass('hidden');
-    newField.find('.grabbable-number input').attr('name', newName('number'));
-    newField.find('.grabbable-number input').attr('id', newID('number'));
-    newField.find('.grabbable-number input').val(newNumber());
-    newField.find('.prompt textarea').attr('name', newName('prompt'));
-    newField.find('.prompt textarea').attr('id', newID('prompt'));
-    newField.find('.required input').attr('name', newName('required'));
-    newField.find('.required input').attr('id', newID('required'));
     newField.appendTo('.container.sortable');
+    reAttribute();
   });
 
   $('.remove').click(function() {
     const parentField = $(this).parents('.row.padded-field');
     parentField.remove();
-    reNumber();
+    reAttribute(); // This one works.
   });
 
   $('.data-type select').change(function() {
-    toggleFields(this)
+    toggleFields(this);
+    reAttribute();
   });
 }); // END of document.ready
 
 function takesPlaceholder(value) {
   return ['date', 'date/time', 'long-text', 'text', 'time'].includes(value);
 }
-function reNumber() {
+function reAttribute() {
   $('.number input:visible').each(function(index) {
-    $(this).attr('name', 'form_draft[fields_attributes][' + index + '][number]' );
+    $(this).attr('name', newName('number', index))
     $(this).attr('id', 'form_draft_fields_attributes_' + index + '_number');
     $(this).val(index + 1);
+    const parentField = $(this).parents('.row.padded-field');
+    [
+      '.prompt textarea',
+      '.placeholder input',
+      '.required input',
+      '.data-type select',
+      '.options textarea'
+    ].forEach(function(className){
+      const name = className.match(/.\w+/)[0].slice(1);
+      parentField.find(className).attr('name', newName(name, index));
+      parentField.find(className).attr('id', newID(name, index));
+    })
   });
 }
-function newName(fieldType){
-  return 'form_draft[fields_attributes][' + newIndex() + '][' + fieldType + ']';
+function newName(fieldType, index){
+  return 'form_draft[fields_attributes][' + index + '][' + fieldType + ']';
 }
-function newNumber(){
-  // the number of padded fields will the number of visible fields + 1,
-  // which is what we want for the number of a new visible field.
-  return $('.row.padded-field').length
-}
-function newID(fieldType){
-  return 'form_draft_fields_attributes_' + newIndex() + '_' + fieldType
-}
-function newIndex(){
-  return newNumber() - 1;
+// the number of padded fields will the number of visible fields + 1,
+// which is what we want for the number of a new visible field.
+function newID(fieldType, index){
+  return 'form_draft_fields_attributes_' + index + '_' + fieldType
 }
 function toggleFields(dataField) {
   const dataType = dataField.value;
   const container = $(dataField).parents('.padded-field');
   if (takesPlaceholder(dataType) == true) {
     if (container.find('.placeholder').children().length == 0) {
-      const newField = $('<input class="form-control" type="text" name="' + newName('placeholder') + '">')
+      const newField = $('<input class="form-control" type="text">')
       newField.appendTo(container.find('.placeholder'));
     }
   } else {
     container.find('.placeholder').children().remove();
   }
   if (dataType == 'options') {
-    const newField = $('<textarea placeholder="add options separated by a comma" class="form-control" rows="4" name="' + newName('options') + '">');
+    const newField = $('<textarea placeholder="add options separated by a comma" class="form-control" rows="4">');
     newField.appendTo(container.find('.options'));
   } else {
       container.find('.options').children().remove();
@@ -73,7 +74,7 @@ function toggleFields(dataField) {
     container.find('.required').children().remove();
   } else {
     if (container.find('.required').children().length == 0) {
-      const newField = $('<input type="checkbox" name="' + newName('required') + '">')
+      const newField = $('<input type="checkbox" name=">')
       newField.appendTo(container.find('.required'));
     }
   }
