@@ -36,8 +36,7 @@ class FormDraftsController < ApplicationController
   end
 
   def update
-    @draft.fields.delete_all
-    if @draft.update_attributes @draft_params
+    if @draft.update_attributes draft_params
       redirect_to action: 'show'
     else
       flash[:errors] = @draft.errors.full_messages
