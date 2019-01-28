@@ -26,11 +26,8 @@ class FormDraftsController < ApplicationController
   end
 
   def create
-    # the draft must have an ID before its fields are created in order to not
-    # violate uniqueness constraints for number (see Field model)
-    @draft = FormDraft.create @draft_params.except(:fields_attributes)
-    @draft.update @draft_params
-    if @draft.valid?
+    @draft = FormDraft.new draft_params
+    if @draft.save
       redirect_to action: 'show', id: @draft.id
     else
       flash[:errors] = @draft.errors.full_messages
