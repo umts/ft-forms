@@ -12,7 +12,7 @@ class Form < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   default_scope { order :name }
 
-  def create_draft(user)
+  def find_or_create_draft(user)
     return draft_belonging_to(user) if draft_belonging_to?(user)
     draft_attributes = attributes.symbolize_keys
                                  .except(:id)
