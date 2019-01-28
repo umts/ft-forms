@@ -31,12 +31,6 @@ class FormsController < ApplicationController
     redirect_to thank_you_form_url(@form.friendly_id)
   end
 
-  def new
-    form = Form.new
-    @draft = form.create_draft @current_user
-    @draft.fields << @draft.new_field
-  end
-
   def destroy
     @form.destroy
     redirect_to forms_url
