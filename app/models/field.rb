@@ -27,6 +27,14 @@ class Field < ApplicationRecord
   default_scope { order :number }
   scope :not_new, -> { where.not id: nil }
 
+  before_validation do
+    # serialization occurs before validation. ensure any strings (even blank)
+    # are converted to arrays. 
+    if options.is_a? String
+      options.gsub(/\s+/, "").split(',')
+    end
+  end
+
   def date?
     data_type == 'date'
   end
