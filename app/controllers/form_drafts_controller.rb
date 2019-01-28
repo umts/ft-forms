@@ -9,15 +9,19 @@ class FormDraftsController < ApplicationController
     redirect_to forms_url
   end
 
-  def edit; end
+  def edit
+    @draft = FormDraft.find params[:id]
+    @draft.fields << @draft.new_field unless @draft.fields.present?
+  end
 
   def new
     form = Form.find_by(id: params[:form_id]) || Form.new
     if form.persisted?
-      @draft = form.create_draft @current_user
-    else
-      @draft = FormDraft.new user: @current_user
+      draft = form.find_or_create_draft @current_user
+      redirect_to edit_form_draft_path(draft) and return
     end
+    @draft = FormDraft.new user: @current_user
+    # make sure draft has the form
     @draft.fields << @draft.new_field
   end
 
