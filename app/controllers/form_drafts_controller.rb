@@ -2,7 +2,6 @@
 
 class FormDraftsController < ApplicationController
   before_action :find_form_draft, except: %i[create new]
-  before_action :draft_params, only: %i[create update]
 
   def destroy
     @draft.destroy
@@ -55,7 +54,7 @@ class FormDraftsController < ApplicationController
   private
 
   def draft_params
-    @draft_params = params.require(:form_draft)
+    params.require(:form_draft)
                           .permit(:name,
                                   :email,
                                   :reply_to,
