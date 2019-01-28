@@ -9,6 +9,7 @@ class Field < ApplicationRecord
   serialize :options, Array
 
   validate :belongs_to_form_or_form_draft?
+  validates :options, presence: true, if: -> { data_type == 'options' }
   validates :data_type, inclusion: { in: DATA_TYPES }
   validates :number, :prompt, presence: true
   # Equivalent to
