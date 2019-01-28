@@ -39,7 +39,10 @@ function reAttribute() {
       '.data-type select',
       '.options textarea'
     ].forEach(function(className){
-      const name = className.match(/.\w+/)[0].slice(1);
+      let name = className.match(/.\w+/)[0].slice(1);
+      if(name=='data'){
+        name = 'data_type'
+      }
       parentField.find(className).attr('name', newName(name, index));
       parentField.find(className).attr('id', newID(name, index));
     })
@@ -74,7 +77,7 @@ function toggleFields(dataField) {
     container.find('.required').children().remove();
   } else {
     if (container.find('.required').children().length == 0) {
-      const newField = $('<input type="checkbox" name=">')
+      const newField = $('<input type="checkbox">')
       newField.appendTo(container.find('.required'));
     }
   }
