@@ -22,7 +22,7 @@ class Field < ApplicationRecord
                                    if: -> { form_draft.present? } }
   validates :required,
             inclusion: { in: [true, false],
-                         message: 'must be true or false' }
+                         message: 'must be true or false', unless: -> { explanation? || heading? } }
 
   default_scope { order :number }
   scope :not_new, -> { where.not id: nil }
