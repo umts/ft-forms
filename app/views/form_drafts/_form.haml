@@ -19,7 +19,7 @@
       .col
   .container.sortable
     = f.fields_for :fields do |g|
-      =render partial: 'clonable_field', locals: {g: g}
+      = render partial: 'clonable_field', locals: {g: g}
   .container
     .row
       .col-2
