@@ -65,7 +65,7 @@ class FormDraftsController < ApplicationController
                                                         required
                                                         options])
     if draft_params[:fields_attributes].try(:[], :options).present?
-      draft_params[:fields_attributes][:options].gsub(/\s+/, "").split(',')
+      draft_params[:fields_attributes][:options].split(/[^a-z^A-Z]/)
     end
     draft_params
   end
