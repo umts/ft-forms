@@ -54,7 +54,7 @@ class FormDraftsController < ApplicationController
   private
 
   def draft_params
-    params.require(:form_draft)
+    draft_params = params.require(:form_draft)
                           .permit(:name,
                                   :email,
                                   :reply_to,
@@ -64,6 +64,10 @@ class FormDraftsController < ApplicationController
                                                         data_type
                                                         required
                                                         options])
+    if draft_params[:fields_attributes].try(:[], :options).present?
+      draft_params[:fields_attributes][:options].gsub(/\s+/, "").split(',')
+    end
+    draft_params
   end
 
   def find_form_draft
