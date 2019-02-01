@@ -36,7 +36,10 @@ class FormDraftsController < ApplicationController
   end
 
   def update
-    if @draft.update_attributes draft_params
+    # avoid any number uniqueness violation.
+    @draft.fields.destroy_all
+    @draft.assign_attributes draft_params
+    if @draft.save
       redirect_to action: 'show'
     else
       flash[:errors] = @draft.errors.full_messages
