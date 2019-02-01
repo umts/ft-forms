@@ -67,8 +67,12 @@ class FormDraftsController < ApplicationController
                                                         data_type
                                                         required
                                                         options])
-    if draft_params[:fields_attributes].try(:[], :options).present?
-      draft_params[:fields_attributes][:options].split(/[^a-z^A-Z]/)
+    if draft_params[:fields_attributes].present?
+      draft_params[:fields_attributes].each do |_index, field|
+        if field[:options].present?
+          field[:options] = field[:options].try(:split, /[^a-z^A-Z]/)
+        end
+      end
     end
     draft_params
   end
