@@ -70,7 +70,7 @@ class FormDraftsController < ApplicationController
     if draft_params[:fields_attributes].present?
       draft_params[:fields_attributes].each do |_index, field|
         if field[:options].present?
-          field[:options] = field[:options].try(:split, /[^a-z^A-Z]/)
+          field[:options] = field[:options].split(/[^a-z^A-Z]/).reject(&:blank?)
         end
       end
     end
