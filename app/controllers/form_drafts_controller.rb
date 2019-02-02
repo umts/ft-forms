@@ -17,16 +17,15 @@ class FormDraftsController < ApplicationController
   def new
     form = Form.find_by(id: params[:form_id]) || Form.new
     if form.persisted?
-      draft = form.find_or_create_draft @current_user
-      redirect_to edit_form_draft_path(draft) and return
+      @draft = form.find_or_create_draft @current_user
+      redirect_to edit_form_draft_path(@draft) and return
     end
-    @draft = FormDraft.new user: @current_user
-    # make sure draft has the form
+    @draft = FormDraft.new
     @draft.fields << @draft.new_field
   end
 
   def create
-    @draft = FormDraft.new draft_params
+    @draft = FormDraft.new draft_params.merge(user: @current_user)
     if @draft.save
       redirect_to action: 'show', id: @draft.id
     else
