@@ -18,6 +18,7 @@ gem 'redcarpet'
 gem 'sass-rails'
 gem 'snappconfig'
 gem 'uglifier'
+gem 'puma'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-datetimepicker'
@@ -57,4 +58,6 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
 end
