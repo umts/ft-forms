@@ -8,14 +8,6 @@ SimpleCov.start 'rails' do
   refuse_coverage_drop
 end
 
-RSpec.configure do |config|
-  config.before :all do
-    FactoryGirl.reload
-  end
-  config.include FactoryGirl::Syntax::Methods
-  config.include UmtsCustomMatchers
-end
-
 # Sets current user based on two acceptable values:
 # 1. a symbol name of a user factory trait;
 # 2. a specific instance of User.
