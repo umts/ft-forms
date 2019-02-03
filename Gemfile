@@ -54,3 +54,7 @@ group :development, :test do
   gem 'umts-custom-cops'
   gem 'umts-custom-matchers'
 end
+
+group :test do
+  gem 'capybara'
+end
