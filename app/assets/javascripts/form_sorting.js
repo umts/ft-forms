@@ -68,7 +68,8 @@ function toggleFields(dataField) {
     container.find('.placeholder').children().remove();
   }
   if (dataType == 'options') {
-    const newField = $('<textarea placeholder="add options separated by a comma" class="form-control" rows="4">');
+    const placeholder = 'separate options by any special character (space, comma, etc)';
+    const newField = $('<textarea placeholder="' + placeholder + '" class="form-control" rows="4">');
     newField.appendTo(container.find('.options'));
   } else {
       container.find('.options').children().remove();
