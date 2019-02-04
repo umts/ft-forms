@@ -29,7 +29,7 @@ class FormDraftsController < ApplicationController
     if @draft.save
       redirect_to action: 'show', id: @draft.id
     else
-      flash[:errors] = @draft.errors.full_messages
+      flash.now[:errors] = @draft.errors.full_messages
       render 'new'
     end
   end
