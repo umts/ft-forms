@@ -3,8 +3,6 @@
 require 'rails_helper'
 
 describe 'interacting with forms/drafts from the index', js: true do
-  before :each do
-  end
   context 'not staff' do
     it 'does not allow access' do
       login_as(create :user, :not_staff)
