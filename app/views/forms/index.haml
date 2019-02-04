@@ -20,7 +20,7 @@
 
 - if @drafts.present?
   %h1.title Unpublished Drafts
-  %table#forms_table
+  %table#form_drafts_table
     - @drafts.each do |draft|
       %tr
         %td= draft.name
