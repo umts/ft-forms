@@ -39,25 +39,6 @@ describe FormDraftsController do
         expect(response).to have_http_status :unauthorized
       end
     end
-    context 'staff' do
-      before :each do
-        when_current_user_is :staff
-      end
-      it 'assigns the correct draft to the draft instance variable' do
-        submit
-        expect(assigns.fetch :draft).to eql @draft
-      end
-      it 'adds a field to the draft, in memory only' do
-        expect { submit }
-          .not_to change { @draft.fields.count }
-        # Factory draft has 0 fields by default
-        expect(assigns.fetch(:draft).fields.size).to be 1
-      end
-      it 'renders the edit template' do
-        submit
-        expect(response).to render_template 'edit'
-      end
-    end
   end
 
   describe 'GET #new' do
@@ -130,7 +111,7 @@ describe FormDraftsController do
 
   describe 'POST #create' do
     let :submit do
-      post :create, params: { form_draft: { name: 'test' }, commit: @commit }
+      post :create, params: { form_draft: { name: 'test' } }
     end
     context 'not staff' do
       before :each do
@@ -142,38 +123,6 @@ describe FormDraftsController do
         expect(response).to have_http_status :unauthorized
       end
     end
-    context 'staff' do
-      before :each do
-        when_current_user_is :staff
-      end
-      context 'commit is Save changes and continue editing' do
-        before :each do
-          @commit = 'Save changes and continue editing'
-        end
-        it 'creates a form with the changes given' do
-          expect { submit }.to change { Form.count }.by 1
-          expect(assigns.fetch(:draft).form.name).to eql 'test'
-        end
-        it 'redirects to the edit path for the draft' do
-          submit
-          id = assigns.fetch(:draft).id
-          expect(response).to redirect_to "/form_drafts/#{id}/edit"
-        end
-      end
-      context 'commit is Preview changes' do
-        before :each do
-          @commit = 'Preview changes'
-        end
-        it 'updates the draft with the changes given' do
-          expect { submit }.to change { Form.count }.by 1
-          expect(assigns[:draft].form.name).to eql 'test'
-        end
-        it 'renders the show page' do
-          submit
-          expect(response).to render_template 'show'
-        end
-      end
-    end
   end
 
   describe 'POST #update' do
@@ -183,8 +132,7 @@ describe FormDraftsController do
     end
     let :submit do
       post :update, params: { id: @draft,
-                              form_draft: @changes,
-                              commit: @commit }
+                              form_draft: @changes }
     end
     context 'not staff' do
       before :each do
@@ -195,44 +143,6 @@ describe FormDraftsController do
           .not_to receive :update
         submit
         expect(response).to have_http_status :unauthorized
-      end
-    end
-    context 'staff' do
-      before :each do
-        when_current_user_is :staff
-      end
-      context 'commit is Save changes and continue editing' do
-        before :each do
-          @commit = 'Save changes and continue editing'
-        end
-        it 'updates the draft with the changes given' do
-          expect { submit }
-            .to change { @draft.reload.name }
-            .to 'a new name'
-        end
-        it 'reloads the draft' do
-          expect_any_instance_of(FormDraft)
-            .to receive(:reload)
-          submit
-        end
-        it 'redirects to the edit path for the draft' do
-          submit
-          expect(response).to redirect_to edit_form_draft_path(@draft)
-        end
-      end
-      context 'commit is Preview changes' do
-        before :each do
-          @commit = 'Preview changes'
-        end
-        it 'updates the draft with the changes given' do
-          expect { submit }
-            .to change { @draft.reload.name }
-            .to 'a new name'
-        end
-        it 'renders the show page' do
-          submit
-          expect(response).to render_template 'show'
-        end
       end
     end
 
@@ -252,28 +162,6 @@ describe FormDraftsController do
             .not_to receive :update_form!
           submit
           expect(response).to have_http_status :unauthorized
-        end
-      end
-      context 'staff' do
-        before :each do
-          when_current_user_is :staff
-        end
-        it 'assigns the correct draft to the draft instance variable' do
-          submit
-          expect(assigns.fetch :draft).to eql @draft
-        end
-        it 'calls update_form! on the draft' do
-          expect_any_instance_of(FormDraft)
-            .to receive :update_form!
-          submit
-        end
-        it 'includes a flash message' do
-          submit
-          expect(flash[:message]).not_to be_empty
-        end
-        it 'redirects to the forms index' do
-          submit
-          expect(response).to redirect_to forms_url
         end
       end
     end

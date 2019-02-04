@@ -33,19 +33,6 @@ describe FormsController do
         end
       end
     end
-    context 'staff' do
-      before :each do
-        when_current_user_is :staff
-      end
-      it 'puts all the forms in the correct instance variable' do
-        submit
-        expect(assigns.fetch :forms).to include @form1, @form2, @form3
-      end
-      it 'renders the index' do
-        submit
-        expect(response).to render_template 'index'
-      end
-    end
   end
 
   describe 'GET #show' do
@@ -206,19 +193,6 @@ describe FormsController do
         expect(response).to have_http_status :unauthorized
       end
     end
-    context 'staff' do
-      before :each do
-        when_current_user_is :staff
-      end
-      it 'does not create a form or draft' do
-        expect { submit }.not_to change { Form.count }
-        expect { submit }.not_to change { FormDraft.count }
-      end
-      it 'creates a draft for the current user' do
-        submit
-        expect(assigns[:draft].form).to be_a_new Form
-      end
-    end
   end
   describe 'DELETE #destroy' do
     before :each do
@@ -236,27 +210,6 @@ describe FormsController do
           .not_to receive :destroy
         submit
         expect(response).to have_http_status :unauthorized
-      end
-    end
-    context 'staff' do
-      before :each do
-        when_current_user_is :staff
-      end
-      it 'assigns correct form to instance variable' do
-        submit
-        expect(assigns.fetch :form).to eql @form
-      end
-      it 'destroys form' do
-        expect { submit }.to change { Form.count }.by(-1)
-        expect(Form.all).not_to include @form
-      end
-      it 'redirects to form page' do
-        submit
-        expect(response).to redirect_to forms_path
-      end
-      it 'includes a flash message' do
-        submit
-        expect(flash[:message]).to eql 'Form successfully deleted.'
       end
     end
   end
