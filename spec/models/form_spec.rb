@@ -12,14 +12,14 @@ describe Form do
       @user = create :user
     end
     let :call do
-      @form.create_draft @user
+      @form.find_or_create_draft @user
     end
     context 'pre-existing draft belonging to user' do
       before :each do
-        create :form_draft, form: @form, user: @user
+        @draft = create :form_draft, form: @form, user: @user
       end
-      it 'returns false' do
-        expect(call).to be false
+      it 'returns the draft' do
+        expect(call).to eql @draft
       end
     end
     context 'no pre-existing draft' do
