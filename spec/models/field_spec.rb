@@ -45,7 +45,9 @@ describe Field do
     end
     it 'returns false for explanation, heading, number, options, or yes/no' do
       %w[explanation heading number options yes/no].each do |data_type|
-        field = create :field, form_draft: @draft, data_type: data_type
+        options = ['red', 'blue'] if data_type == 'options'
+        field = create :field, form_draft: @draft, data_type: data_type,
+          options: options
         expect(field.takes_placeholder?).to be false
       end
     end
