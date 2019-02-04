@@ -19,7 +19,7 @@ describe 'creating a draft', js: true do
     end
     context 'without publishing the form' do
       it 'displays it on the index page for later' do
-        click_button 'Save draft & go back to index'
+        click_link 'Save draft & go back to index'
         expect(page).to have_css 'h1', text: 'Unpublished Drafts'
         expect(page).to have_text 'General Fletcher'
         expect(FormDraft.count).to eql 1
