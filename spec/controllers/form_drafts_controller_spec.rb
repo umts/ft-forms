@@ -21,28 +21,6 @@ describe FormDraftsController do
         expect(response).to have_http_status :unauthorized
       end
     end
-    context 'staff' do
-      before :each do
-        when_current_user_is :staff
-      end
-      it 'assigns the correct draft to the draft instance variable' do
-        submit
-        expect(assigns.fetch :draft).to eql @draft
-      end
-      it 'destroys the draft' do
-        expect_any_instance_of(FormDraft)
-          .to receive :destroy
-        submit
-      end
-      it 'includes a flash message' do
-        submit
-        expect(flash[:message]).not_to be_empty
-      end
-      it 'redirects to the forms url' do
-        submit
-        expect(response).to redirect_to forms_url
-      end
-    end
   end
 
   describe 'GET #edit' do
