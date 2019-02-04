@@ -13,6 +13,7 @@
     - if field.data_type == 'options'
       = g.text_area :options,
         value: field.options.join(', '),
+        placeholder: options_placeholder,
         size: '10x4',
         class: 'form-control'
   .col
