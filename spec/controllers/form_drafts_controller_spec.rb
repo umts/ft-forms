@@ -110,8 +110,11 @@ describe FormDraftsController do
   end
 
   describe 'POST #create' do
+    before :each do
+      @params = { form_draft: { name: 'a name' } }
+    end
     let :submit do
-      post :create, params: { form_draft: { name: 'test' } }
+      post :create, params: @params
     end
     context 'not staff' do
       before :each do
@@ -121,6 +124,22 @@ describe FormDraftsController do
         expect_any_instance_of(FormDraft).not_to receive :create
         submit
         expect(response).to have_http_status :unauthorized
+      end
+    end
+    context 'staff' do
+      before :each do
+        @params[:form_draft][:name] = ''
+        when_current_user_is :staff
+      end
+      context 'errors' do
+        it 'puts errors in the flash' do
+          submit
+          expect(flash[:errors]).not_to be_empty  
+        end
+        it 'renders the new page' do
+          submit
+          expect(response).to render_template :new
+        end
       end
     end
   end
@@ -145,24 +164,39 @@ describe FormDraftsController do
         expect(response).to have_http_status :unauthorized
       end
     end
-
-    describe 'POST #update_form' do
+    context 'staff' do
       before :each do
-        @draft = create :form_draft
+        when_current_user_is :staff
+        @changes = Hash['name', '']
       end
-      let :submit do
-        post :update_form, params: { id: @draft.id }
-      end
-      context 'not staff' do
-        before :each do
-          when_current_user_is :not_staff
-        end
-        it 'does not allow access' do
-          expect_any_instance_of(FormDraft)
-            .not_to receive :update_form!
+      context 'errors' do
+        it 'puts errors in the flash' do
           submit
-          expect(response).to have_http_status :unauthorized
+          expect(flash[:errors]).not_to be_empty  
         end
+        it 'renders the new page' do
+          submit
+          expect(response).to render_template :edit
+        end
+      end
+    end
+  end
+  describe 'POST #update_form' do
+    before :each do
+      @draft = create :form_draft
+    end
+    let :submit do
+      post :update_form, params: { id: @draft.id }
+    end
+    context 'not staff' do
+      before :each do
+        when_current_user_is :not_staff
+      end
+      it 'does not allow access' do
+        expect_any_instance_of(FormDraft)
+          .not_to receive :update_form!
+        submit
+        expect(response).to have_http_status :unauthorized
       end
     end
   end
