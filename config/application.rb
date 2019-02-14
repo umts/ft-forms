@@ -11,5 +11,8 @@ module FtForms
     config.autoload_paths << Rails.root.join('lib')
     config.autoload_paths << Rails.root.join('vendor/lib')
     config.filter_parameters += [:password, :secret, :spire, :github]
+
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.0
   end
 end
