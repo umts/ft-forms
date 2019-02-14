@@ -36,4 +36,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # let test environment access rack session for logging users in
+  config.middleware.use RackSessionAccess::Middleware
 end
