@@ -8,14 +8,6 @@ SimpleCov.start 'rails' do
   refuse_coverage_drop
 end
 
-RSpec.configure do |config|
-  config.before :all do
-    FactoryBot.reload
-  end
-  config.include FactoryBot::Syntax::Methods
-  config.include UmtsCustomMatchers
-end
-
 # Sets current user based on two acceptable values:
 # 1. a symbol name of a user factory trait;
 # 2. a specific instance of User.
@@ -36,4 +28,8 @@ def when_current_user_is(user, options = {})
     assign :current_user, current_user
   else session[:user_id] = current_user.try :id
   end
+end
+
+def login_as(user)
+  page.set_rack_session user_id: user.id
 end
