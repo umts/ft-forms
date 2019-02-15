@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :field do
-    data_type { Field::DATA_TYPES.sample }
+    data_type { 'text' }
     sequence :number
     prompt { 'Field prompt' }
     required  { true }
