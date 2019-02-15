@@ -12,12 +12,12 @@ gem 'jquery-rails'
 gem 'jquery-timepicker-rails'
 gem 'jquery-ui-rails'
 gem 'mysql2'
+gem 'puma'
 gem 'rails', '~> 5.1'
 gem 'redcarpet'
 gem 'sass-rails'
 gem 'snappconfig'
 gem 'uglifier'
-gem 'puma'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-datetimepicker'
@@ -57,7 +57,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'selenium-webdriver'
   gem 'chromedriver-helper'
   gem 'rack_session_access'
+  gem 'selenium-webdriver'
 end
