@@ -5,6 +5,7 @@ env:
 before_script: 
   - cp config/database.yml.example config/database.yml
   - mysql -e 'create database ftforms_test'
+  - apt-get upgrade chrome
 script: 
   - bundle exec rake db:reset 
   - bundle exec rspec
