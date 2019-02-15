@@ -18,4 +18,7 @@ RSpec.configure do |config|
   config.include UmtsCustomMatchers
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = true
+  config.before :each, type: :system do
+    driven_by :selenium_chrome_headless
+  end
 end
