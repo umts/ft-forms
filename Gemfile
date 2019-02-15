@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 
 gem 'coffee-rails'
-gem 'factory_girl_rails'
+gem 'factory_bot_rails'
 gem 'friendly_id', '~> 5.1.0'
 gem 'haml'
 gem 'haml-rails'
@@ -17,6 +17,7 @@ gem 'redcarpet'
 gem 'sass-rails'
 gem 'snappconfig'
 gem 'uglifier'
+gem 'puma'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-datetimepicker'
@@ -52,4 +53,11 @@ group :development, :test do
   gem 'timecop'
   gem 'umts-custom-cops'
   gem 'umts-custom-matchers'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
+  gem 'rack_session_access'
 end
