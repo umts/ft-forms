@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 
 gem 'coffee-rails'
-gem 'factory_girl_rails'
+gem 'factory_bot_rails'
 gem 'friendly_id', '~> 5.1.0'
 gem 'haml'
 gem 'haml-rails'
@@ -12,6 +12,7 @@ gem 'jquery-rails'
 gem 'jquery-timepicker-rails'
 gem 'jquery-ui-rails'
 gem 'mysql2'
+gem 'puma'
 gem 'rails', '~> 5.1'
 gem 'redcarpet'
 gem 'sass-rails'
@@ -52,4 +53,11 @@ group :development, :test do
   gem 'timecop'
   gem 'umts-custom-cops'
   gem 'umts-custom-matchers'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'chromedriver-helper'
+  gem 'rack_session_access'
+  gem 'selenium-webdriver'
 end

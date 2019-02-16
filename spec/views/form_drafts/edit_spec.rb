@@ -6,9 +6,9 @@ include RSpecHtmlMatchers
 describe 'form_drafts/edit.haml' do
   before :each do
     @draft = create :form_draft
-    @top_field    = create :field, form_draft: @draft
-    @field        = create :field, form_draft: @draft
-    @bottom_field = create :field, form_draft: @draft
+    @top_field    = create :field, data_type: 'text', form_draft: @draft
+    @field        = create :field, data_type: 'text', form_draft: @draft
+    @bottom_field = create :field, data_type: 'text', form_draft: @draft
   end
   it 'contains the name of the form draft' do
     render
