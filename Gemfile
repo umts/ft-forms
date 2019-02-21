@@ -20,7 +20,6 @@ gem 'snappconfig'
 gem 'uglifier'
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-datetimepicker'
   gem 'rails-assets-moment'
 end
 
