@@ -11,8 +11,8 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require jquery/dist/jquery.min.js
-//= require jquery-ui/ui/core.js
+//= require jquery
+//= require jquery-ui
 //= require moment
 //= require jquery-datetimepicker/jquery.datetimepicker.js
 //= require_tree .

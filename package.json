@@ -1,8 +1,6 @@
 {
   "dependencies": {
-    "jquery": "^3.2.1",
     "jquery-datetimepicker": "^2.5.20",
-    "jquery-ui": "^1.12.1",
     "jquery-validation": "^1.16.0"
   }
 }
