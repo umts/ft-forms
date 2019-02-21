@@ -10,9 +10,9 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
-//= require jquery-ui
+//= require rails-ujs
+//= require jquery/dist/jquery.min.js
+//= require jquery-ui/ui/core.js
 //= require moment
 //= require jquery-datetimepicker/jquery.datetimepicker.js
 //= require_tree .
