@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-jquery-datetimepicker@^2.5.4:
+jquery-datetimepicker@^2.5.20:
   version "2.5.20"
   resolved "https://registry.yarnpkg.com/jquery-datetimepicker/-/jquery-datetimepicker-2.5.20.tgz#687d6204b90b03dc93f725f8df036e1d061f37ac"
   integrity sha512-ugnjbUkOw1MWuJx+Aik9Reew9U2We+kGdaXU5NKvfdBNiG/vNeeFlgQ8EWu1h8zFf5wmUse7G1MLsYHTP18J4Q==
