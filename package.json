@@ -3,6 +3,7 @@
     "jquery": "^3.2.1",
     "jquery-datetimepicker": "^2.5.4",
     "jquery-ui": "^1.12.1",
-    "jquery-validation": "^1.16.0"
+    "jquery-validation": "^1.16.0",
+    "timepicker": "^1.11.14"
   }
 }
