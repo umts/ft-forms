@@ -5,6 +5,9 @@ env:
   - 'CODECLIMATE_REPO_TOKEN=1db52f66a36ea0f99a5fdfccabaeb065503615fef8dbf49087f9a1e8692af3b2'
 addons:
   chrome: stable
+install:
+  - npm i -g yarn
+  - yarn
 before_script: 
   - cp config/database.yml.example config/database.yml
   - mysql -e 'create database ftforms_test'
