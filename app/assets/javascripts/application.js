@@ -13,6 +13,6 @@
 //= require rails-ujs
 //= require jquery
 //= require jquery-ui
-//= require moment
+//= require moment/moment.js
 //= require jquery-datetimepicker/jquery.datetimepicker.js
 //= require_tree .

@@ -19,10 +19,6 @@ gem 'sass-rails'
 gem 'snappconfig'
 gem 'uglifier'
 
-source 'https://rails-assets.org' do
-  gem 'rails-assets-moment'
-end
-
 group :production do
   gem 'exception_notification'
 end
