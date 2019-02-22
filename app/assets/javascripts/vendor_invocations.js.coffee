@@ -1,5 +1,5 @@
 $(document).ready ->
-  $('.datepicker').datepicker
+  $('.datepicker').datetimepicker
     altFormat: 'DD, MM dd, yy' 
     changeMonth: true
     changeYear: true
