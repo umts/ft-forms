@@ -10,12 +10,12 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require jquery-ui
- *= require jquery.timepicker
- *= require jquery.datetimepicker.css
+ *= require jquery-datetimepicker/jquery.datetimepicker.css
  *= require_tree .
  *= require_self
  */
+
+@import 'bootstrap';
 
 body{
   display: flex;

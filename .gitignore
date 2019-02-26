@@ -37,3 +37,6 @@ bower.json
 
 # Ignore pow environment settings
 .powenv
+
+# ignore node modules
+/node_modules

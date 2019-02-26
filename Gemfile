@@ -2,6 +2,7 @@
 
 source 'https://rubygems.org'
 
+gem 'bootstrap', '~> 4.2.1'
 gem 'coffee-rails'
 gem 'factory_bot_rails'
 gem 'friendly_id', '~> 5.1.0'
@@ -9,7 +10,6 @@ gem 'haml'
 gem 'haml-rails'
 gem 'haml_lint'
 gem 'jquery-rails'
-gem 'jquery-timepicker-rails'
 gem 'jquery-ui-rails'
 gem 'mysql2'
 gem 'puma'
@@ -18,11 +18,6 @@ gem 'redcarpet'
 gem 'sass-rails'
 gem 'snappconfig'
 gem 'uglifier'
-
-source 'https://rails-assets.org' do
-  gem 'rails-assets-datetimepicker'
-  gem 'rails-assets-moment'
-end
 
 group :production do
   gem 'exception_notification'
@@ -34,6 +29,7 @@ group :development do
   gem 'capistrano-passenger', require: false
   gem 'capistrano-pending', require: false
   gem 'capistrano-rails', require: false
+  gem 'capistrano-yarn', require: false
   gem 'listen'
   gem 'rb-readline', require: false
 end
