@@ -16,6 +16,7 @@ RSpec.configure do |config|
   end
   config.include FactoryBot::Syntax::Methods
   config.include UmtsCustomMatchers
+  config.include RSpecHtmlMatchers, type: :view
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = true
   config.before :each, type: :system do
