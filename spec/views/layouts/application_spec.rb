@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-include RSpecHtmlMatchers
 
 describe 'layouts/application.haml' do
+  include RSpecHtmlMatchers
   context 'current user is present' do
     before :each do
       @user = create :user

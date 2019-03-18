@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-include RSpecHtmlMatchers
 
 describe 'form_drafts/edit.haml' do
+  include RSpecHtmlMatchers
+
   before :each do
     @draft = create :form_draft
     @top_field    = create :field, data_type: 'text', form_draft: @draft

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-include RSpecHtmlMatchers
 
 describe 'forms/index.haml' do
+  include RSpecHtmlMatchers
   before :each do
     @staff_member = create :user, :staff
     when_current_user_is @staff_member, view: true

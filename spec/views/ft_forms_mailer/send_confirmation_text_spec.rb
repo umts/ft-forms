@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-include RSpecHtmlMatchers
 
 describe 'ft_forms_mailer/send_confirmation.text.erb' do
+  include RSpecHtmlMatchers
   before :each do
     @form_data = { question1: 'answer1', email: 'my_email' }
   end

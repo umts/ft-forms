@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-include RSpecHtmlMatchers
 
 describe 'layouts/_umass_search.haml' do
+  include RSpecHtmlMatchers
   it 'has the form it needs to have' do
     action_path = 'http://googlebox.oit.umass.edu/search'
     render

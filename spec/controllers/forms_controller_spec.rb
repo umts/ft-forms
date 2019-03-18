@@ -90,7 +90,7 @@ describe FormsController do
       @form = create :form
       @field = create :field, form: @form
       @responses = {
-        @field.unique_name        => 'A response',
+        @field.unique_name => 'A response',
         @field.unique_prompt_name => @field.prompt
       }
       @user_attributes = { first_name: 'John',

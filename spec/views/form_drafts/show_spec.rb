@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-include RSpecHtmlMatchers
 
 describe 'form_drafts/show.haml' do
+  include RSpecHtmlMatchers
   before :each do
     @draft = create :form_draft
     @email = 'draft.email@test.host'

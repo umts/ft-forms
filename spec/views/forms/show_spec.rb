@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-include RSpecHtmlMatchers
 
 describe 'forms/show.haml' do
+  include RSpecHtmlMatchers
   before :each do
     @form = create :form
     assign :form, @form

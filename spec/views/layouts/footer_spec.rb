@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-include RSpecHtmlMatchers
 
 describe 'layouts/_footer.haml' do
+  include RSpecHtmlMatchers
   # From the UMass Digital Brand Guide - "We live in a digital world."
   it 'has a span with a class of content' do
     render
