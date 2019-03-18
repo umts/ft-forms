@@ -12,6 +12,8 @@ engines:
     config:
       languages:
       - ruby
+  haml-lint:
+    enabled: true
   fixme:
     enabled: true
   rubocop:
