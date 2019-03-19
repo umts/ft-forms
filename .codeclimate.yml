@@ -1,3 +1,4 @@
+version: '2'
 plugins:
   brakeman:
     enabled: true
@@ -14,6 +15,9 @@ plugins:
       - ruby
   haml-lint:
     enabled: true
+    linters:
+      RuboCop:
+        enabled: false # the correct configuration file cannot be loaded.
   fixme:
     enabled: true
   rubocop:
