@@ -18,7 +18,6 @@ gem 'redcarpet'
 gem 'sass-rails'
 gem 'snappconfig'
 gem 'uglifier'
-gem 'puma'
 
 group :production do
   gem 'exception_notification'
