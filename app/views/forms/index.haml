@@ -11,9 +11,9 @@
           = link_to 'Resume editing saved draft', edit_form_draft_path(draft)
           %br
           = button_to 'Discard saved draft',
-            form_draft_path(draft), method: :delete
+            form_draft_path(draft), method: :delete, class: 'btn btn-warning' 
         - else
           = link_to 'Edit', new_form_draft_path(form_id: form.id)
       %td= link_to 'Delete', form_path(form), method: :delete,
       data: {confirm: "Are you sure you want to delete #{form.name}?"}
-.actions= link_to 'New form', new_form_path
+= link_to 'New form', new_form_path, class: 'btn btn-primary'

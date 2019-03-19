@@ -3,4 +3,4 @@
   = form_tag field_path(@field), method: :put do
     .explanation Enter options below, separated by a new line.
     .options= text_area_tag :options, @field.options.join("\r\n"), size: '30x10'
-    .actions= submit_tag 'Save options'
+    = submit_tag 'Save options', class: 'btn btn-primary'

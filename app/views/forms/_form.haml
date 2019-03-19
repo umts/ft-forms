@@ -38,9 +38,9 @@
                 - field.options.each do |option|
                   %li= option
                 %li= link_to 'Configure options', edit_field_path(field)
-        .actions
-          = f.submit 'Save changes and continue editing'
-          = f.submit 'Preview changes'
+        .container
+          = f.submit 'Save changes and continue editing', class: 'btn btn-secondary'
+          = f.submit 'Preview changes', class: 'btn btn-secondary'
   .button_column
     - @draft.fields.each do |field|
       - unless field.new_record?

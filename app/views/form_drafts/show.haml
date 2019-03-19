@@ -55,10 +55,11 @@
                   required: field.required?
             - if field.required
               %span.ast *
-    .actions= submit_tag 'Submit request', disabled: true
-
-.form
-  .actions
-    = button_to 'Continue editing', edit_form_draft_path(@draft), method: :get
-    = button_to 'Discard changes', @draft, method: :delete
-    = button_to 'Save form', update_form_form_draft_path(@draft)
+    = submit_tag 'Submit request', disabled: true, class: 'btn btn-primary'
+.container
+  .row
+    .col
+    .col= link_to 'Continue editing', edit_form_draft_path(@draft), class: 'btn btn-secondary'
+    .col= button_to 'Discard changes', @draft, method: :delete, class: 'btn btn-danger'
+    .col= button_to 'Save form', update_form_form_draft_path(@draft), class: 'btn btn-primary'
+    .col

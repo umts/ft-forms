@@ -179,12 +179,10 @@ describe 'form_drafts/show.haml' do
     render
     expect(rendered).to have_tag 'span', with: { class: 'ast' }
   end
-  it 'has a button to continue editing the draft' do
+  it 'has a link to continue editing the draft' do
     render
     action_path = edit_form_draft_path @draft
-    expect(rendered).to have_form action_path, :get do
-      with_submit 'Continue editing'
-    end
+    expect(rendered).to have_link action_path
   end
   it 'has a button to discard the changes' do
     render

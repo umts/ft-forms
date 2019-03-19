@@ -56,4 +56,4 @@
             - if field.required
               %span.ast *
             = r.hidden_field field.unique_prompt_name, value: field.prompt
-    .actions= submit_tag 'Submit request', disabled: !@submit
+    = submit_tag 'Submit request', disabled: !@submit, class: 'btn btn-primary'
