@@ -1,4 +1,5 @@
-engines:
+version: '2'
+plugins:
   brakeman:
     enabled: true
   bundler-audit:
@@ -12,20 +13,15 @@ engines:
     config:
       languages:
       - ruby
+  haml-lint:
+    enabled: true
   fixme:
     enabled: true
   rubocop:
     enabled: true
     config: .rubocop-no-umts-cops.yml
     channel: rubocop-0-64
-ratings:
-  paths:
-  - Gemfile.lock
-  - "**.erb"
-  - "**.haml"
-  - "**.rb"
-  - "**.css"
-exclude_paths:
+exclude_patterns:
 - bin/**/*
 - coverage/**/*
 - config/**/*

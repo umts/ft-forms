@@ -1,0 +1,3 @@
+linters:
+  RuboCop:
+    enabled: false # the correct configuration file cannot be loaded.
