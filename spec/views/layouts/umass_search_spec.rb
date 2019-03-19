@@ -9,7 +9,7 @@ describe 'layouts/_umass_search.haml' do
     render
     expect(rendered).to have_form action_path,
                                   :get,
-                                  with: { id: 'banner_search', name: 'gs' } do
+                                  with: { id: 'banner-search', name: 'gs' } do
       with_tag 'div' do
         with_tag 'label', with: { for: 'q' }
         with_tag 'input#q', with: { type: 'text',

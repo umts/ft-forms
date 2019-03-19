@@ -7,14 +7,14 @@
     = javascript_include_tag 'application.js'
     = csrf_meta_tags
   %body
-    #umass_banner
+    #umass-banner
       #wordmark= image_tag 'wordmark.svg', height: 25
       #links
         = link_to 'Logout', destroy_session_path
         - if @current_user.present? && @current_user.staff?
           = link_to 'Forms', forms_path
-          #current_user_name= @current_user.full_name
-    #transportation_banner
+          #current-user-name= @current_user.full_name
+    #transportation-banner
       = image_tag 'trans-header-large.png'
     #flash
       - if flash[:message].present?
@@ -25,6 +25,6 @@
           %ul
             - flash[:errors].each do |error_message|
               %li= error_message
-    #content_wrapper
-      #main_content= yield
+    #content-wrapper
+      #main-content= yield
     #footer= render partial: 'layouts/footer'
