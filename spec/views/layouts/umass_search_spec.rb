@@ -5,11 +5,11 @@ require 'rails_helper'
 describe 'layouts/_umass_search.haml' do
   include RSpecHtmlMatchers
   it 'has the form it needs to have' do
-    action_path = 'https://googlebox.oit.umass.edu/search'
+    action_path = 'http://googlebox.oit.umass.edu/search'
     render
     expect(rendered).to have_form action_path,
                                   :get,
-                                  with: { id: 'banner-search', name: 'gs' } do
+                                  with: { id: 'banner_search', name: 'gs' } do
       with_tag 'div' do
         with_tag 'label', with: { for: 'q' }
         with_tag 'input#q', with: { type: 'text',

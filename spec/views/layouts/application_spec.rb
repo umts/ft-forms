@@ -23,7 +23,7 @@ describe 'layouts/application.haml' do
       end
       it 'displays the full name of the user' do
         render
-        expect(rendered).to have_tag '#current-user-name' do
+        expect(rendered).to have_tag '#current_user_name' do
           with_text @user.full_name
         end
       end

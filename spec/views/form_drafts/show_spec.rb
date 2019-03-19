@@ -27,7 +27,7 @@ describe 'form_drafts/show.haml' do
   end
   it 'has a form preview message including the email value of the draft' do
     render
-    expect(rendered).to have_tag '#form-preview-message' do
+    expect(rendered).to have_tag '#form_preview_message' do
       with_text(/is not live/)
       with_text(/#{@email}/)
     end
