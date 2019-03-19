@@ -6,7 +6,8 @@ class Form < ApplicationRecord
   has_many :fields, dependent: :destroy
   has_many :drafts, class_name: 'FormDraft',
                     foreign_key: :form_id,
-                    dependent: :destroy
+                    dependent: :destroy,
+                    inverse_of: :form
   accepts_nested_attributes_for :fields
 
   validates :name, presence: true, uniqueness: true
@@ -14,6 +15,7 @@ class Form < ApplicationRecord
 
   def create_draft(user)
     return false if draft_belonging_to?(user)
+
     draft_attributes = attributes.symbolize_keys
                                  .except(:id)
                                  .merge user: user, form: self

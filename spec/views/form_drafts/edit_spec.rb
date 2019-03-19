@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 describe 'form_drafts/edit.haml' do
+
   before :each do
     @draft = create :form_draft
     @top_field    = create :field, data_type: 'text', form_draft: @draft
