@@ -13,11 +13,11 @@
   = form_tag controller: :forms, action: :submit, id: @draft.form.id do
     = fields_for :user do |u|
       .field
-        .explanation 
+        .explanation
           This is the information we will use to confirm the
           request. Please fill in any fields that have missing
           or incorrect data.
-      - [:first_name, :last_name, :email].each do |field|
+      - %i[first_name last_name email].each do |field|
         .field
           .label= u.label field
           = u.text_field field, size: 50,
