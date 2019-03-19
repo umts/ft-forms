@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe 'sessions/dev_login.haml' do
-  include RSpecHtmlMatchers
   before :each do
     @staff = create :user, staff: true
     @not_staff = create :user

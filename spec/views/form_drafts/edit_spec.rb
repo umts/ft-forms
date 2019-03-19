@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe 'form_drafts/edit.haml' do
-  include RSpecHtmlMatchers
 
   before :each do
     @draft = create :form_draft

@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe 'ft_forms_mailer/send_form.text.erb' do
-  include RSpecHtmlMatchers
   before :each do
     @form_data = [['a question', 'an answer'],
                   ['a heading', :heading],

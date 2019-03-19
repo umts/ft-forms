@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe 'forms/thank_you.haml' do
-  include RSpecHtmlMatchers
   it 'has an h1 tag saying thanks' do
     render
     expect(rendered).to have_tag 'h1' do

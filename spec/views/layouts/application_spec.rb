@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe 'layouts/application.haml' do
-  include RSpecHtmlMatchers
   context 'current user is present' do
     before :each do
       @user = create :user

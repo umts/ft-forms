@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe 'layouts/_umass_search.haml' do
-  include RSpecHtmlMatchers
   it 'has the form it needs to have' do
     action_path = 'http://googlebox.oit.umass.edu/search'
     render
