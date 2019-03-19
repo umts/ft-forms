@@ -61,6 +61,7 @@ class Field < ApplicationRecord
   # must have form or form draft. cannot have both
   def belongs_to_form_or_form_draft?
     return if form.present? ^ form_draft.present?
+
     errors.add :base,
                'You must specify either a form or form_draft, but not both'
   end

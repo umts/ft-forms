@@ -52,6 +52,7 @@ describe Field do
       end
     end
   end
+  # rubocop:enable UmtsCustomCops/PredicateMethodMatcher
 
   describe 'unique_name' do
     before :each do

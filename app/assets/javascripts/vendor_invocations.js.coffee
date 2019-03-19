@@ -1,5 +1,5 @@
 $(document).ready ->
-  $('.datepicker').datepicker
+  $('.datepicker').datetimepicker
     altFormat: 'DD, MM dd, yy' 
     changeMonth: true
     changeYear: true
@@ -18,6 +18,9 @@ $(document).ready ->
     formatDate: (date, format) ->
       moment(date).format format
 
-  $('.timepicker').timepicker
-    timeFormat: 'g:i a'
+  $('.timepicker').datetimepicker
+    datepicker:false,
+    format:'h:mm A',
+    formatTime:'h:mm A',
+    step: 5
 return

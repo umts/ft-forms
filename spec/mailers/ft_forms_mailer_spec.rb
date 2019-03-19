@@ -10,7 +10,7 @@ describe FtFormsMailer do
       @prompt = 'A prompt'
       @reply_to = 'fieldtrip@umass.edu'
       @form_data = {
-        'field_2'  => @response,
+        'field_2' => @response,
         'prompt_2' => @prompt
       }
     end
@@ -38,7 +38,7 @@ describe FtFormsMailer do
       @response = 'A response'
       @prompt = 'A prompt'
       @form_data = {
-        'field_2'  => @response,
+        'field_2' => @response,
         'prompt_2' => @prompt
       }
     end

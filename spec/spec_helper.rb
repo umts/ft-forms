@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 require 'simplecov'
 require 'umts-custom-matchers'
 
@@ -28,4 +28,8 @@ def when_current_user_is(user, options = {})
     assign :current_user, current_user
   else session[:user_id] = current_user.try :id
   end
+end
+
+def login_as(user)
+  page.set_rack_session user_id: user.id
 end

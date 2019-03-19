@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-include ApplicationHelper
-
 class FtFormsMailer < ActionMailer::Base
+  include ApplicationHelper
   default from: 'transit-it@admin.umass.edu'
   default reply_to: 'fieldtrip@umass.edu'
 

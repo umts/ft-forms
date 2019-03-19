@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-include RSpecHtmlMatchers
 
 describe 'forms/thank_you.haml' do
   it 'has an h1 tag saying thanks' do

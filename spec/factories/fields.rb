@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :field do
-    data_type Field::DATA_TYPES.sample
-    sequence  :number
-    prompt    'Field prompt'
-    required  true
-    options { ['red'] if data_type == 'options' }
+    data_type { 'text' }
+    sequence :number
+    prompt { 'Field prompt' }
+    required { true }
   end
 end

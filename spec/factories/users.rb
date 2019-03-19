@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
-    first_name 'FirstName'
-    last_name 'LastName'
-    email 'flastnam@test.host'
-    staff false
+    first_name { 'FirstName' }
+    last_name { 'LastName' }
+    email { 'flastnam@test.host' }
+    staff { false }
     sequence :spire
 
     trait :staff do
-      staff true
+      staff { true }
     end
 
     trait :not_staff do
-      staff false
+      staff { false }
     end
   end
 end
