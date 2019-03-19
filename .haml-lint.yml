@@ -1,2 +1,0 @@
-env: 
-  - 'HAML_LINT_RUBOCOP_CONF=.rubocop-no-umts-cops.yml'
