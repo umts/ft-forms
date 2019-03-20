@@ -12,7 +12,7 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   config.before :all do
-    FactoryGirl.reload
+    FactoryBot.reload
   end
   config.include FactoryBot::Syntax::Methods
   config.include UmtsCustomMatchers
