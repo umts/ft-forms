@@ -5,8 +5,7 @@ class FormDraft < ApplicationRecord
   belongs_to :user
   has_many :fields, dependent: :destroy
   accepts_nested_attributes_for :fields
-  validates :name, :user_id, presence: true
-  # TODO: remove :user_id from this validation when rails is updated.
+  validates :name, presence: true
   # One user can only have one draft per form
   validates :form, uniqueness: { scope: :user_id }, allow_nil: true
 
