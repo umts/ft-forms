@@ -8,7 +8,7 @@ describe 'viewing a draft' do
     login_as(@user)
     email = 'draft.email@test.host'
     @form = create :form
-    @draft = create :form_draft, :with_all_fields, form: @form, email: email
+    @draft = create :form_draft, :with_fields, form: @form, email: email
     visit "form_drafts/#{@draft.id}"
   end
   it 'has a form submitting to submit form path, but with disabled submit' do
