@@ -11,7 +11,7 @@ class FormDraftsController < ApplicationController
 
   def edit
     @draft = FormDraft.find params[:id]
-    @draft.fields << @draft.new_field unless @draft.fields.present?
+    @draft.fields << @draft.new_field if @draft.fields.blank?
   end
 
   def new
