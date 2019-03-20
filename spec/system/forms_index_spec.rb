@@ -47,7 +47,7 @@ describe 'interacting with forms/drafts from the index', js: true do
     end
     context 'clicking the edit button in the forms table' do
       before :each do
-        within('#forms_table') do
+        within('#forms-table') do
           click_link 'Edit'
         end
       end

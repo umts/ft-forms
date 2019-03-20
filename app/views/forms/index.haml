@@ -1,6 +1,6 @@
 %h1.title Forms
 
-%table#forms_table
+%table#forms-table
   - @forms.each do |form|
     %tr
       %td= form.name
@@ -31,3 +31,4 @@
           = button_to 'Discard saved draft', form_draft_path(draft), method: :delete
         %td= link_to 'Delete', form_draft_path(draft), method: :delete,
         data: {confirm: "Are you sure you want to delete #{draft.name}?"}
+.actions= link_to 'New form', new_form_path

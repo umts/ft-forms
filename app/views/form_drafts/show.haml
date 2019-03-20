@@ -1,4 +1,4 @@
-#form_preview_message
+#form-preview-message
   This is a preview of your changes.
   This form, as shown here, is not live.
   %br
@@ -13,11 +13,11 @@
   = form_tag controller: :forms, action: :submit do
     = fields_for :user do |u|
       .field
-        .explanation 
+        .explanation
           This is the information we will use to confirm the
           request. Please fill in any fields that have missing
           or incorrect data.
-      - [:first_name, :last_name, :email].each do |field|
+      - %i[first_name last_name email].each do |field|
         .field
           .label= u.label field
           = u.text_field field, size: 50,

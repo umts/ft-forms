@@ -10,11 +10,11 @@
     = hidden_field_tag :reply_to, @form.reply_to
     = fields_for :user do |u|
       .field
-        .explanation 
+        .explanation
           This is the information we will use to confirm this
           request. Please fill in any fields that have missing
           or incorrect data.
-      - [:first_name, :last_name, :email].each do |field|
+      - %w[first_name last_name email].each do |field|
         .field
           .label= u.label field
           = u.text_field field, size: 50,
