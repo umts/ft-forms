@@ -33,7 +33,7 @@ class FormDraft < ApplicationRecord
   def update_form!
     form_attributes = attributes.except 'form_id', 'user_id', 'id'
     form = self.form || Form.new
-    form.update_attributes form_attributes
+    form.update form_attributes
     # Don't need to retain the fields, since the draft will be deleted.
     # Just switch them over to belonging to the form.
     form.fields.delete_all
