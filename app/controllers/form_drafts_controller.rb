@@ -57,15 +57,15 @@ class FormDraftsController < ApplicationController
 
   def draft_params
     draft_params = params.require(:form_draft)
-                          .permit(:name,
-                                  :email,
-                                  :reply_to,
-                                  fields_attributes: %i[number
-                                                        prompt
-                                                        placeholder
-                                                        data_type
-                                                        required
-                                                        options])
+                         .permit(:name,
+                                 :email,
+                                 :reply_to,
+                                 fields_attributes: %i[number
+                                                       prompt
+                                                       placeholder
+                                                       data_type
+                                                       required
+                                                       options])
     if draft_params[:fields_attributes].present?
       draft_params[:fields_attributes].each do |_index, field|
         if field[:options].present?
