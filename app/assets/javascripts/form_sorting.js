@@ -59,6 +59,20 @@ function newID(fieldType, index){
 function toggleFields(dataField) {
   const dataType = dataField.value;
   const container = $(dataField).parents('.padded-field');
+  togglePlaceholder(dataType, container);
+  toggleOptions(dataType, container);
+  toggleRequiredCheckbox(dataType, container);
+}
+function toggleOptions(dataType, container) {
+  if (dataType == 'options') {
+    const placeholder = 'separate options by any special character (space, comma, etc)';
+    const newField = $('<textarea placeholder="' + placeholder + '" class="form-control" rows="4">');
+    newField.appendTo(container.find('.options'));
+  } else {
+      container.find('.options').children().remove();
+  }
+}
+function togglePlaceholder(dataType, container) {
   if (takesPlaceholder(dataType) == true) {
     if (container.find('.placeholder').children().length == 0) {
       const newField = $('<input class="form-control" type="text">')
@@ -67,13 +81,8 @@ function toggleFields(dataField) {
   } else {
     container.find('.placeholder').children().remove();
   }
-  if (dataType == 'options') {
-    const placeholder = 'separate options by any special character (space, comma, etc)';
-    const newField = $('<textarea placeholder="' + placeholder + '" class="form-control" rows="4">');
-    newField.appendTo(container.find('.options'));
-  } else {
-      container.find('.options').children().remove();
-  }
+}
+function toggleRequiredCheckbox(dataType, container){
   if (dataType == 'heading' || dataType == 'explanation') {
     container.find('.required').children().remove();
   } else {
