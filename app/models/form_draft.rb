@@ -13,20 +13,6 @@ class FormDraft < ApplicationRecord
     Field.new form_draft: self, number: new_field_number
   end
 
-  def update_fields(field_data)
-    return if field_data.blank?
-
-    field_data.each do |_index, field_attributes|
-      field = fields.find_by number: field_attributes.fetch(:number)
-      if field.present?
-        field.update field_attributes
-      else
-        field_attributes[:form_draft_id] = id
-        Field.create field_attributes
-      end
-    end
-  end
-
   # to skip the belongs_to_form_or_form_draft validation so we can update the
   # fields
   # rubocop:disable Rails/SkipsModelValidations
