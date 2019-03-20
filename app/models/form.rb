@@ -15,6 +15,7 @@ class Form < ApplicationRecord
 
   def find_or_create_draft(user)
     return draft_belonging_to(user) if draft_belonging_to?(user)
+
     draft_attributes = attributes.symbolize_keys
                                  .except(:id)
                                  .merge user: user, form: self
