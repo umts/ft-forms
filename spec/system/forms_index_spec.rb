@@ -22,7 +22,7 @@ describe 'interacting with forms/drafts from the index', js: true do
     context 'clicking the delete button' do
       it 'destroys drafts' do
         expect(page).to have_text @draft.name
-        within('#form_drafts_table') do
+        within('#form-drafts-table') do
           click_link 'Delete'
         end
         page.driver.browser.switch_to.alert.accept
@@ -34,7 +34,7 @@ describe 'interacting with forms/drafts from the index', js: true do
       end
       it 'destroys forms' do
         expect(page).to have_text @form.name
-        within('#forms_table') do
+        within('#forms-table') do
           click_link 'Delete'
         end
         page.driver.browser.switch_to.alert.accept
