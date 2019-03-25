@@ -25,11 +25,6 @@
       %tr
         %td= draft.name
         %td= link_to 'View', form_draft_url(draft, no_submit: true)
-        %td
-          = link_to 'Resume editing saved draft', edit_form_draft_path(draft)
-          %br
-          = button_to 'Discard saved draft',
-            form_draft_path(draft),
-            method: :delete
+        %td= link_to 'Resume editing', edit_form_draft_path(draft)
         %td= link_to 'Delete', form_draft_path(draft), method: :delete,
         data: {confirm: "Are you sure you want to delete #{draft.name}?"}
