@@ -9,6 +9,7 @@ $( document ).ready( function() {
     const newField = $('.hidden').find('.row.padded-field').clone(true).removeClass('hidden');
     newField.appendTo('.container.sortable');
     reAttribute();
+    $('.sortable').sortable('refresh');
   });
 
   $('.remove').click(function() {
