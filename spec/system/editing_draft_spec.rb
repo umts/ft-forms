@@ -18,9 +18,10 @@ describe 'editing a draft', js: true do
         expect(page).to have_css('.row.padded-field', count: 2)
         fill_in 'form_draft[fields_attributes][0][prompt]', with: 'First Question'
         fill_in 'form_draft[fields_attributes][1][prompt]', with: 'Next Question'
-        second_field = find('.row.padded-field:nth-child(2)')
-        first_field = find('.row.padded-field:nth-child(1)')
-        second_field.drag_to first_field
+        second_field = find('.row.padded-field.ui-sortable-handle:nth-child(2)')
+        first_field = find('.row.padded-field.ui-sortable-handle:nth-child(1)')
+        # swaps the order of the fields
+        first_field.drag_to second_field 
         expect(find_field('form_draft[fields_attributes][0][prompt]').value).to eql 'Next Question'
         expect(find_field('form_draft[fields_attributes][1][prompt]').value).to eql 'First Question'
         second_field.find('.remove').click
