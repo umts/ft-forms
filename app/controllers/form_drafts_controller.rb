@@ -14,6 +14,7 @@ class FormDraftsController < ApplicationController
     @draft.fields << @draft.new_field if @draft.fields.blank?
   end
 
+  # rubocop:disable Style/AndOr
   def new
     form = Form.find_by(id: params[:form_id]) || Form.new
     if form.persisted?
@@ -23,6 +24,7 @@ class FormDraftsController < ApplicationController
     @draft = FormDraft.new
     @draft.fields << @draft.new_field
   end
+  # rubocop:enable Style/AndOr
 
   def create
     @draft = FormDraft.new draft_params.merge(user: @current_user)
