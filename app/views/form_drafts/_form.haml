@@ -1,12 +1,12 @@
 = form_with model: draft, id: 'form', local: true do |f|
   .form-attributes
-    .form-inline.form-group
-      = f.label :name, 'Form title:'
+    .form-group
+      = f.label :name, 'Form title'
       = f.text_field :name, required: true, size: 50, class: 'form-control'
-    .form-inline.form-group
-      = f.label :email, 'Form email destination:'
+    .form-group
+      = f.label :email, 'Form email destination'
       = f.text_field :email, required: true, size: 50, class: 'form-control'
-    .form-inline.form-group
+    .form-group
       = f.label :reply_to, 'Set reply-to address'
       = f.text_field :reply_to, size: 50, class: 'form-control'
   .container
