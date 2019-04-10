@@ -15,7 +15,7 @@ gem 'mysql2'
 gem 'puma'
 gem 'rails', '~> 5.1'
 gem 'redcarpet'
-gem 'sass-rails'
+gem 'sassc-rails'
 gem 'snappconfig'
 gem 'uglifier'
 
@@ -53,7 +53,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'chromedriver-helper'
+  gem 'webdrivers'
   gem 'rack_session_access'
   gem 'selenium-webdriver'
 end
