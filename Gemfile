@@ -53,7 +53,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'webdrivers'
   gem 'rack_session_access'
   gem 'selenium-webdriver'
+  gem 'webdrivers'
 end
