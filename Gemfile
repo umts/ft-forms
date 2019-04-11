@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'bootstrap', '~> 4.2.1'
+gem 'bootstrap', '~> 4.3.1'
 gem 'coffee-rails'
 gem 'factory_bot_rails'
 gem 'friendly_id', '~> 5.1.0'
@@ -15,7 +15,7 @@ gem 'mysql2'
 gem 'puma'
 gem 'rails', '~> 5.1'
 gem 'redcarpet'
-gem 'sass-rails'
+gem 'sassc-rails'
 gem 'snappconfig'
 gem 'uglifier'
 
@@ -53,7 +53,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'chromedriver-helper'
   gem 'rack_session_access'
   gem 'selenium-webdriver'
+  gem 'webdrivers'
 end
