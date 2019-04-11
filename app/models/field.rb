@@ -17,9 +17,9 @@ class Field < ApplicationRecord
   # but the point is that the number is unique respective to the form,
   # not the other way around
   validates :number, uniqueness: { scope: :form,
-                                   if: -> { form_id.present? } }
+                                   if: -> { form.present? } }
   validates :number, uniqueness: { scope: :form_draft,
-                                   if: -> { form_draft_id.present? } }
+                                   if: -> { form_draft.present? } }
   validates :required,
             inclusion: { in: [true, false],
                          message: 'must be true or false',
