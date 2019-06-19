@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
+ruby IO.read(File.expand_path('.ruby-version', __dir__)).strip
 
-gem 'bootstrap'
+gem 'bootstrap', '~> 4.3'
 gem 'coffee-rails'
 gem 'factory_bot_rails'
 gem 'friendly_id', '~> 5.1.0'
@@ -15,7 +16,7 @@ gem 'mysql2'
 gem 'puma'
 gem 'rails', '~> 5.1'
 gem 'redcarpet'
-gem 'sass-rails'
+gem 'sassc-rails'
 gem 'snappconfig'
 gem 'uglifier'
 
@@ -53,7 +54,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'chromedriver-helper'
   gem 'rack_session_access'
   gem 'selenium-webdriver'
+  gem 'webdrivers'
 end
