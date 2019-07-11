@@ -9,6 +9,7 @@ class FormsController < ApplicationController
 
   def index
     @forms = Form.includes :drafts
+    @drafts = @current_user.form_drafts.where form_id: nil
   end
 
   def show
@@ -28,12 +29,6 @@ class FormsController < ApplicationController
     FtFormsMailer.send_form(@form, data, user).deliver_now
     FtFormsMailer.send_confirmation(user, data, params[:reply_to]).deliver_now
     redirect_to thank_you_form_url(@form.friendly_id)
-  end
-
-  def new
-    form = Form.new
-    @draft = form.create_draft @current_user
-    @draft.fields << @draft.new_field
   end
 
   def destroy

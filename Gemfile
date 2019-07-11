@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 ruby IO.read(File.expand_path('.ruby-version', __dir__)).strip
 
-gem 'bootstrap', '~> 4.3.1'
+gem 'bootstrap', '~> 4.3'
 gem 'coffee-rails'
 gem 'factory_bot_rails'
 gem 'friendly_id', '~> 5.1.0'

@@ -3,9 +3,9 @@
 
 
 jquery-datetimepicker@^2.5.20:
-  version "2.5.20"
-  resolved "https://registry.yarnpkg.com/jquery-datetimepicker/-/jquery-datetimepicker-2.5.20.tgz#687d6204b90b03dc93f725f8df036e1d061f37ac"
-  integrity sha512-ugnjbUkOw1MWuJx+Aik9Reew9U2We+kGdaXU5NKvfdBNiG/vNeeFlgQ8EWu1h8zFf5wmUse7G1MLsYHTP18J4Q==
+  version "2.5.21"
+  resolved "https://registry.yarnpkg.com/jquery-datetimepicker/-/jquery-datetimepicker-2.5.21.tgz#00c388a78df2732fedfdb5c6529b6e84d53e0235"
+  integrity sha512-wDTpZ4f1PWd1XGaIIE0n6jLynlm+akBJ7/NjaB1bk2UJSS593CHJPZ3+FNEXoyvNVUeBlBC0oX6WTfCyfUhX/w==
   dependencies:
     jquery ">= 1.7.2"
     jquery-mousewheel ">= 3.1.13"

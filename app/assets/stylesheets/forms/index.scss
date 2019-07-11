@@ -5,3 +5,10 @@ table#forms-table{
     padding: 1em;
   }
 }
+table#form-drafts-table{
+  margin: 1em auto;
+  th, td{
+    border: 1px solid black;
+    padding: 1em;
+  }
+}

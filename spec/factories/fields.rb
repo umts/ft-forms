@@ -6,5 +6,6 @@ FactoryBot.define do
     sequence :number
     prompt { 'Field prompt' }
     required { true }
+    options { ['red'] if data_type == 'options' }
   end
 end

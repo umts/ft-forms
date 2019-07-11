@@ -2,10 +2,8 @@
 
 FactoryBot.define do
   factory :form_draft do
-    form
     user
     name { 'Draft name' }
-
     trait :with_fields do
       after :create do |draft|
         Field::DATA_TYPES.each do |data_type|

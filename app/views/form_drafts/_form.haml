@@ -1,0 +1,42 @@
+= form_with model: draft, id: 'form', local: true do |f|
+  .form-attributes
+    .form-group
+      = f.label :name, 'Form title'
+      = f.text_field :name, required: true, size: 50, class: 'form-control'
+    .form-group
+      = f.label :email, 'Form email destination'
+      = f.text_field :email, required: true, size: 50, class: 'form-control'
+    .form-group
+      = f.label :reply_to, 'Set reply-to address'
+      = f.text_field :reply_to, size: 50, class: 'form-control'
+  .container
+    .row.headers
+      .col-3 Field text
+      .col-2 Example response
+      .col-2 Response type
+      .col Required?
+      .col Options
+      .col
+  .container.sortable
+    = f.fields_for :fields do |g|
+      = render partial: 'clonable_field', locals: {g: g}
+  .container
+    .row
+      .col-2
+        .btn.btn-secondary#add-new Add new field
+      .col
+        = f.submit 'Save draft and preview changes',
+          id: 'save', class: 'btn btn-primary'
+.container
+  .row
+    .col-2
+    .col
+      - if draft.persisted?
+        = button_to 'Discard draft',
+          draft, method: :delete, class: 'btn btn-danger'
+      - else
+        = button_to 'Cancel',
+          forms_url, method: :get, class: 'btn btn-secondary'
+.hidden
+  = fields_for Field.new do |g|
+    = render partial: 'clonable_field', locals: { g: g }

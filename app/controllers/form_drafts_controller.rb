@@ -2,7 +2,6 @@
 
 class FormDraftsController < ApplicationController
   before_action :find_form_draft, except: %i[create new]
-  before_action :draft_params, only: %i[create update]
 
   def destroy
     @draft.destroy
@@ -11,50 +10,41 @@ class FormDraftsController < ApplicationController
   end
 
   def edit
+    @draft = FormDraft.find params[:id]
+    @draft.fields << @draft.new_field if @draft.fields.blank?
+  end
+
+  # rubocop:disable Style/AndOr
+  def new
+    form = Form.find_by(id: params[:form_id]) || Form.new
+    if form.persisted?
+      @draft = form.find_or_create_draft @current_user
+      redirect_to edit_form_draft_path(@draft) and return
+    end
+    @draft = FormDraft.new
     @draft.fields << @draft.new_field
   end
-
-  def new
-    form = Form.find(params.require :form_id)
-    @draft = form.create_draft @current_user
-    redirect_to edit_form_draft_path(@draft)
-  end
-
-  def move_field
-    field_number = params.require(:number).to_i
-    direction = params.require(:direction).to_sym
-    @draft.move_field field_number, direction
-    redirect_to edit_form_draft_path
-  end
-
-  def remove_field
-    field_number = params.require(:number).to_i
-    @draft.remove_field field_number
-    redirect_to edit_form_draft_path
-  end
+  # rubocop:enable Style/AndOr
 
   def create
-    form_params = @draft_params.except(:fields_attributes)
-    form = Form.create! form_params
-    @draft = form.create_draft(@current_user)
-    @draft.update_fields @draft_params[:fields_attributes]
-    case params.require :commit
-    when 'Save changes and continue editing'
-      redirect_to edit_form_draft_path(@draft)
-    when 'Preview changes'
-      render 'show'
+    @draft = FormDraft.new draft_params.merge(user: @current_user)
+    if @draft.save
+      redirect_to action: 'show', id: @draft.id
+    else
+      flash.now[:errors] = @draft.errors.full_messages
+      render 'new'
     end
   end
 
   def update
-    @draft.update @draft_params.except(:fields_attributes)
-    @draft.update_fields @draft_params[:fields_attributes]
-    @draft.reload # since fields have been updated
-    case params.require :commit
-    when 'Save changes and continue editing'
-      redirect_to edit_form_draft_path(@draft)
-    when 'Preview changes'
-      render 'show'
+    # avoid any number uniqueness violation.
+    @draft.fields.destroy_all
+    @draft.assign_attributes draft_params
+    if @draft.save
+      redirect_to action: 'show'
+    else
+      flash[:errors] = @draft.errors.full_messages
+      render 'edit'
     end
   end
 
@@ -68,15 +58,25 @@ class FormDraftsController < ApplicationController
   private
 
   def draft_params
-    @draft_params = params.require(:form_draft)
-                          .permit(:name,
-                                  :email,
-                                  :reply_to,
-                                  fields_attributes: %i[number
-                                                        prompt
-                                                        data_type
-                                                        required
-                                                        id])
+    draft_params = params.require(:form_draft)
+                         .permit(:name,
+                                 :email,
+                                 :reply_to,
+                                 fields_attributes: %i[number
+                                                       prompt
+                                                       placeholder
+                                                       data_type
+                                                       required
+                                                       options])
+    if draft_params[:fields_attributes].present?
+      draft_params[:fields_attributes].each do |_index, field|
+        if field[:options].present?
+          match = /[^a-zA-Z0-9]/
+          field[:options] = field[:options].split(match).reject(&:blank?)
+        end
+      end
+    end
+    draft_params
   end
 
   def find_form_draft
