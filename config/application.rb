@@ -16,9 +16,6 @@ module FtForms
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     config.time_zone = 'Eastern Time (US & Canada)'
-    config.autoload_paths << Rails.root.join('lib')
-    config.autoload_paths << Rails.root.join('vendor/lib')
     config.filter_parameters += %i[password secret spire github]
-    config.assets.paths << Rails.root.join('node_modules')
   end
 end
