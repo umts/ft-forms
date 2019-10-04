@@ -1,7 +1,6 @@
 $(document).ready ->
   $('.datepicker').datetimepicker
     format: 'dddd, MMMM D, YYYY'
-    altFormat: 'DD, MM dd, yy'
     changeMonth: true
     changeYear: true
     yearRange: 'c-5:c+5'
