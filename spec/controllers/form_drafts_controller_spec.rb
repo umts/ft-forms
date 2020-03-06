@@ -134,7 +134,7 @@ describe FormDraftsController do
       context 'errors' do
         it 'puts errors in the flash' do
           submit
-          expect(flash[:errors]).not_to be_empty  
+          expect(flash[:errors]).not_to be_empty
         end
         it 'renders the new page' do
           submit
@@ -172,7 +172,7 @@ describe FormDraftsController do
       context 'errors' do
         it 'puts errors in the flash' do
           submit
-          expect(flash[:errors]).not_to be_empty  
+          expect(flash[:errors]).not_to be_empty
         end
         it 'renders the new page' do
           submit

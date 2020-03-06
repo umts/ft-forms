@@ -36,6 +36,7 @@ end
 group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'factory_bot_rails'
   gem 'haml_lint', require: false
   gem 'pry-byebug'
   gem 'rubocop'
@@ -46,14 +47,13 @@ end
 group :test do
   gem 'capybara'
   gem 'codeclimate-test-reporter', '~> 1.0'
-  gem 'factory_bot_rails'
   gem 'rack_session_access'
   gem 'rails-controller-testing'
   gem 'rspec-html-matchers'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
-  gem 'timecop'
   gem 'simplecov'
+  gem 'timecop'
   gem 'umts-custom-matchers'
   gem 'webdrivers'
 end

@@ -25,10 +25,11 @@ describe 'creating a form' do
     it 'saves the options with any separator' do
       select 'options', from: @data_field
       fill_in 'form_draft[fields_attributes][0][options]',
-        with: 'puppies$kittens, ponies snakes,birdies'
+              with: 'puppies$kittens, ponies snakes,birdies'
       click_button 'Save draft and preview changes'
       click_button 'Publish form and discard draft'
-      expect(Field.last.options).to eql %w(puppies kittens ponies snakes birdies)
+      expect(Field.last.options)
+        .to eql %w[puppies kittens ponies snakes birdies]
     end
   end
   context 'a required question' do
@@ -37,7 +38,7 @@ describe 'creating a form' do
       check 'form_draft[fields_attributes][0][required]'
       click_button 'Save draft and preview changes'
       click_button 'Publish form and discard draft'
-      expect(Field.last.required).to eql true
+      expect(Field.last.required).to be true
     end
   end
 end
