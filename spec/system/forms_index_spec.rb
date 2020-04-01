@@ -27,7 +27,7 @@ describe 'interacting with forms/drafts from the index', js: true do
         end
         page.driver.browser.switch_to.alert.accept
         expect(page).not_to have_text @draft.name
-        expect(FormDraft.count).to eql 0
+        expect(FormDraft.count).to be 0
         within('#flash') do
           expect(page).to have_text 'Draft has been discarded'
         end
@@ -39,7 +39,7 @@ describe 'interacting with forms/drafts from the index', js: true do
         end
         page.driver.browser.switch_to.alert.accept
         expect(page).not_to have_text @form.name
-        expect(Form.count).to eql 0
+        expect(Form.count).to be 0
         within('#flash') do
           expect(page).to have_text 'Form successfully deleted'
         end
@@ -61,7 +61,7 @@ describe 'interacting with forms/drafts from the index', js: true do
         click_link 'Save draft & go back to index'
         draft = @form.draft_belonging_to(@user)
         expect(page).to have_link 'Resume editing saved draft',
-          href: edit_form_draft_path(draft)
+                                  href: edit_form_draft_path(draft)
         expect(page).to have_button('Discard saved draft')
       end
     end

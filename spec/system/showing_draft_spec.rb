@@ -15,7 +15,7 @@ describe 'viewing a draft' do
     expect(page).to have_button('Submit request', disabled: true)
   end
   it 'contains the name of the form draft' do
-    expect(page).to have_css 'h1', text: "#{@draft.name}"
+    expect(page).to have_css 'h1', text: @draft.name
   end
   it 'has a form preview message including the email value of the draft' do
     explanation = 'This is a preview of your changes. This form, as shown ' \

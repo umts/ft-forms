@@ -22,7 +22,7 @@ describe 'creating a draft', js: true do
         click_link 'Save draft & go back to index'
         expect(page).to have_css 'h1', text: 'Unpublished Drafts'
         expect(page).to have_text 'General Fletcher'
-        expect(FormDraft.count).to eql 1
+        expect(FormDraft.count).to be 1
       end
     end
     context 'continuing to edit' do
@@ -36,8 +36,8 @@ describe 'creating a draft', js: true do
         click_button 'Publish form and discard draft'
         expect(page).to have_css 'h1', text: 'Forms'
         expect(page).to have_text 'General Fletcher'
-        expect(FormDraft.count).to eql 0
-        expect(Form.count).to eql 1
+        expect(FormDraft.count).to be 0
+        expect(Form.count).to be 1
         expect(page).to have_current_path forms_path
       end
     end
@@ -47,7 +47,7 @@ describe 'creating a draft', js: true do
       click_button 'Cancel'
       expect(page).not_to have_css 'h1', text: 'Unpublished Drafts'
       expect(page).not_to have_text 'General Fletcher'
-      expect(FormDraft.count).to eql 0
+      expect(FormDraft.count).to be 0
       expect(page).to have_current_path forms_path
     end
   end
