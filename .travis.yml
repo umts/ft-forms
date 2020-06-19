@@ -4,6 +4,8 @@ env:
   - 'CODECLIMATE_REPO_TOKEN=1db52f66a36ea0f99a5fdfccabaeb065503615fef8dbf49087f9a1e8692af3b2'
 addons:
   chrome: stable
+services:
+  - mysql
 install:
   - bundle install --jobs=3 --retry=3 --deployment
   - npm i -g yarn
