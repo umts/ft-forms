@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "jquery-datetimepicker": "^2.5.20",
-    "jquery-validation": "^1.16.0",
+    "jquery-validation": "^1.19.3",
     "moment": "^2.24.0"
   }
 }
