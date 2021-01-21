@@ -10,7 +10,7 @@ class Form < ApplicationRecord
                     inverse_of: :form
   accepts_nested_attributes_for :fields
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
   default_scope { order :name }
 
   def find_or_create_draft(user)

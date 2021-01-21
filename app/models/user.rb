@@ -10,7 +10,7 @@ class User < ApplicationRecord
             presence: true
   validates :staff, inclusion: { in: [true, false],
                                  message: 'must be true or false' }
-  validates :spire, uniqueness: true
+  validates :spire, uniqueness: { case_sensitive: false }
 
   scope :staff,     -> { where staff: true }
   scope :not_staff, -> { where staff: false }
