@@ -9,3 +9,5 @@ set :log_level, :info
 
 append :linked_files, 'config/database.yml'
 append :linked_dirs, '.bundle', 'log', 'node_modules'
+
+set :capistrano_restart_with_sudo, true
