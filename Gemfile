@@ -30,19 +30,20 @@ group :development do
   gem 'capistrano-pending', require: false
   gem 'capistrano-rails', require: false
   gem 'ed25519', '>= 1.2', '< 2.0', require: false
+  gem 'haml_lint', require: false
   gem 'listen'
   gem 'rb-readline', require: false
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
+  gem 'umts-custom-cops', require: false
 end
 
 group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'factory_bot_rails'
-  gem 'haml_lint', require: false
   gem 'pry-byebug'
-  gem 'rubocop'
   gem 'spring'
-  gem 'umts-custom-cops'
 end
 
 group :test do
