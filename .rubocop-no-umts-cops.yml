@@ -10,19 +10,10 @@ AllCops:
     - 'vendor/**/*'
   NewCops: enable
 
-# Don't prefer fail to raise.
-Style/SignalException:
-  Enabled: false
-
 # Don't worry about documentation for now.
 # In particular, this fails for things like
 # controller files, which seems unnecessary.
 Style/Documentation:
-  Enabled: false
-
-# This cop is offended by method calls which
-# I think are perfectly clear.
-Style/NestedParenthesizedCalls:
   Enabled: false
 
 # Relax complexity testing to codeclimate standards (roughly).

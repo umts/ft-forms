@@ -35,7 +35,7 @@ describe FieldsController do
         end
         it 'assigns the correct field to the field instance variable' do
           submit
-          expect(assigns.fetch :field).to eql @field
+          expect(assigns.fetch(:field)).to eql @field
         end
         it 'renders the edit template' do
           submit
@@ -80,7 +80,7 @@ describe FieldsController do
         # no setup needed
         it 'assigns the correct field to the field instance variable' do
           submit
-          expect(assigns.fetch :field).to eql @field
+          expect(assigns.fetch(:field)).to eql @field
         end
         it 'updates the field based on newline-separated options' do
           submit

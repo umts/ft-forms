@@ -31,7 +31,7 @@ describe FormDraft do
     end
     it 'destroys itself' do
       call
-      expect(FormDraft.where id: @draft.id).to be_empty
+      expect(FormDraft.where(id: @draft.id)).to be_empty
     end
   end
 end

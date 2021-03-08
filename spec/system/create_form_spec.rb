@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe 'creating a form' do
   before :each do
-    login_as(create :user, :staff)
+    login_as(create(:user, :staff))
     visit '/forms'
     click_link 'New form'
     fill_in 'form_draft[name]', with: 'General Fletcher'

@@ -11,7 +11,7 @@ class FieldsController < ApplicationController
   private
 
   def find_field
-    @field = Field.find(params.require :id)
+    @field = Field.find params.require(:id)
 
     redirect_back(fallback_location: forms_path) if @field.form_draft.blank?
   end

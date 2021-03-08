@@ -5,7 +5,7 @@ require 'rails_helper'
 describe 'interacting with forms/drafts from the index', js: true do
   context 'not staff' do
     it 'does not allow access' do
-      login_as(create :user, :not_staff)
+      login_as(create(:user, :not_staff))
       visit '/forms'
       warning = 'You do not have permission to access this page'
       expect(page).to have_css 'h1', text: warning

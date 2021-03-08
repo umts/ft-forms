@@ -100,7 +100,7 @@ describe FormDraftsController do
       end
       it 'assigns the correct draft to the draft instance variable' do
         submit
-        expect(assigns.fetch :draft).to eql @draft
+        expect(assigns.fetch(:draft)).to eql @draft
       end
       it 'renders the show template' do
         submit
