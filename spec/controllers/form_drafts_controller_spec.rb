@@ -147,7 +147,7 @@ describe FormDraftsController do
   describe 'POST #update' do
     before :each do
       @draft = create :form_draft
-      @changes = Hash['name', 'a new name']
+      @changes = { 'name' => 'a new name' }
     end
     let :submit do
       post :update, params: { id: @draft,
@@ -167,7 +167,7 @@ describe FormDraftsController do
     context 'staff' do
       before :each do
         when_current_user_is :staff
-        @changes = Hash['name', '']
+        @changes = { 'name' => '' }
       end
       context 'errors' do
         it 'puts errors in the flash' do
