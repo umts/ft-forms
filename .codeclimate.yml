@@ -20,7 +20,7 @@ plugins:
   rubocop:
     enabled: true
     config: .rubocop-no-umts-cops.yml
-    channel: rubocop-0-64
+    channel: rubocop-1-9-1
 exclude_patterns:
 - bin/**/*
 - coverage/**/*
