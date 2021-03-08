@@ -36,6 +36,6 @@ class SessionsController < ApplicationController
   end
 
   def new_spire
-    (User.pluck(:spire).map(&:to_i).last + 1).to_s.rjust 8, '0'
+    format('%08d@umass.edu', User.maximum(:spire).to_i + 1)
   end
 end
