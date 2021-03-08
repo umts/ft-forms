@@ -2,11 +2,13 @@ require: rubocop-rails
 
 AllCops:
   Exclude:
+    - 'config.ru'
     - 'bin/**/*'
     - 'config/**/*'
     - 'db/**/*'
     - 'script/**/*'
     - 'vendor/**/*'
+  NewCops: enable
 
 # Don't prefer fail to raise.
 Style/SignalException:
