@@ -33,7 +33,3 @@ def set_current_user(user)
     session[:spire] = user.try(:spire) || build(:user).spire
   end
 end
-
-def login_as(user)
-  set_current_user user
-end

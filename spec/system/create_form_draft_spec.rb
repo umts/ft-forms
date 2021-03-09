@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe 'creating a draft', js: true do
   before :each do
-    login_as(create :user, :staff)
+    when_current_user_is :staff
     visit '/forms'
     click_link 'New form'
     fill_in 'form_draft[name]', with: 'General Fletcher'
