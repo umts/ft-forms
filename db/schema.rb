@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_08_150736) do
+ActiveRecord::Schema.define(version: 2021_03_08_171305) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -51,6 +51,8 @@ ActiveRecord::Schema.define(version: 2021_03_08_150736) do
     t.text "options"
     t.integer "form_draft_id"
     t.string "placeholder"
+    t.index ["form_draft_id", "number"], name: "index_fields_on_form_draft_id_and_number", unique: true
+    t.index ["form_id", "number"], name: "index_fields_on_form_id_and_number", unique: true
   end
 
   create_table "form_drafts", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -62,6 +64,8 @@ ActiveRecord::Schema.define(version: 2021_03_08_150736) do
     t.integer "user_id"
     t.string "email"
     t.string "reply_to"
+    t.index ["form_id"], name: "index_form_drafts_on_form_id"
+    t.index ["user_id", "form_id"], name: "index_form_drafts_on_user_id_and_form_id", unique: true
   end
 
   create_table "forms", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -72,16 +76,18 @@ ActiveRecord::Schema.define(version: 2021_03_08_150736) do
     t.string "email"
     t.string "reply_to"
     t.string "slug"
+    t.index ["name"], name: "index_forms_on_name", unique: true
   end
 
   create_table "users", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
-    t.boolean "staff"
+    t.boolean "staff", default: false
     t.string "spire"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
+    t.index ["spire"], name: "index_users_on_spire", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
