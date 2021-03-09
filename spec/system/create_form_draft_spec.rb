@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'creating a draft', js: true do
+RSpec.describe 'creating a draft' do
   before :each do
     when_current_user_is :staff
     visit '/forms'

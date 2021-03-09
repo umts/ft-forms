@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'interacting with forms/drafts from the index', js: true do
+RSpec.describe 'interacting with forms/drafts from the index' do
   context 'not staff' do
     it 'does not allow access' do
       when_current_user_is :not_staff
@@ -21,13 +21,14 @@ RSpec.describe 'interacting with forms/drafts from the index', js: true do
       visit '/forms'
     end
 
-    context 'clicking the delete button' do
+    context 'clicking the delete button', js: true do
       it 'destroys drafts' do
         expect(page).to have_text draft.name
         within('#form-drafts-table') do
-          click_link 'Delete'
+          accept_alert do
+            click_link 'Delete'
+          end
         end
-        page.driver.browser.switch_to.alert.accept
         expect(page).not_to have_text draft.name
         expect(FormDraft.count).to be 0
         within('#flash') do
@@ -38,9 +39,10 @@ RSpec.describe 'interacting with forms/drafts from the index', js: true do
       it 'destroys forms' do
         expect(page).to have_text form.name
         within('#forms-table') do
-          click_link 'Delete'
+          accept_alert do
+            click_link 'Delete'
+          end
         end
-        page.driver.browser.switch_to.alert.accept
         expect(page).not_to have_text form.name
         expect(Form.count).to be 0
         within('#flash') do
