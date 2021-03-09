@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'interacting with forms/drafts from the index', js: true do
+RSpec.describe 'interacting with forms/drafts from the index', js: true do
   context 'not staff' do
     it 'does not allow access' do
       when_current_user_is :not_staff

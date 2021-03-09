@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'editing a draft', js: true do
+RSpec.describe 'editing a draft', js: true do
   before :each do
     when_current_user_is :staff
   end

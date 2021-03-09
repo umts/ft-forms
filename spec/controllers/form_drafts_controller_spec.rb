@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe FormDraftsController do
+RSpec.describe FormDraftsController do
   describe 'DELETE #destroy' do
     before :each do
       @draft = create :form_draft

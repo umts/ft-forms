@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'forms/show.haml' do
+RSpec.describe 'forms/show.haml' do
   before :each do
     @form = create :form
     assign :form, @form

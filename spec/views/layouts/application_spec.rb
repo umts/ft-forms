@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'layouts/application.haml' do
+RSpec.describe 'layouts/application.haml' do
   context 'current user is present' do
     before :each do
       @user = create :user

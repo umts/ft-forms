@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe User do
+RSpec.describe User do
   describe 'full_name' do
     before :each do
       @user = create :user

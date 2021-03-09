@@ -2,5 +2,5 @@
 
 require 'rails_helper'
 
-describe FieldsHelper do
+RSpec.describe FieldsHelper do
 end

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe ApplicationHelper do
+RSpec.describe ApplicationHelper do
   describe 'input_class' do
     it 'returns datepicker for date' do
       expect(input_class 'date').to eql 'datepicker'

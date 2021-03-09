@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe FieldsController do
+RSpec.describe FieldsController do
   describe 'GET #edit' do
     let :submit do
       get :edit, params: { id: @field.id }

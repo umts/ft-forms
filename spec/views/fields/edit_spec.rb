@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'fields/edit.haml' do
+RSpec.describe 'fields/edit.haml' do
   before :each do
     @form_draft = create :form_draft
     @field = create :field, form_draft: @form_draft

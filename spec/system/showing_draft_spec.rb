@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'viewing a draft' do
+RSpec.describe 'viewing a draft' do
   let(:user) { create :user, :staff }
   let(:draft) do
     create :form_draft, :with_fields, email: 'draft.email@test.host'

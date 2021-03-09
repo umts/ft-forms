@@ -2,5 +2,5 @@
 
 require 'rails_helper'
 
-describe FormsHelper do
+RSpec.describe FormsHelper do
 end

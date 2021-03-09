@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'forms/thank_you.haml' do
+RSpec.describe 'forms/thank_you.haml' do
   it 'has an h1 tag saying thanks' do
     render
     expect(rendered).to have_tag 'h1' do
