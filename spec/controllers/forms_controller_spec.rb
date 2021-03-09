@@ -187,8 +187,7 @@ describe FormsController do
         when_current_user_is :not_staff
       end
       it 'does not allow access' do
-        expect_any_instance_of(Form)
-          .not_to receive :create
+        expect(Form).not_to receive :new
         submit
         expect(response).to have_http_status :unauthorized
       end

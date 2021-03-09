@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'creating a form' do
+describe 'creating a form', js: true do
   before :each do
     when_current_user_is :staff
     visit '/forms'
