@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Sets current user based on acceptable values:
 # 1. a symbol name of a user factory trait
 # 2. a specific instance of User
@@ -12,6 +14,7 @@ def when_current_user_is(user)
   set_current_user(current_user)
 end
 
+# rubocop:disable Naming/AccessorMethodName
 def set_current_user(user)
   case self.class.metadata[:type]
   when :view
@@ -23,3 +26,4 @@ def set_current_user(user)
     session[:spire] = user.try(:spire) || build(:user).spire
   end
 end
+# rubocop:enable Naming/AccessorMethodName
