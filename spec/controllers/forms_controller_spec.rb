@@ -178,21 +178,6 @@ RSpec.describe FormsController do
     end
   end
 
-  describe 'GET #new' do
-    let :submit do
-      get :new
-    end
-    context 'not staff' do
-      before :each do
-        when_current_user_is :not_staff
-      end
-      it 'does not allow access' do
-        expect(Form).not_to receive :new
-        submit
-        expect(response).to have_http_status :unauthorized
-      end
-    end
-  end
   describe 'DELETE #destroy' do
     before :each do
       @form = create :form
