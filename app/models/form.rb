@@ -5,7 +5,6 @@ class Form < ApplicationRecord
   friendly_id :form_name, use: :slugged
   has_many :fields, dependent: :destroy
   has_many :drafts, class_name: 'FormDraft',
-                    foreign_key: :form_id,
                     dependent: :destroy,
                     inverse_of: :form
   accepts_nested_attributes_for :fields

@@ -12,12 +12,9 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # '... and return' is correct here, disable rubocop warning
-  # rubocop:disable Style/AndOr
   def access_control
     deny_access and return unless @current_user.present? && @current_user.staff?
   end
-  # rubocop:enable Style/AndOr
 
   def deny_access
     if request.xhr?

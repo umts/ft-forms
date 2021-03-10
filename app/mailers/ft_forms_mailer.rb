@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-class FtFormsMailer < ActionMailer::Base
+class FtFormsMailer < ApplicationMailer
   include ApplicationHelper
-  default from: 'transit-it@admin.umass.edu'
-  default reply_to: 'fieldtrip@umass.edu'
 
   def send_confirmation(user, data, reply_to)
     @form_data = parse_form_data(data)
