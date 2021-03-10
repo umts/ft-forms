@@ -5,7 +5,6 @@ class FormsController < ApplicationController
   skip_before_action :access_control, only: %i[show submit thank_you]
   # Since these actions are used to edit forms, maintain the form in session.
   before_action :find_form, only: %i[submit thank_you destroy]
-  before_action :placeholder_from_shibboleth_attributes, only: %i[show]
 
   def index
     @forms = Form.includes :drafts
@@ -13,6 +12,9 @@ class FormsController < ApplicationController
   end
 
   def show
+    @placeholder = User.new(email: request.env['mail'],
+                            first_name: request.env['givenName'],
+                            last_name: request.env['surName'])
     @form = Form.friendly.find(params[:id])
     @submit = true unless params[:no_submit]
   end
@@ -55,11 +57,5 @@ class FormsController < ApplicationController
 
   def find_form
     @form = Form.friendly.find(params.require :id)
-  end
-
-  def placeholder_from_shibboleth_attributes
-    @placeholder = User.new(email: request.env['mail'],
-                            first_name: request.env['givenName'],
-                            last_name: request.env['surName'])
   end
 end

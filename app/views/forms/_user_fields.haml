@@ -1,0 +1,13 @@
+= fields_for :user do |u|
+  .field
+    .explanation
+      This is the information we will use to confirm this
+      request. Please fill in any fields that have missing
+      or incorrect data.
+  - %i[first_name last_name email].each do |field|
+    .field
+      .label= u.label field
+      = u.text_field field, size: 50,
+        value: @current_user.try(field) || @placeholder.try(field),
+        required: true
+      %span.ast *
