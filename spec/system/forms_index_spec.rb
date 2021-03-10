@@ -5,7 +5,7 @@ require 'rails_helper'
 describe 'interacting with forms/drafts from the index', js: true do
   context 'not staff' do
     it 'does not allow access' do
-      login_as(create :user, :not_staff)
+      login_as(create(:user, :not_staff))
       visit '/forms'
       warning = 'You do not have permission to access this page'
       expect(page).to have_css 'h1', text: warning
@@ -54,7 +54,7 @@ describe 'interacting with forms/drafts from the index', js: true do
       it 'creates a draft for the form and goes to the draft edit page' do
         draft = @form.draft_belonging_to(@user)
         expect(page).to have_current_path edit_form_draft_path(draft)
-        expect(page).to have_css 'h1', text: 'Editing ' + @form.name
+        expect(page).to have_css 'h1', text: "Editing #{@form.name}"
       end
       it 'has options in the index to resume editing or discard the draft' do
         click_button 'Save draft and preview changes'

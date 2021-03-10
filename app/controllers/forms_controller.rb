@@ -54,7 +54,7 @@ class FormsController < ApplicationController
   end
 
   def find_form
-    @form = Form.friendly.find(params.require :id)
+    @form = Form.friendly.find(params.require(:id))
   end
 
   def placeholder_from_shibboleth_attributes

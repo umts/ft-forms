@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe 'editing a draft', js: true do
   before :each do
-    login_as(create :user, :staff)
+    login_as(create(:user, :staff))
   end
   context 'edting a new draft' do
     before :each do

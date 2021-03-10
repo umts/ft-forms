@@ -54,7 +54,7 @@ describe Form do
       create :form_draft, form: @form, user: other_user
     end
     it 'returns the draft of the form belonging to the user' do
-      expect(@form.draft_belonging_to @user).to eql @draft
+      expect(@form.draft_belonging_to(@user)).to eql @draft
     end
   end
 
