@@ -4,6 +4,7 @@
 - elsif field.explanation?
   .explanation= field.prompt
 - else
+  = r.hidden_field field.unique_prompt_name, value: field.prompt
   .field
     .label= r.label field.prompt
     - case field.data_type
@@ -30,4 +31,3 @@
           required: field.required?
     - if field.required
       %span.ast *
-    = r.hidden_field field.unique_prompt_name, value: field.prompt

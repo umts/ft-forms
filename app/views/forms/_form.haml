@@ -4,8 +4,7 @@
     %span.ast *
     ) are required.
   = form_tag controller: :forms, action: :submit, id: form.id do
-    - if form.respond_to? :reply_to
-      = hidden_field_tag :reply_to, form.reply_to
+    = hidden_field_tag :reply_to, form.reply_to
 
     = render partial: 'forms/user_fields'
 
