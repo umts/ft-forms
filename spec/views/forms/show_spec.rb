@@ -39,7 +39,7 @@ RSpec.describe 'forms/show.haml' do
   context 'current user is present' do
     before :each do
       @user = create :user
-      when_current_user_is @user, view: true
+      when_current_user_is @user
     end
     it 'fills in the user fields' do
       render
@@ -228,7 +228,7 @@ RSpec.describe 'forms/show.haml' do
   context 'current user is present' do
     before :each do
       @user = create :user
-      when_current_user_is @user, view: true
+      when_current_user_is @user
     end
     it 'fills in the user fields' do
       render
