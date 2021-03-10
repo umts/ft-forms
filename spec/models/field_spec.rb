@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Field do
+RSpec.describe Field do
   context 'data_type identification methods' do
     let(:form) { create :form }
     let(:date) { create :field, form: form, data_type: 'date' }

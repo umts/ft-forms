@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-describe 'editing a draft', js: true do
+RSpec.describe 'editing a draft' do
   before :each do
-    login_as(create :user, :staff)
+    when_current_user_is :staff
   end
-  context 'edting a new draft' do
+  context 'edting a new draft', js: true do
     before :each do
       visit '/forms'
       click_link 'New form'

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe FormsController do
+RSpec.describe FormsController do
   describe 'GET #index' do
     before :each do
       @form1 = create :form
@@ -49,7 +49,7 @@ describe FormsController do
         end
         it 'assigns the correct instance variable' do
           submit
-          expect(assigns.fetch :form).to eql @form
+          expect(assigns.fetch(:form)).to eql @form
         end
         it 'displays the correct template' do
           submit
@@ -168,7 +168,7 @@ describe FormsController do
         end
         it 'finds a form based on its ID' do
           submit
-          expect(assigns.fetch :form).to eql @form
+          expect(assigns.fetch(:form)).to eql @form
         end
         it 'displays the thank you page' do
           submit

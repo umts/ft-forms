@@ -2,25 +2,18 @@ require: rubocop-rails
 
 AllCops:
   Exclude:
+    - 'config.ru'
     - 'bin/**/*'
     - 'config/**/*'
     - 'db/**/*'
     - 'script/**/*'
     - 'vendor/**/*'
-
-# Don't prefer fail to raise.
-Style/SignalException:
-  Enabled: false
+  NewCops: enable
 
 # Don't worry about documentation for now.
 # In particular, this fails for things like
 # controller files, which seems unnecessary.
 Style/Documentation:
-  Enabled: false
-
-# This cop is offended by method calls which
-# I think are perfectly clear.
-Style/NestedParenthesizedCalls:
   Enabled: false
 
 # Relax complexity testing to codeclimate standards (roughly).

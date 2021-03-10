@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe FormDraft do
+RSpec.describe FormDraft do
   describe 'update_form!' do
     before :each do
       @form = create :form, name: 'Form name'
@@ -31,7 +31,7 @@ describe FormDraft do
     end
     it 'destroys itself' do
       call
-      expect(FormDraft.where id: @draft.id).to be_empty
+      expect(FormDraft.where(id: @draft.id)).to be_empty
     end
   end
 end
