@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe FormDraft do
+RSpec.describe FormDraft do
   describe 'update_form!' do
     before :each do
       @form = create :form, name: 'Form name'

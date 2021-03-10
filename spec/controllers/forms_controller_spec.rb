@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe FormsController do
+RSpec.describe FormsController do
   describe 'GET #index' do
     before :each do
       @form1 = create :form

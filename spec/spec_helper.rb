@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require 'factory_bot_rails'
+require 'factory_bot'
+require 'pathname'
 require 'simplecov'
 require 'umts_custom_matchers'
 
@@ -8,28 +9,32 @@ SimpleCov.start 'rails' do
   refuse_coverage_drop
 end
 
-# Sets current user based on two acceptable values:
-# 1. a symbol name of a user factory trait;
-# 2. a specific instance of User.
-def when_current_user_is(user, options = {})
-  current_user =
-    case user
-    when Symbol
-      create :user, user
-    when User
-      user
-    when nil
-      # need spire for requests but current_user should still be nil
-      session[:spire] = build(:user).spire
-      nil
-    else raise ArgumentError, 'Invalid user type'
-    end
-  if options.key? :view
-    assign :current_user, current_user
-  else session[:user_id] = current_user.try :id
-  end
-end
+Pathname(__dir__).join('support').glob('**/*.rb').each { |f| require f }
 
-def login_as(user)
-  page.set_rack_session user_id: user.id
+RSpec.configure do |config|
+  config.expect_with :rspec do |expectations|
+    expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+  end
+
+  config.mock_with :rspec do |mocks|
+    mocks.verify_partial_doubles = true
+  end
+
+  config.shared_context_metadata_behavior = :apply_to_host_groups
+  config.filter_run_when_matching :focus
+  config.default_formatter = 'doc' if config.files_to_run.one?
+
+  config.example_status_persistence_file_path = 'spec/examples.txt'
+
+  config.disable_monkey_patching!
+
+  config.order = :random
+  Kernel.srand config.seed
+
+  config.before :all do
+    FactoryBot.reload
+  end
+
+  config.include FactoryBot::Syntax::Methods
+  config.include UmtsCustomMatchers
 end

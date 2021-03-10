@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Form do
+RSpec.describe Form do
   describe 'create_draft' do
     before :each do
       @form = create :form

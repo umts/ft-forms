@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe FtFormsMailer do
+RSpec.describe FtFormsMailer do
   describe 'send_confirmation' do
     before :each do
       @user = create :user

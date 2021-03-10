@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'sessions/dev_login.haml' do
+RSpec.describe 'sessions/dev_login.haml' do
   before :each do
     @staff = create :user, staff: true
     @not_staff = create :user
