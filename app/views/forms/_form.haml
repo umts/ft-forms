@@ -1,0 +1,14 @@
+.form
+  %strong
+    Fields marked with an asterisk (
+    %span.ast *
+    ) are required.
+  = form_tag controller: :forms, action: :submit, id: form.id do
+    = hidden_field_tag :reply_to, form.reply_to
+
+    = render partial: 'forms/user_fields'
+
+    = fields_for :responses do |r|
+      = render partial: 'forms/field', collection: form.fields, locals: { r: r }
+
+    .actions= submit_tag 'Submit request', disabled: disabled
