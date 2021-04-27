@@ -29,6 +29,10 @@ Rails.application.configure do
   # Raise exceptions instead of rendering exception templates.
   config.action_dispatch.show_exceptions = false
 
+  # Set Same-Site on cookies to "Lax"
+  # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite
+  config.action_dispatch.cookies_same_site_protection = :lax
+
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
 
