@@ -1,21 +1,28 @@
 dist: bionic
 language: ruby
 env:
-  - 'CODECLIMATE_REPO_TOKEN=1db52f66a36ea0f99a5fdfccabaeb065503615fef8dbf49087f9a1e8692af3b2'
+  - 'CC_TEST_REPORTER_ID=1db52f66a36ea0f99a5fdfccabaeb065503615fef8dbf49087f9a1e8692af3b2'
 addons:
   chrome: stable
 services:
   - mysql
+before_install:
+  - nvm install 'lts/*'
+  - nvm use 'lts/*'
+  - npm i -g yarn
 install:
   - bundle install --jobs=3 --retry=3 --deployment
-  - npm i -g yarn
   - yarn
 before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
   - cp config/database.yml.example config/database.yml
+  - bundle exec rake db:reset
 script:
-  - bundle exec rake db:reset 
   - bundle exec rspec
-  - bundle exec codeclimate-test-reporter
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 branches:
   only:
     - master
