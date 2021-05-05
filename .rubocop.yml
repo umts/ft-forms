@@ -6,23 +6,26 @@ AllCops:
   Exclude:
     - 'config.ru'
     - 'bin/**/*'
-    - 'config/**/*'
-    - 'db/**/*'
+    - 'config/{environments,initializers}/*'
+    - 'config/{application,boot,environment,puma,spring}.rb'
+    - 'db/migrate/**/*'
+    - 'db/schema.rb'
     - 'script/**/*'
     - 'vendor/**/*'
   NewCops: enable
 
-Lint/AmbiguousBlockAssociation:
-  Enabled: false
-
 # Relax complexity testing to codeclimate standards (roughly).
 Metrics/AbcSize:
   Max: 20
+
 Metrics/BlockLength:
   Exclude:
   - spec/**/*.rb
+  - db/seeds.rb
+
 Metrics/MethodLength:
   Max: 20
+
 Metrics/PerceivedComplexity:
   Max: 8
 
