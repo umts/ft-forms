@@ -15,8 +15,6 @@ AllCops:
   NewCops: enable
 
 # Relax complexity testing to codeclimate standards (roughly).
-Metrics/AbcSize:
-  Max: 20
 
 Metrics/BlockLength:
   Exclude:
