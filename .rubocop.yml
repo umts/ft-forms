@@ -24,9 +24,6 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Max: 20
 
-Metrics/PerceivedComplexity:
-  Max: 8
-
 RSpec:
   Enabled: false
 
