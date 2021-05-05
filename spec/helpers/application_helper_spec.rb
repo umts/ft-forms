@@ -35,7 +35,7 @@ RSpec.describe ApplicationHelper do
       expect(call[3]).to eql ['prompt value 4', 'field value 4']
     end
     it 'assigns :heading as the value of a key containing heading' do
-      expect(call[2][1]).to eql :heading
+      expect(call[2][1]).to be :heading
     end
   end
 end
