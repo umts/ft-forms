@@ -10,19 +10,12 @@ AllCops:
     - 'config/{application,boot,environment,puma,spring}.rb'
     - 'db/migrate/**/*'
     - 'db/schema.rb'
-    - 'script/**/*'
-    - 'vendor/**/*'
   NewCops: enable
-
-# Relax complexity testing to codeclimate standards (roughly).
 
 Metrics/BlockLength:
   Exclude:
   - spec/**/*.rb
   - db/seeds.rb
-
-Metrics/MethodLength:
-  Max: 20
 
 RSpec:
   Enabled: false
