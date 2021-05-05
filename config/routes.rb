@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   if Rails.env.development?
     root 'sessions#dev_login'
