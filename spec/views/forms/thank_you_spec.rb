@@ -9,6 +9,7 @@ RSpec.describe 'forms/thank_you.haml' do
       with_text 'Thank you!'
     end
   end
+
   it 'has some other text' do
     render
     expect(rendered).to include 'Your request has been processed'

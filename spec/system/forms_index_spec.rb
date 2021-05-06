@@ -11,12 +11,13 @@ RSpec.describe 'interacting with forms/drafts from the index' do
       expect(page).to have_css 'h1', text: warning
     end
   end
+
   context 'staff' do
     let(:user) { create :user, :staff }
     let!(:form) { create :form, :with_fields }
     let!(:draft) { create :form_draft, user: user }
 
-    before :each do
+    before do
       when_current_user_is user
       visit '/forms'
     end
@@ -52,7 +53,7 @@ RSpec.describe 'interacting with forms/drafts from the index' do
     end
 
     context 'clicking the edit button in the forms table' do
-      before :each do
+      before do
         within('#forms-table') do
           click_link 'Edit'
         end

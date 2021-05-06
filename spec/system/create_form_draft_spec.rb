@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'creating a draft' do
-  before :each do
+  before do
     when_current_user_is :staff
     visit '/forms'
     click_link 'New form'
@@ -12,11 +12,13 @@ RSpec.describe 'creating a draft' do
     fill_in 'form_draft[fields_attributes][0][prompt]', with: 'When?'
     select 'date', from: 'form_draft[fields_attributes][0][data_type]'
   end
+
   context 'saving a draft' do
-    before :each do
+    before do
       click_button 'Save draft and preview changes'
       expect(page).to have_text 'When?'
     end
+
     context 'without publishing the form' do
       it 'displays it on the index page for later' do
         click_link 'Save draft & go back to index'
@@ -25,12 +27,14 @@ RSpec.describe 'creating a draft' do
         expect(FormDraft.count).to be 1
       end
     end
+
     context 'continuing to edit' do
       it 'brings you back to the edit page for that draft' do
         click_link 'Continue editing'
         expect(page).to have_current_path edit_form_draft_path(FormDraft.last)
       end
     end
+
     context 'publishing the form' do
       it 'discards the draft and creates a form' do
         click_button 'Publish form and discard draft'
@@ -42,6 +46,7 @@ RSpec.describe 'creating a draft' do
       end
     end
   end
+
   context 'deciding not to create a form or a draft' do
     it 'deletes the draft' do
       click_button 'Cancel'

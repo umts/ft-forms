@@ -3,14 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe 'editing a draft' do
-  before :each do
+  before do
     when_current_user_is :staff
   end
+
   context 'edting a new draft', js: true do
-    before :each do
+    before do
       visit '/forms'
       click_link 'New form'
     end
+
     context 'manipulating fields' do
       it 'allows the addition and deletion of fields' do
         expect(page).to have_css('.row.padded-field', count: 1)
@@ -61,7 +63,7 @@ RSpec.describe 'editing a draft' do
   end
 
   context 'editing an existing draft' do
-    before :each do
+    before do
       @form = create :form
       @field = create :field,
                       data_type: 'options',

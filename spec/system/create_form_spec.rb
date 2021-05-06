@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'creating a form', js: true do
-  before :each do
+  before do
     when_current_user_is :staff
     visit '/forms'
     click_link 'New form'
@@ -12,6 +12,7 @@ RSpec.describe 'creating a form', js: true do
     fill_in 'form_draft[fields_attributes][0][prompt]', with: 'When?'
     @data_field = 'form_draft[fields_attributes][0][data_type]'
   end
+
   context 'with a data type requiring a placeholder' do
     it 'saves the placeholder' do
       select 'text', from: @data_field
@@ -21,6 +22,7 @@ RSpec.describe 'creating a form', js: true do
       expect(Field.last.placeholder).to eql 'example'
     end
   end
+
   context 'with a data type of options' do
     it 'saves the options with any separator' do
       select 'options', from: @data_field
@@ -32,6 +34,7 @@ RSpec.describe 'creating a form', js: true do
         .to eql %w[puppies kittens ponies snakes birdies]
     end
   end
+
   context 'a required question' do
     it 'saves the required attribute' do
       select 'text', from: @data_field

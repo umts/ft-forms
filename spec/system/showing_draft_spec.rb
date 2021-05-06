@@ -8,7 +8,7 @@ RSpec.describe 'viewing a draft' do
     create :form_draft, :with_fields, email: 'draft.email@test.host'
   end
 
-  before :each do
+  before do
     when_current_user_is user
     visit "form_drafts/#{draft.id}"
   end
