@@ -1,10 +1,42 @@
-require: umts-custom-cops
-inherit_from: .rubocop-no-umts-cops.yml
+require:
+  - rubocop-rails
+  - rubocop-rspec
 
-#Custom for ft-forms
+AllCops:
+  Exclude:
+    - 'config.ru'
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'db/**/*'
+    - 'script/**/*'
+    - 'vendor/**/*'
+  NewCops: enable
+
 Lint/AmbiguousBlockAssociation:
   Enabled: false
 
+# Relax complexity testing to codeclimate standards (roughly).
+Metrics/AbcSize:
+  Max: 20
 Metrics/BlockLength:
   Exclude:
   - spec/**/*.rb
+Metrics/MethodLength:
+  Max: 20
+Metrics/PerceivedComplexity:
+  Max: 8
+
+RSpec:
+  Enabled: false
+
+RSpec/BeEql:
+  Enabled: true
+
+RSpec/PredicateMatcher:
+  Enabled: true
+
+# Don't worry about documentation for now.
+# In particular, this fails for things like
+# controller files, which seems unnecessary.
+Style/Documentation:
+  Enabled: false

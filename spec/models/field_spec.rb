@@ -32,7 +32,6 @@ RSpec.describe Field do
   end
 
   # I prefer not to write `to be takes_placeholder`.
-  # rubocop:disable UmtsCustomCops/PredicateMethodMatcher
   describe 'takes_placeholder?' do
     before :each do
       @draft = create :form_draft
@@ -52,8 +51,6 @@ RSpec.describe Field do
       end
     end
   end
-  # rubocop:enable UmtsCustomCops/PredicateMethodMatcher
-
   describe 'unique_name' do
     before :each do
       @form = create :form
