@@ -16,7 +16,7 @@ RSpec.describe FtFormsMailer do
     end
 
     let :output do
-      FtFormsMailer.send_confirmation @user, @form_data, @reply_to
+      described_class.send_confirmation @user, @form_data, @reply_to
     end
 
     it 'sends to the email of the user' do
@@ -49,7 +49,7 @@ RSpec.describe FtFormsMailer do
     end
 
     let :output do
-      FtFormsMailer.send_form @form, @form_data, @user
+      described_class.send_form @form, @form_data, @user
     end
 
     it 'sends to the email of the form' do

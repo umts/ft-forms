@@ -36,7 +36,7 @@ RSpec.describe FormDraft do
 
     it 'destroys itself' do
       call
-      expect(FormDraft.where(id: @draft.id)).to be_empty
+      expect(described_class.where(id: @draft.id)).to be_empty
     end
   end
 end
