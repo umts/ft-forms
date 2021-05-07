@@ -3,7 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Field do
-  context 'data_type identification methods' do
+  let(:field) { create :field, form: create(:form) }
+
+  context 'with data_type identification methods' do
     let(:form) { create :form }
     let(:date) { create :field, form: form, data_type: 'date' }
     let(:explanation) { create :field, form: form, data_type: 'explanation' }
@@ -34,91 +36,61 @@ RSpec.describe Field do
     end
   end
 
-  # I prefer not to write `to be takes_placeholder`.
   describe 'takes_placeholder?' do
-    before do
-      @draft = create :form_draft
-    end
+    let(:draft) { create :form_draft }
 
-    it 'returns true for date, date/time, long-text, text or time' do
-      %w[date date/time long-text text time].each do |data_type|
-        field = create :field, form_draft: @draft, data_type: data_type
+    %w[date date/time long-text text time].each do |data_type|
+      it "returns true for #{data_type}" do
+        field = create :field, form_draft: draft, data_type: data_type
         expect(field.takes_placeholder?).to be true
       end
     end
 
-    it 'returns false for explanation, heading, number, options, or yes/no' do
-      %w[explanation heading number options yes/no].each do |data_type|
-        options = %w[red blue] if data_type == 'options'
-        field = create :field, form_draft: @draft, data_type: data_type,
-                               options: options
+    %w[explanation heading number options yes/no].each do |data_type|
+      it "returns false for #{data_type}" do
+        field = create :field, form_draft: draft, data_type: data_type
         expect(field.takes_placeholder?).to be false
       end
     end
   end
 
   describe 'unique_name' do
-    before do
-      @form = create :form
-      @field = create :field, form: @form
-    end
+    subject(:call) { field.unique_name }
 
-    it 'returns field followed by number' do
-      result = ['field', @field.number].join '_'
-      expect(@field.unique_name).to eql result
-    end
+    it { is_expected.to eq "field_#{field.number}" }
   end
 
   describe 'unique_prompt_name' do
-    before do
-      @form = create :form
-      @field = create :field, form: @form
-    end
+    subject(:call) { field.unique_prompt_name }
 
-    it 'returns prompt followed by number' do
-      result = ['prompt', @field.number].join '_'
-      expect(@field.unique_prompt_name).to eql result
-    end
+    it { is_expected.to eq "prompt_#{field.number}" }
   end
 
   describe 'unique_heading_name' do
-    before do
-      @form = create :form
-      @field = create :field, form: @form
-    end
+    subject(:call) { field.unique_heading_name }
 
-    it 'returns heading followed by number' do
-      result = ['heading', @field.number].join '_'
-      expect(@field.unique_heading_name).to eql result
-    end
+    it { is_expected.to eq "heading_#{field.number}" }
   end
 
-  context 'validation methods' do
-    describe 'belongs_to_form_or_form_draft?' do
-      before do
-        @form = create :form
-        @draft = create :form_draft
-      end
+  describe 'belongs_to_form_or_form_draft?' do
+    let(:form) { create :form }
+    let(:draft) { create :form_draft }
 
-      it 'fails if a field does not belong to a form or form draft' do
-        expect { create :field }
-          .to raise_error ActiveRecord::RecordInvalid
-      end
+    it 'fails if a field does not belong to a form or form draft' do
+      expect(build(:field)).not_to be_valid
+    end
 
-      it 'fails if a field belongs to both a form and a form draft' do
-        expect { create :field, form: @form, form_draft: @draft }
-          .to raise_error ActiveRecord::RecordInvalid
-      end
+    it 'fails if a field belongs to both a form and a form draft' do
+      field = build :field, form: form, form_draft: draft
+      expect(field).not_to be_valid
+    end
 
-      it 'passes if a field belongs to a form but not a form draft' do
-        expect { create :field, form: @form }
-          .not_to raise_error
-      end
+    it 'passes if a field belongs to a form but not a form draft' do
+      expect(build(:field, form: form)).to be_valid
+    end
 
-      it 'passes if a field belongs to a form draft but not a form' do
-        expect { create :field, form_draft: @draft }
-          .not_to raise_error
-      end
+    it 'passes if a field belongs to a form draft but not a form' do
+      expect(build(:field, form_draft: draft)).to be_valid
     end
   end
 end

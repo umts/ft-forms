@@ -3,23 +3,17 @@
 require 'rails_helper'
 
 RSpec.describe User do
-  describe 'full_name' do
-    before do
-      @user = create :user
-    end
+  let(:user) { create :user }
 
-    it 'gives first name followed by last name' do
-      expect(@user.full_name).to eql "#{@user.first_name} #{@user.last_name}"
-    end
+  describe 'full_name' do
+    subject(:call) { user.full_name }
+
+    it { is_expected.to eq "#{user.first_name} #{user.last_name}" }
   end
 
   describe 'proper_name' do
-    before do
-      @user = create :user
-    end
+    subject(:call) { user.proper_name }
 
-    it 'gives last name, first name' do
-      expect(@user.proper_name).to eql "#{@user.last_name}, #{@user.first_name}"
-    end
+    it { is_expected.to eq "#{user.last_name}, #{user.first_name}" }
   end
 end
