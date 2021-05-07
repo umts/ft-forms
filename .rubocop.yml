@@ -29,6 +29,10 @@ Metrics/PerceivedComplexity:
 RSpec/NestedGroups:
   Max: 4
 
+RSpec/DescribeClass:
+  Exclude:
+    - spec/system/**/*.rb
+
 # Don't worry about documentation for now.
 # In particular, this fails for things like
 # controller files, which seems unnecessary.
