@@ -179,7 +179,8 @@ RSpec.describe FormsController do
       end
 
       it 'sets the current user based on spire' do
-        session['spire'] = '34512390@umass.edu'
+        session.delete(:user_id)
+        session[:spire] = '34512390@umass.edu'
         submit
         expect(assigns[:current_user].spire).to eq '34512390@umass.edu'
       end
