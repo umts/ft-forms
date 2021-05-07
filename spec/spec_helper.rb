@@ -5,9 +5,7 @@ require 'pathname'
 require 'simplecov'
 require 'umts_custom_matchers'
 
-SimpleCov.start 'rails' do
-  refuse_coverage_drop
-end
+SimpleCov.start 'rails'
 
 Pathname(__dir__).join('support').glob('**/*.rb').each { |f| require f }
 

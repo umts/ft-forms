@@ -37,7 +37,6 @@ RSpec.describe ApplicationHelper do
     [[0, ['prompt value', 'field value']],
      [1, ['prompt value 2', 'field value 2']],
      [3, ['prompt value 4', 'field value 4']]].each do |index, value|
-
       it "returns an array of prompt and field pairs (#{index})" do
         expect(call[index]).to eq value
       end
