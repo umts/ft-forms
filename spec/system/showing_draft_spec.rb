@@ -8,7 +8,7 @@ RSpec.describe 'viewing a draft' do
     create :form_draft, :with_fields, email: 'draft.email@test.host'
   end
 
-  before :each do
+  before do
     when_current_user_is user
     visit "form_drafts/#{draft.id}"
   end
@@ -21,12 +21,15 @@ RSpec.describe 'viewing a draft' do
     expect(page).to have_css 'h1', text: draft.name
   end
 
-  it 'has a form preview message including the email value of the draft' do
+  it 'has a form preview message' do
     explanation = 'This is a preview of your changes. This form, as shown ' \
       'here, is not live.'
+    expect(page).to have_text explanation
+  end
+
+  it 'has a email destination message' do
     message = "This form will email to '#{draft.email}'"
     expect(page).to have_text message
-    expect(page).to have_text explanation
   end
 
   it 'displays all the prompts of the fields' do
@@ -35,17 +38,31 @@ RSpec.describe 'viewing a draft' do
     end
   end
 
-  it 'fills in the user fields with the current user info' do
+  it 'fills in the user fields with the current user first name' do
     expect(page).to have_field 'First name', with: user.first_name
+  end
+
+  it 'fills in the user fields with the current user last name' do
     expect(page).to have_field 'Last name', with: user.last_name
+  end
+
+  it 'fills in the user fields with the current user email' do
     expect(page).to have_field 'Email', with: user.email
   end
 
-  it 'has a lot of action buttons' do
-    # actions are tested elsewhere
+  it 'has a "continue editing" action button' do
     expect(page).to have_link 'Continue editing'
+  end
+
+  it 'has a "save and go back" action button' do
     expect(page).to have_link 'Save draft & go back to index'
+  end
+
+  it 'has a "cancel and discard" action button' do
     expect(page).to have_button 'Cancel and discard draft'
+  end
+
+  it 'has a "publish and discard" action button' do
     expect(page).to have_button 'Publish form and discard draft'
   end
 end

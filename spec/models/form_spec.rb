@@ -3,74 +3,72 @@
 require 'rails_helper'
 
 RSpec.describe Form do
+  let(:form) { create :form }
+  let(:user) { create :user }
+
   describe 'create_draft' do
-    before :each do
-      @form = create :form
-      create :field, form: @form
-      create :field, form: @form
-      create :field, form: @form
-      @user = create :user
-    end
-    let :call do
-      @form.find_or_create_draft @user
-    end
-    context 'pre-existing draft belonging to user' do
-      before :each do
-        @draft = create :form_draft, form: @form, user: @user
-      end
-      it 'returns the draft' do
-        expect(call).to eql @draft
+    subject(:call) { form.find_or_create_draft(user) }
+
+    let(:field_props) do
+      lambda do |form_or_draft|
+        form_or_draft.fields.map do |field|
+          field.attributes.symbolize_keys
+               .except(:id, :created_at, :updated_at, :form_id, :form_draft_id)
+        end
       end
     end
-    context 'no pre-existing draft' do
-      it 'creates a form draft' do
-        expect { call }
-          .to change { FormDraft.count }
-          .by 1
+
+    before { create_list(:field, 3, form: form) }
+
+    context 'with a pre-existing draft belonging to user' do
+      let!(:draft) { create :form_draft, form: form, user: user }
+
+      it { is_expected.to eq draft }
+    end
+
+    context 'without a pre-existing draft' do
+      it 'creates a new FormDraft' do
+        expect { call }.to change(FormDraft, :count).by(1)
       end
-      it 'returns the draft' do
-        expect(call).to be_a FormDraft
-      end
+
+      it { is_expected.to be_a FormDraft }
+
       it 'sets the user of the form draft to the user argument' do
-        expect(call.user).to eql @user
+        expect(call.user).to eq user
       end
+
       it 'sets the form of the draft to the current form' do
-        expect(call.form).to eql @form
+        expect(call.form).to eq form
       end
+
       it 'adds the fields of the form to the draft' do
-        # Meh, couldn't think of a better way of doing this
-        expect(call.fields.size).to eql @form.fields.size
+        expect(field_props[call]).to eq field_props[form]
       end
     end
   end
 
   describe 'draft_belonging_to' do
-    before :each do
-      @user = create :user
+    let!(:draft) { create :form_draft, form: form, user: user }
+
+    before do
       other_user = create :user
-      @form = create :form
-      @draft = create :form_draft, form: @form, user: @user
-      # other draft
-      create :form_draft, form: @form, user: other_user
+      create :form_draft, form: form, user: other_user
     end
+
     it 'returns the draft of the form belonging to the user' do
-      expect(@form.draft_belonging_to(@user)).to eql @draft
+      expect(form.draft_belonging_to(user)).to eq draft
     end
   end
 
   describe 'draft_belonging_to?' do
-    before :each do
-      @form = create :form
-      @user = create :user
-    end
-    let :call do
-      @form.draft_belonging_to? @user
-    end
+    subject(:call) { form.draft_belonging_to? user }
+
     it 'returns false if draft does not exist for the user in question' do
       expect(call).to be false
     end
+
     it 'returns true if draft exists for the user in question' do
-      create :form_draft, user: @user, form: @form
+      create :form_draft, user: user, form: form
       expect(call).to be true
     end
   end

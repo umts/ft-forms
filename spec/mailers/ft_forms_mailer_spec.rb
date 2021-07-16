@@ -3,62 +3,60 @@
 require 'rails_helper'
 
 RSpec.describe FtFormsMailer do
+  let(:user) { create :user }
+  let :form_data do
+    { 'field_2' => 'A response',
+      'prompt_2' => 'A Prompt' }
+  end
+
   describe 'send_confirmation' do
-    before :each do
-      @user = create :user
-      @response = 'A response'
-      @prompt = 'A prompt'
-      @reply_to = 'fieldtrip@umass.edu'
-      @form_data = {
-        'field_2' => @response,
-        'prompt_2' => @prompt
-      }
+    subject :output do
+      described_class.send_confirmation user, form_data, reply_to
     end
-    let :output do
-      FtFormsMailer.send_confirmation @user, @form_data, @reply_to
-    end
+
+    let(:reply_to) { 'fieldtrip@umass.edu' }
+
     it 'sends to the email of the user' do
-      expect(output.to).to eql Array(@user.email)
+      expect(output.to).to eq Array(user.email)
     end
-    it 'has a reply-to of fieldtrip@umass.edu' do
-      expect(output.reply_to).to eql Array('fieldtrip@umass.edu')
+
+    it 'has a reply-to' do
+      expect(output.reply_to).to eq Array(reply_to)
     end
-    it 'has a subject of Meet & Greet Request Confirmation' do
-      expect(output.subject).to eql 'Meet & Greet Request Confirmation'
+
+    it 'has a subject of "Meet & Greet Request Confirmation"' do
+      expect(output.subject).to eq 'Meet & Greet Request Confirmation'
     end
+
     it 'includes the form data in the email' do
-      expect(output.body.encoded).to include [@prompt, @response].join(': ')
+      expect(output.body.encoded).to include('A Prompt: A response')
     end
   end
 
   describe 'send_form' do
-    before :each do
-      @form = create :form
-      @user = create :user
-      @response = 'A response'
-      @prompt = 'A prompt'
-      @form_data = {
-        'field_2' => @response,
-        'prompt_2' => @prompt
-      }
+    subject :output do
+      described_class.send_form form, form_data, user
     end
-    let :output do
-      FtFormsMailer.send_form @form, @form_data, @user
-    end
+
+    let(:form) { create :form }
+
     it 'sends to the email of the form' do
-      expect(output.to).to eql Array(@form.email)
+      expect(output.to).to eq Array(form.email)
     end
+
     it 'sends to multiple emails of the form if separated by comma' do
       email1 = 'person@test.host'
       email2 = 'people@test.host'
-      @form.update email: [email1, email2].join(', ')
-      expect(output.to).to eql [email1, email2]
+      form.update email: [email1, email2].join(', ')
+      expect(output.to).to eq [email1, email2]
     end
-    it 'has a subject of New Meet & Greet Request' do
+
+    it 'has a subject of "New Meet & Greet Request"' do
       expect(output.subject).to eql 'New Meet & Greet Request'
     end
+
     it 'includes the form data in the email' do
-      expect(output.body.encoded).to include [@prompt, @response].join(': ')
+      expect(output.body.encoded).to include('A Prompt: A response')
     end
   end
 end

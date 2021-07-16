@@ -3,55 +3,57 @@
 require 'rails_helper'
 
 RSpec.describe 'layouts/application.haml' do
-  context 'current user is present' do
-    before :each do
-      @user = create :user
-      when_current_user_is @user
-    end
-    it 'displays the link to logout' do
+  subject(:page) { rendered }
+
+  context 'when current user is present' do
+    before do
+      when_current_user_is :anyone
       render
-      expect(rendered).to have_tag 'a', with: { href: '/sessions/destroy' }
     end
-    context 'current user is staff' do
-      before :each do
-        when_current_user_is :staff
-      end
-      it 'has a link to the forms' do
-        render
-        expect(rendered).to have_tag 'a', with: { href: forms_path }
-      end
-      it 'displays the full name of the user' do
-        render
-        expect(rendered).to have_tag '#current-user-name' do
-          with_text @user.full_name
-        end
-      end
+
+    it { is_expected.to have_tag 'a', with: { href: '/sessions/destroy' } }
+  end
+
+  context 'when current user is staff' do
+    let(:user) { create :user, :staff }
+
+    before do
+      when_current_user_is user
+      render
+    end
+
+    it { is_expected.to have_tag 'a', with: { href: forms_path } }
+
+    it 'displays the full name of the user' do
+      expect(rendered).to have_tag '#current-user-name', text: user.full_name
     end
   end
-  context 'message present in flash' do
-    before :each do
+
+  context 'with a message present in the flash' do
+    before do
       flash[:message] = 'this is totally a message'
-    end
-    it 'displays the message' do
       render
+    end
+
+    it 'displays the message' do
       expect(rendered).to have_tag '#flash' do
-        with_tag '#message' do
-          with_text(/this is totally a message/)
-        end
+        with_tag '#message', text: 'this is totally a message'
       end
     end
   end
-  context 'errors present in flash' do
-    before :each do
-      flash[:errors] = %w[these are errors]
-    end
-    it 'displays a list of errors' do
+
+  context 'with errors present in the flash' do
+    let(:errors) { %w[these are errors] }
+
+    before do
+      flash[:errors] = errors
       render
+    end
+
+    it 'displays a list of errors' do
       expect(rendered).to have_tag '#flash' do
         with_tag '#errors' do
-          with_tag 'li', text: 'these'
-          with_tag 'li', text: 'are'
-          with_tag 'li', text: 'errors'
+          errors.each { |error| with_tag 'li', text: error }
         end
       end
     end
