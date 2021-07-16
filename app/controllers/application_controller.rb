@@ -29,10 +29,6 @@ class ApplicationController < ActionController::Base
   def redirect_unauthenticated
     return if @current_user.present? || session.key?(:spire)
 
-    logger.info 'Request:'
-    logger.info request.inspect
-    logger.info 'Session:'
-    logger.info session.inspect
     redirect_to unauthenticated_session_path
   end
 
