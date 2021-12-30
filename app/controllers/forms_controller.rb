@@ -20,12 +20,7 @@ class FormsController < ApplicationController
   end
 
   def submit
-    if @current_user.present?
-      @current_user.update(
-        params.require(:user)
-        .permit(:first_name, :last_name, :email)
-      )
-    end
+    update_user
     user = @current_user || create_user
     data = params.require :responses
     FtFormsMailer.send_form(@form, data, user).deliver_now
@@ -57,5 +52,11 @@ class FormsController < ApplicationController
 
   def find_form
     @form = Form.friendly.find(params.require(:id))
+  end
+
+  def update_user
+    return if @current_user.blank?
+
+    @current_user.update(params.require(:user).permit(:first_name, :last_name, :email))
   end
 end

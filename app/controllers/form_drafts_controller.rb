@@ -56,25 +56,21 @@ class FormDraftsController < ApplicationController
   private
 
   def draft_params
-    draft_params = params.require(:form_draft)
-                         .permit(:name,
-                                 :email,
-                                 :reply_to,
-                                 fields_attributes: %i[number
-                                                       prompt
-                                                       placeholder
-                                                       data_type
-                                                       required
-                                                       options])
-    if draft_params[:fields_attributes].present?
-      draft_params[:fields_attributes].each do |_index, field|
-        if field[:options].present?
-          match = /[^a-zA-Z0-9]/
-          field[:options] = field[:options].split(match).reject(&:blank?)
-        end
-      end
+    params.require(:form_draft).permit(:name, :email, :reply_to).tap do |p|
+      p[:fields_attributes] = fields_params if fields_params.present?
     end
-    draft_params
+  end
+
+  def fields_params
+    attrs = %i[number prompt placeholder data_type required options]
+    fields = params.require(:form_draft)
+                   .permit(fields_attributes: attrs)[:fields_attributes]
+    return if fields.blank?
+
+    fields.transform_values do |field|
+      field[:options] = field[:options].split(/\W+/) if field[:options].present?
+      field
+    end
   end
 
   def find_form_draft
