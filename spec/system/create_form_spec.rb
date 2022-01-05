@@ -3,41 +3,53 @@
 require 'rails_helper'
 
 RSpec.describe 'creating a form', js: true do
-  before :each do
+  let(:field) { ->(attr) { "form_draft[fields_attributes][0][#{attr}]" } }
+  let :save_and_publish do
+    click_button 'Save draft and preview changes'
+    click_button 'Publish form and discard draft'
+  end
+
+  before do
     when_current_user_is :staff
     visit '/forms'
     click_link 'New form'
-    fill_in 'form_draft[name]', with: 'General Fletcher'
-    fill_in 'form_draft[email]', with: 'fletcher@example.com'
-    fill_in 'form_draft[fields_attributes][0][prompt]', with: 'When?'
-    @data_field = 'form_draft[fields_attributes][0][data_type]'
+    fill_in 'Form title', with: 'General Fletcher'
+    fill_in 'Form email destination', with: 'fletcher@example.com'
+    fill_in field['prompt'], with: 'When?'
   end
+
   context 'with a data type requiring a placeholder' do
+    before do
+      select 'text', from: field['data_type']
+      fill_in field['placeholder'], with: 'example'
+    end
+
     it 'saves the placeholder' do
-      select 'text', from: @data_field
-      fill_in 'form_draft[fields_attributes][0][placeholder]', with: 'example'
-      click_button 'Save draft and preview changes'
-      click_button 'Publish form and discard draft'
-      expect(Field.last.placeholder).to eql 'example'
+      save_and_publish
+      expect(Field.last.placeholder).to eq 'example'
     end
   end
+
   context 'with a data type of options' do
+    before do
+      select 'options', from: field['data_type']
+      fill_in field['options'], with: 'puppies$kittens, ponies snakes,birdies'
+    end
+
     it 'saves the options with any separator' do
-      select 'options', from: @data_field
-      fill_in 'form_draft[fields_attributes][0][options]',
-              with: 'puppies$kittens, ponies snakes,birdies'
-      click_button 'Save draft and preview changes'
-      click_button 'Publish form and discard draft'
-      expect(Field.last.options)
-        .to eql %w[puppies kittens ponies snakes birdies]
+      save_and_publish
+      expect(Field.last.options).to eq %w[puppies kittens ponies snakes birdies]
     end
   end
-  context 'a required question' do
+
+  context 'with a required question' do
+    before do
+      select 'text', from: field['data_type']
+      check field['required']
+    end
+
     it 'saves the required attribute' do
-      select 'text', from: @data_field
-      check 'form_draft[fields_attributes][0][required]'
-      click_button 'Save draft and preview changes'
-      click_button 'Publish form and discard draft'
+      save_and_publish
       expect(Field.last.required).to be true
     end
   end

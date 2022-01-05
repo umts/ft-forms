@@ -4,36 +4,43 @@ require 'rails_helper'
 
 RSpec.describe FormDraftsController do
   describe 'DELETE #destroy' do
-    before :each do
-      @draft = create :form_draft
+    subject :submit do
+      delete :destroy, params: { id: draft.id }
     end
-    let :submit do
-      delete :destroy, params: { id: @draft.id }
-    end
-    context 'not staff' do
-      before :each do
+
+    let(:draft) { create :form_draft }
+    let(:drafts) { FormDraft.all }
+
+    context 'when the user is not staff' do
+      before do
         when_current_user_is :not_staff
+        allow(FormDraft).to receive(:includes).and_return(drafts)
+        allow(drafts).to receive(:find).and_return draft
+        allow(draft).to receive(:destroy)
       end
+
       it 'does not allow access' do
-        expect_any_instance_of(FormDraft)
-          .not_to receive :destroy
         submit
         expect(response).to have_http_status :unauthorized
+      end
+
+      it 'does not destroy anything' do
+        submit
+        expect(draft).not_to have_received(:destroy)
       end
     end
   end
 
   describe 'GET #edit' do
-    before :each do
-      @draft = create :form_draft
+    subject :submit do
+      get :edit, params: { id: draft.id }
     end
-    let :submit do
-      get :edit, params: { id: @draft.id }
-    end
-    context 'not staff' do
-      before :each do
-        when_current_user_is :not_staff
-      end
+
+    let(:draft) { create :form_draft }
+
+    context 'when the user is not staff' do
+      before { when_current_user_is :not_staff }
+
       it 'does not allow access' do
         submit
         expect(response).to have_http_status :unauthorized
@@ -42,33 +49,28 @@ RSpec.describe FormDraftsController do
   end
 
   describe 'GET #new' do
-    before :each do
-      @form = create :form
+    subject :submit do
+      get :new, params: { form_id: form.id }
     end
-    let :submit do
-      get :new, params: { form_id: @form.id }
-    end
-    context 'not staff' do
-      before :each do
-        when_current_user_is :not_staff
-      end
+
+    let(:form) { create :form }
+
+    context 'when the user is not staff' do
+      before { when_current_user_is :not_staff }
+
       it 'does not allow access' do
-        expect_any_instance_of(Form)
-          .not_to receive :find_or_create_draft
         submit
         expect(response).to have_http_status :unauthorized
       end
     end
-    context 'staff' do
-      before :each do
-        @user = create :user, :staff
-        when_current_user_is @user
-      end
+
+    context 'when the user is staff' do
+      before { when_current_user_is :staff }
+
       it 'creates a draft for the correct form' do
-        expect { submit }
-          .to change { @form.drafts.count }
-          .by 1
+        expect { submit }.to change { form.drafts.count }.by 1
       end
+
       it 'redirects to the edit page for that draft' do
         submit
         draft = assigns.fetch :draft
@@ -78,30 +80,29 @@ RSpec.describe FormDraftsController do
   end
 
   describe 'GET #show' do
-    before :each do
-      @draft = create :form_draft
+    subject :submit do
+      get :show, params: { id: draft.id }
     end
-    let :submit do
-      get :show, params: { id: @draft.id }
-    end
-    context 'not staff' do
-      before :each do
-        when_current_user_is :not_staff
-      end
+
+    let(:draft) { create :form_draft }
+
+    context 'when the user is not staff' do
+      before { when_current_user_is :not_staff }
+
       it 'does not allow access' do
         submit
         expect(response).to have_http_status :unauthorized
-        expect(response).not_to render_template 'show'
       end
     end
-    context 'staff' do
-      before :each do
-        when_current_user_is :staff
-      end
+
+    context 'when the user is staff' do
+      before { when_current_user_is :staff }
+
       it 'assigns the correct draft to the draft instance variable' do
         submit
-        expect(assigns.fetch(:draft)).to eql @draft
+        expect(assigns.fetch(:draft)).to eql draft
       end
+
       it 'renders the show template' do
         submit
         expect(response).to render_template 'show'
@@ -110,32 +111,38 @@ RSpec.describe FormDraftsController do
   end
 
   describe 'POST #create' do
-    before :each do
-      @params = { form_draft: { name: 'a name' } }
+    subject :submit do
+      post :create, params: params
     end
-    let :submit do
-      post :create, params: @params
-    end
-    context 'not staff' do
-      before :each do
-        when_current_user_is :not_staff
-      end
+
+    let(:params) { { form_draft: { name: 'a name' } } }
+
+    context 'when the user is not staff' do
+      before { when_current_user_is :not_staff }
+
       it 'does not allow access' do
-        expect(FormDraft).not_to receive :new
         submit
         expect(response).to have_http_status :unauthorized
       end
-    end
-    context 'staff' do
-      before :each do
-        @params[:form_draft][:name] = ''
-        when_current_user_is :staff
+
+      it 'does not make a new draft' do
+        allow(FormDraft).to receive(:new)
+        submit
+        expect(FormDraft).not_to have_received(:new)
       end
-      context 'errors' do
+    end
+
+    context 'when the user is staff' do
+      before { when_current_user_is :staff }
+
+      context 'with errors' do
+        before { params[:form_draft][:name] = '' }
+
         it 'puts errors in the flash' do
           submit
           expect(flash[:errors]).not_to be_empty
         end
+
         it 'renders the new page' do
           submit
           expect(response).to render_template :new
@@ -145,35 +152,44 @@ RSpec.describe FormDraftsController do
   end
 
   describe 'POST #update' do
-    before :each do
-      @draft = create :form_draft
-      @changes = { 'name' => 'a new name' }
+    subject :submit do
+      post :update, params: { id: draft, form_draft: changes }
     end
-    let :submit do
-      post :update, params: { id: @draft,
-                              form_draft: @changes }
-    end
-    context 'not staff' do
-      before :each do
+
+    let(:drafts) { FormDraft.all }
+    let(:draft) { create :form_draft }
+    let(:changes) { { 'name' => 'a new name' } }
+
+    context 'when the user is not staff' do
+      before do
         when_current_user_is :not_staff
+        allow(FormDraft).to receive(:includes).and_return(drafts)
+        allow(drafts).to receive(:find).and_return draft
+        allow(draft).to receive(:update)
       end
+
       it 'does not allow access' do
-        expect_any_instance_of(FormDraft)
-          .not_to receive :update
         submit
         expect(response).to have_http_status :unauthorized
       end
-    end
-    context 'staff' do
-      before :each do
-        when_current_user_is :staff
-        @changes = { 'name' => '' }
+
+      it 'does not update anything' do
+        submit
+        expect(draft).not_to have_received(:update)
       end
-      context 'errors' do
+    end
+
+    context 'when the user is staff' do
+      before { when_current_user_is :staff }
+
+      context 'with errors' do
+        let(:changes) { { 'name' => '' } }
+
         it 'puts errors in the flash' do
           submit
           expect(flash[:errors]).not_to be_empty
         end
+
         it 'renders the new page' do
           submit
           expect(response).to render_template :edit
@@ -181,22 +197,31 @@ RSpec.describe FormDraftsController do
       end
     end
   end
+
   describe 'POST #update_form' do
-    before :each do
-      @draft = create :form_draft
+    subject :submit do
+      post :update_form, params: { id: draft.id }
     end
-    let :submit do
-      post :update_form, params: { id: @draft.id }
-    end
-    context 'not staff' do
-      before :each do
+
+    let(:draft) { create :form_draft }
+    let(:drafts) { FormDraft.all }
+
+    context 'when the user is not staff' do
+      before do
         when_current_user_is :not_staff
+        allow(FormDraft).to receive(:includes).and_return(drafts)
+        allow(drafts).to receive(:find).and_return draft
+        allow(draft).to receive(:update_form!)
       end
+
       it 'does not allow access' do
-        expect_any_instance_of(FormDraft)
-          .not_to receive :update_form!
         submit
         expect(response).to have_http_status :unauthorized
+      end
+
+      it 'does not update the form' do
+        submit
+        expect(draft).not_to have_received(:update_form!)
       end
     end
   end
